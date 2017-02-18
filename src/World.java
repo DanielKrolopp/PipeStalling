@@ -51,6 +51,10 @@ public class World
 							} else {
 								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
 								player.setYVel(0);
+								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
+								{
+									player.damage(10, otherPlayer);
+								}
 							}
 						}
 					}

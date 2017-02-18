@@ -21,7 +21,7 @@ public class Jumpernaut extends Player {
 			}
 		}
 		
-	}//TODO: deal damge in world of collision with player.
+	}//TODO: deal damage in world from collision with player.
 	
 	public void land()
 	{
