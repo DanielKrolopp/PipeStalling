@@ -12,7 +12,7 @@ public class Player extends Block
 	protected double xAcc;
 	protected double yAcc;
 	
-	protected int healthCount;		//Maxes out at 100, no effect on size/
+	protected int healthCount;		//Maxes out at 100, no effect on size
 	protected int jumpCount;
 	protected static int size = 100;
 	
@@ -125,29 +125,5 @@ public class Player extends Block
 	
 	public void decrementHealth(int amount){
 		healthCount -= amount;
-	}
-	
-	public double getXVelocity(){
-		return xVel;
-	}
-	
-	public double getYVelocity(){
-		return yVel;
-	}
-	
-	public double getXAcceleration(){
-		return xAcc;
-	}
-	
-	public double getYAcceleration(){
-		return yAcc;
-	}
-	
-	public void setXVelocity(double amount){
-		xVel = amount;
-	}
-	
-	public void setYVelocity(double amount){
-		yVel = amount;
 	}
 }
