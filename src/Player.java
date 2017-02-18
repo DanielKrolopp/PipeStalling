@@ -5,6 +5,7 @@ public class Player extends Block
 	protected boolean slamming;
 	protected boolean dashing;
 	protected boolean usingBeam;
+	protected boolean facingLeft;
 	protected boolean usingSpecial;	//State to determine if the unique ability of character is used
 	protected boolean immuneToDamage;
 	
@@ -146,5 +147,9 @@ public class Player extends Block
 			enemy.damageCounter += amount;
 		}
 		health -= amount/5;
+	}
+	
+	public boolean getFacingLeft(){
+		return facingLeft;
 	}
 }
