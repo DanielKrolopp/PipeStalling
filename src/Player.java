@@ -121,7 +121,7 @@ public class Player extends Block
 		return slamming;
 	}
 
-	public void land()				//Lands character on the ground, updating necessary fields
+	public void land()				//Lands character on the ground, updating necessary fields/
 	{
 		jumping = false;
 		slamming = false;
