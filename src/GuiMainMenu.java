@@ -23,11 +23,6 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 	public GuiMainMenu(App<GameSettings> app) 
 	{
 		super(app);
-	}
-	
-	public void init()
-	{
-		super.init();
 		
 		colorShader = Shader.createShader(new File("shaders/colorShader.vert"), new File("shaders/colorShader.frag"));
 		
@@ -77,15 +72,15 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
             shiftX += gameSettings.getFont().getWidth("" + sequence[i]);
         }
         
-        /*if(input.getMouseX() >= 1920 / 2 - gameSettings.getFont().getWidth("START A GAME", 48 / 128f) && input.getMouseX() <= 1920 / 2 + gameSettings.getFont().getWidth("START A GAME", 48f / 128f))
+        if(input.getMouseX() >= 1920 / 2 - gameSettings.getFont().getWidth("START A GAME", 48 / 128f) && input.getMouseX() <= 1920 / 2 + gameSettings.getFont().getWidth("START A GAME", 48f / 128f))
         {
-            if(input.getMouseY() >= 600 - 32 && input.getMouseY() <= 600 + 32)
+            if(input.getMouseY() >= 600 - 64 && input.getMouseY() <= 600 + 32)
             {
-                GL11.glColor4f(1, 1, 1, 1);
+                GL11.glColor4f(0, 0, 0, 1);
             }
-        }*/
+        }
         
-        gameSettings.getFont().draw("START A GAME", 1920 / 2f, 400f, .5f, 48f / 128f);
+        gameSettings.getFont().draw("START A GAME", 1920 / 2f - gameSettings.getFont().getWidth("START A GAME", 48f / 128f) / 2, 600f, .5f, 48f / 128f);
 		
 		gameSettings.getFont().unbind();
 		
@@ -100,6 +95,8 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 
 	public void update(double delta)
 	{
+		super.update(delta);
+		
 		for(int i = 0; i < ticks.length; i++)
         {
             if(MathHelper.isEqual(ticks[i], toTicks[i]))
