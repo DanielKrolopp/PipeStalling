@@ -6,6 +6,9 @@ in vec3 in_Normal;
 in vec2 in_TexCoord;
 
 out vec4 pass_Color;
+out vec2 pass_Tex;
+
+varying vec2 vTexCoord;
 
 void main() {
 
@@ -13,4 +16,5 @@ void main() {
     gl_Position = vec4(pos, 1.0);
     
     pass_Color = in_Color;
+    pass_Tex = in_TexCoord;
 }
