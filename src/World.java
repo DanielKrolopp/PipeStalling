@@ -18,11 +18,10 @@ public class World
 	public void update(double delta)
 	{
 		for(Player player : playerList) {
-			updateVelocityAcceleration(player);
-			
+			//block collisions, y-axis
+			player.updateYMotion();
 			for(Block block : blockList) {
 				if(isColliding(player, block)){
-					//y-axis
 					if(player.getYVel() > 0) {
 						player.setYPos(block.getYPos() - player.getHeight());
 						player.land();
@@ -30,12 +29,46 @@ public class World
 						player.setYPos(block.getYPos()+block.getHeight());
 						player.setYVel(0);
 					}
-					//x-axis
+				}
+			}
+			//player collisions, y-axis
+			for(Player otherPlayer : playerList) {
+				if(otherPlayer.getCharacter() != player.getCharacter()) 
+				{
+					if(isColliding(player, otherPlayer)){
+						if(player.getYVel() > 0) {
+							player.setYPos(otherPlayer.getYPos() - player.getHeight());
+							player.land();
+						} else {
+							player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
+							player.setYVel(0);
+						}
+					}
+				}
+			}
+			
+			//block collisions, x-axis
+			player.updateXMotion();
+			for(Block block : blockList) {
+				if(isColliding(player, block)) {
 					if(player.getXVel() > 0) {
 						player.setXPos(block.getXPos()-player.getWidth());
 						player.setXVel(0);
 					} else {
 						player.setXPos(block.getXPos()+block.getWidth());
+						player.setXVel(0);
+					}
+				}
+			}
+			//player collisions, x-axis
+			for(Player otherPlayer : playerList) {
+				if(otherPlayer.getCharacter() != player.getCharacter())
+				if(isColliding(player, otherPlayer)) {
+					if(player.getXVel() > 0) {
+						player.setXPos(otherPlayer.getXPos()-player.getWidth());
+						player.setXVel(0);
+					} else {
+						player.setXPos(otherPlayer.getXPos()+otherPlayer.getWidth());
 						player.setXVel(0);
 					}
 				}
