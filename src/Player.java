@@ -14,13 +14,13 @@ public class Player extends Block
 	
 	protected int healthCount;		//Maxes out at 100, no effect on size
 	protected int jumpCount;
-	protected int size = 100;
+	protected static int size = 100;
 	
 	protected CharacterType characterType;	//Can be JUMP, ADD, LOAD, or STORE
 	
 	public Player(double x, double y)
 	{
-		super(x, y, size, size);
+		super(x, y, Player.size, Player.size);
 		healthCount = 100;
 		jumpCount = 2;
 		xAcc = 1;
@@ -63,5 +63,13 @@ public class Player extends Block
 	{
 		slamming = false;
 		yVel = 0;
+	}
+	
+	public void incrementHealth(int amount){
+		healthCount += amount;
+	}
+	
+	public void decrementHealth(int amount){
+		healthCount -= amount;
 	}
 }

@@ -18,7 +18,8 @@ public class World
 	public void update(double delta)
 	{
 		for(Player player : playerList){
-			player.computeGravity();
+			//player.computeGravity();
+			//Do gravity and player updates here
 		}
 	}
 	
