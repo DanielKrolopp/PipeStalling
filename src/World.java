@@ -22,5 +22,10 @@ public class World
 	{
 		
 	}
+	
+	public void render(double delta)
+	{
+		
+	}
 
 }
