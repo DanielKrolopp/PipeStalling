@@ -1,7 +1,7 @@
 
 public class Loadstar extends Player {
 
-	public Loadstar() {
-		super();
+	public Loadstar(double x, double y) {
+		super(x, y);
 	}
 }
