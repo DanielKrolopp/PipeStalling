@@ -27,30 +27,81 @@ public class Player extends Block
 		yAcc = 0;
 	}
 	
+	public void setXPos(double x)
+	{
+		xPos = x;
+	}
+	
+	public void setYPos(double y)
+	{
+		yPos = y;
+	}
+	
+	public double getXVel()
+	{
+		return xVel;
+	}
+	
+	public double getYVel()
+	{
+		return yVel;
+	}
+	
+	public void setXVel(double x)
+	{
+		xVel = x;
+	}
+	
+	public void setYVel(double y)
+	{
+		yVel = y;
+	}
+	
+	public double getXAcc()
+	{
+		return xAcc;
+	}
+	
+	public double getYAcc()
+	{
+		return yAcc;
+	}
+	
+	public void updateMotion()		//Update motion statistics as if no collision occured
+	{
+		xVel += xAcc;
+		yVel += yAcc;
+		xPos += xVel;
+		yPos += yVel;	
+	}
+	
+	public void fall()
+	{
+		yAcc = -2;					//Sets acceleration for falling, aka gravity
+		jumpCount = 1;
+	}
+	
 	public void jump()
 	{
 		if(jumpCount > 0)
 		{
 			jumping = true;
+			jumpCount--;
 			yVel = 10;				//Sets velocity for normal jumping
 			yAcc = -2;				//Sets acceleration for normal jumping, aka gravity
-			jumpCount--;
 		}
 	}
-
-	public void stopJumping()
-	{
-		jumping = false;
-		jumpCount = 2;
-		yVel = 0;
-		yAcc = 0;
-	}
 	
+	public boolean isJumping()
+	{
+		return jumping;
+	}
 	public void slam()
 	{
 		if(!slamming && yAcc != 0)
 		{
-			yAcc = -5;				//Sets acceleration for slamming
+			slamming = true;
+			yAcc = -5;				//Sets acceleration for slamming			
 		}
 	}
 	
@@ -58,10 +109,13 @@ public class Player extends Block
 	{
 		return slamming;
 	}
-	
-	public void stopSlam()
+
+	public void land()				//Lands character on the ground, updating necessary fields
 	{
+		jumping = false;
 		slamming = false;
+		jumpCount = 2;
 		yVel = 0;
+		yAcc = 0;
 	}
 }
