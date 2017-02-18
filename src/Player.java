@@ -72,4 +72,12 @@ public class Player extends Block
 	public void decrementHealth(int amount){
 		healthCount -= amount;
 	}
+	
+	public void calculateGravity(){
+		
+	}
+	
+	public void calculateNewLocation(){
+		
+	}
 }
