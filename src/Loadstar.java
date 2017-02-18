@@ -8,6 +8,8 @@ public class Loadstar extends Player {
 	
 	public void special(){
 		usingSpecial = true;
+		Mine mine = new Mine(x, y);
+		GuiWorld.world.
 	}
 	
 	public void render(double delta) {
