@@ -1,9 +1,9 @@
 
 public class Bulbastore extends Player {
-
+	
 	public Bulbastore(double x, double y) {
 		super(x, y);
-		characterType = "STORE";
+		characterType = CharacterType.STORE;
 	}
 	
 	public void special() {

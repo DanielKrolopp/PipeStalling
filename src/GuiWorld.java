@@ -4,7 +4,7 @@ import com.polaris.engine.gui.GuiScreen;
 public class GuiWorld extends GuiScreen<GameSettings>
 {
 
-	private World world;
+	public static World world;
 	
 	public GuiWorld(App<GameSettings> app) 
 	{
