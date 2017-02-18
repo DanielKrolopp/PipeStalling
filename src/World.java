@@ -4,7 +4,7 @@ import java.util.List;
 public class World 
 {
 	
-	private List<Player> playerList;
+	private static List<Player> playerList;
 	private List<Block> blockList;
 	
 	public final double ACCELERATION = -9.8;
@@ -49,7 +49,7 @@ public class World
 		
 	}
 	
-	public List<Player> getPlayers(){
+	public static List<Player> getPlayers(){
 		return playerList;
 	}
 	public List<Block> getBlocks(){

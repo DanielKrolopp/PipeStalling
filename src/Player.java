@@ -6,6 +6,7 @@ public class Player extends Block
 	protected boolean dashing;
 	protected boolean usingBeam;
 	protected boolean usingSpecial;	//State to determine if the unique ability of character is used
+	protected boolean immuneToDamage;
 	
 	protected double xVel;
 	protected double yVel;
@@ -16,6 +17,7 @@ public class Player extends Block
 	
 	protected int health;		//Maxes out at 100, no effect on size
 	protected int jumpCount;
+	protected int damageCounter;
 	protected static int size = 100;
 	
 	protected CharacterType characterType;	//Can be JUMP, ADD, LOAD, or STORE
@@ -121,7 +123,7 @@ public class Player extends Block
 		return slamming;
 	}
 
-	public void land()				//Lands character on the ground, updating necessary fields/
+	public void land()				//Lands character on the ground, updating necessary fields
 	{
 		jumping = false;
 		slamming = false;
@@ -135,6 +137,14 @@ public class Player extends Block
 	}
 	
 	public void damage(int amount, Player enemy){
-		enemy.health -= amount;
+		if(!enemy.immuneToDamage)
+		{
+			enemy.health -= amount;
+		}
+		else
+		{
+			enemy.damageCounter += amount;
+		}
+		health -= amount/5;
 	}
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Jumpernaut extends Player {
 
@@ -12,17 +14,39 @@ public class Jumpernaut extends Player {
 		if(!slamming && yAcc != -0.5) {
 			if(usingSpecial) {
 				//special slam
-				yAcc = 0.75; //temp value;
+				yAcc = 8; //temp value;
 			
 			} else {
 				super.slam();
 			}
 		}
 		
+	}//TODO: deal damge in world of collision with player.
+	
+	public void land()
+	{
+		if(usingSpecial && slamming)
+		{
+			Shockwave attack = new Shockwave(xPos-size, yPos+size*0.75, size*3, size*0.5);
+			List<Player> hitlist = attack.detectTargets();
+			for(Player pBlock : hitlist)
+			{
+				this.damage(20, pBlock);
+			}			
+		}
+		usingSpecial= false;
+		super.land();
 	}
 	
 	public void special() {
+		if(usingSpecial)
+			return;
 		usingSpecial = true;
+		jumping = true;
+		jumpCount = 0;
+		yVel = -15;
+		yAcc = 1.5;
+		
 	}
 	
 	public void render(double delta) {
