@@ -6,6 +6,7 @@ public class World
 	
 	private static List<Player> playerList;
 	private List<Block> blockList;
+	private List<Mine> mineList;
 
 	private double width;
 	private double height;
@@ -19,6 +20,7 @@ public class World
 		this.height = height;
 		playerList = new ArrayList<Player>();
 		blockList = new ArrayList<Block>();	
+		mineList = new ArrayList<Mine>();
 	}
 
 	public void update(double delta)
@@ -104,7 +106,7 @@ public class World
 
 	}
 	
-	public static List<Player> getPlayers(){
+	public List<Player> getPlayers(){
 		return playerList;
 	}
 	public List<Block> getBlocks(){
@@ -118,6 +120,14 @@ public class World
 			return false;
 		}
 		blockList.add(block);
+		return true;
+	}
+	
+	public boolean addMine(Mine mine){
+		if(mineList.contains(mine)){
+			return false;
+		}
+		mineList.add(mine);
 		return true;
 	}
 	/*
