@@ -17,7 +17,31 @@ public class World
 	
 	public void update(double delta)
 	{
-		this.updateVelocityAcceleration();
+		for(Player player : playerList) {
+			updateVelocityAcceleration(player);
+			
+			for(Block block : blockList) {
+				if(isColliding(player, block)){
+					//y-axis
+					if(player.getYVel() > 0) {
+						player.setYPos(block.getYPos() - player.getHeight());
+						player.land();
+					} else {
+						player.setYPos(block.getYPos()+block.getHeight());
+						player.setYVel(0);
+					}
+					//x-axis
+					if(player.getXVel() > 0) {
+						player.setXPos(block.getXPos()-player.getWidth());
+						player.setXVel(0);
+					} else {
+						player.setXPos(block.getXPos()+block.getWidth());
+						player.setXVel(0);
+					}
+				}
+			}
+		}
+		
 	}
 	
 	public void render(double delta)
@@ -52,20 +76,18 @@ public class World
 		return true;
 	}
 	
-	public void updateVelocityAcceleration(){
-		for(Player player : playerList){
+	public void updateVelocityAcceleration(Player player){
 			double yVel = player.getYVelocity();
 			double xVel = player.getXVelocity();
 			double yAcc = player.getYAcceleration();
 			double xAcc = player.getXAcceleration();
-			double oldX = player.getX();
-			double oldY = player.getY();
+			double oldX = player.getXPos();
+			double oldY = player.getYPos();
 			
 			player.setYVelocity(yVel + yAcc);
 			player.setXVelocity(xVel + xAcc);
 			player.setX(oldX + xVel);
 			player.setY(oldY + yVel);
-		}
 	}
 	
 	public boolean isColliding(Block p1, Block p2) {
