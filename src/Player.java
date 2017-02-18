@@ -14,10 +14,23 @@ public class Player
 	
 	private int healthCount;		//Maxes out at 100, no effect on size
 	
+	protected String characterType;	//Can be JUMP, ADD, LOAD, or STORE
+	
 	public Player(double x, double y)
 	{
 		xPos = x;
 		yPos = y;
 		healthCount = 100;
+	}
+	
+	public void slam()
+	{
+		
+	}
+	
+	public void stopSlam()
+	{
+		isSlamming = false;
+		yVel = 0;
 	}
 }
