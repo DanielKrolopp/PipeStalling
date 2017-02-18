@@ -84,20 +84,20 @@ public class World
 			double oldX = player.getXPos();
 			double oldY = player.getYPos();
 			
-			player.setYVelocity(yVel + yAcc);
-			player.setXVelocity(xVel + xAcc);
+			player.setYVel(yVel + yAcc);
+			player.setXVel(xVel + xAcc);
 			player.setX(oldX + xVel);
 			player.setY(oldY + yVel);
 	}
 	
 	public boolean isColliding(Block p1, Block p2) {
-		return (p1.getX() < p2.getX() + p2.getWidth() &&
-				   p1.getX() + p1.getWidth() > p2.getX() &&
-				   p1.getY() < p2.getY() + p2.getHeight() &&
-				   p1.getHeight() + p1.getY() > p2.getY());
+		return (p1.getXPos() < p2.getXPos() + p2.getWidth() &&
+				   p1.getXPos() + p1.getWidth() > p2.getXPos() &&
+				   p1.getYPos() < p2.getYPos() + p2.getHeight() &&
+				   p1.getHeight() + p1.getYPos() > p2.getYPos());
 	}
 	
 	public boolean isLowerBoundColliding(Block p1, Block p2) {
-		return !(p1.getHeight() + p1.getY() > p2.getY());
+		return !(p1.getHeight() + p1.getYPos() > p2.getYPos());
 	}
 }
