@@ -14,7 +14,7 @@ public class Player
 	
 	private int healthCount;		//Maxes out at 100, no effect on size
 	
-	protected String characterType;	//Can be JUMP, ADD, LOAD, or STORE
+	protected CharacterType characterType;	//Can be JUMP, ADD, LOAD, or STORE
 	
 	public Player(double x, double y)
 	{

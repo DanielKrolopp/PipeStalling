@@ -17,7 +17,9 @@ public class World
 	
 	public void update(double delta)
 	{
-		
+		for(Player player : playerList){
+			player.computeGravity();
+		}
 	}
 	
 	public void render(double delta)
