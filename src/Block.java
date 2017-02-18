@@ -9,4 +9,29 @@ public class Block {
 		this.height = height;
 		this.width = width;
 	}
+	
+	public double getX(){
+		return x;
+	}
+	public double getY(){
+		return y;
+	}
+	public double getHeight(){
+		return height;
+	}
+	public double getWidth(){
+		return width;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof Block)){
+			return false;
+		}
+		Block b = (Block) o;
+		if(b.getX() == this.getX() && b.getY() == this.getY() && b.getHeight() == this.getHeight() && b.getWidth() == this.getWidth()){
+			return true;
+		}
+		return false;
+	}
 }
