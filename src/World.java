@@ -18,8 +18,13 @@ public class World
 	public void update(double delta)
 	{
 		for(Player player : playerList){
-			//player.computeGravity();
-			//Do gravity and player updates here
+			double yVel = player.getYVelocity();
+			double xVel = player.getXVelocity();
+			double oldX = player.getX();
+			double oldY = player.getY();
+			double yAcc = player.ge
+			player.setYVelocity(yVel + );
+			
 		}
 	}
 	

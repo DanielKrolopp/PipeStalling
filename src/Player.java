@@ -73,11 +73,27 @@ public class Player extends Block
 		healthCount -= amount;
 	}
 	
-	public void calculateGravity(){
-		
+	public double getXVelocity(){
+		return xVel;
 	}
 	
-	public void calculateNewLocation(){
-		
+	public double getYVelocity(){
+		return yVel;
+	}
+	
+	public double getXAcceleration(){
+		return xAcc;
+	}
+	
+	public double getYAcceleartion(){
+		return yAcc;
+	}
+	
+	public void setXVelocity(double amount){
+		xVel = amount;
+	}
+	
+	public void setYVelocity(double amount){
+		yVel = amount;
 	}
 }
