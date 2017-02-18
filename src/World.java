@@ -4,6 +4,11 @@ import java.util.List;
 public class World 
 {
 	
+	public static World generateWorld(GameSettings settings, int worldWidth, int worldHeight)
+	{
+		return null;
+	}
+	
 	private List<Player> playerList;
 	private List<Block> blockList;
 	
@@ -13,6 +18,7 @@ public class World
 		blockList = new ArrayList<Block>();	
 	}
 	
+<<<<<<< HEAD
 	public List<Player> getPlayers(){
 		return playerList;
 	}
@@ -29,4 +35,11 @@ public class World
 		blockList.add(block);
 		return true;
 	}
+=======
+	public void update(double delta)
+	{
+		
+	}
+
+>>>>>>> branch 'master' of https://github.com/DanielKrolopp/PipeStalling.git
 }
