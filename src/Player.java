@@ -20,9 +20,4 @@ public class Player
 		yPos = y;
 		healthCount = 100;
 	}
-	
-	
-	
-	
-
 }
