@@ -77,10 +77,10 @@ public class World
 	}
 	
 	public void updateVelocityAcceleration(Player player){
-			double yVel = player.getYVelocity();
-			double xVel = player.getXVelocity();
-			double yAcc = player.getYAcceleration();
-			double xAcc = player.getXAcceleration();
+			double yVel = player.getYVel();
+			double xVel = player.getXVel();
+			double yAcc = player.getYAcc();
+			double xAcc = player.getXAcc();
 			double oldX = player.getXPos();
 			double oldY = player.getYPos();
 			

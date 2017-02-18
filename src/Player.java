@@ -12,7 +12,7 @@ public class Player extends Block
 	protected double xAcc;
 	protected double yAcc;
 	
-	protected int healthCount;		//Maxes out at 100, no effect on size
+	protected int health;		//Maxes out at 100, no effect on size
 	protected int jumpCount;
 	protected static int size = 100;
 	
@@ -21,10 +21,15 @@ public class Player extends Block
 	public Player(double x, double y)
 	{
 		super(x, y, Player.size, Player.size);
-		healthCount = 100;
+		health = 100;
 		jumpCount = 2;
 		xAcc = 1;
 		yAcc = 0;
+	}
+	
+	public CharacterType getCharacter()
+	{
+		return characterType;
 	}
 	
 	public void setXPos(double x)
@@ -124,10 +129,10 @@ public class Player extends Block
 	}
 	
 	public void heal(int amount){
-		healthCount += amount;
+		health += amount;
 	}
 	
 	public void damage(int amount, Player enemy){
-		enemy.healthCount -= amount;
+		enemy.health -= amount;
 	}
 }
