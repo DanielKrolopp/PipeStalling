@@ -1,7 +1,7 @@
 
 public class MadAdder extends Player {
 
-	public MadAdder() {
-		super();
+	public MadAdder(double x, double y) {
+		super(x, y);
 	}
 }
