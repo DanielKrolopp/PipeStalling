@@ -16,6 +16,12 @@ public class Block {
 	public double getY(){
 		return y;
 	}
+	public void setX(double amount){
+		x = amount;
+	}
+	public void setY(double amount){
+		y = amount;
+	}
 	public double getHeight(){
 		return height;
 	}

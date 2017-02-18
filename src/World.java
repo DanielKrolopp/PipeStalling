@@ -17,17 +17,7 @@ public class World
 	
 	public void update(double delta)
 	{
-		for(Player player : playerList){
-			double yVel = player.getYVelocity();
-			double xVel = player.getXVelocity();
-			double yAcc = player.getYAcceleration();
-			double xAcc = player.getXAcceleration();
-			double oldX = player.getX();
-			double oldY = player.getY();
-			
-			player.setYVelocity(yVel + yAcc);
-			player.setXVelocity(xVel + xAcc);
-		}
+		this.updateVelocityAcceleration();
 	}
 	
 	public void render(double delta)
@@ -60,6 +50,22 @@ public class World
 		}
 		playerList.add(player);
 		return true;
+	}
+	
+	public void updateVelocityAcceleration(){
+		for(Player player : playerList){
+			double yVel = player.getYVelocity();
+			double xVel = player.getXVelocity();
+			double yAcc = player.getYAcceleration();
+			double xAcc = player.getXAcceleration();
+			double oldX = player.getX();
+			double oldY = player.getY();
+			
+			player.setYVelocity(yVel + yAcc);
+			player.setXVelocity(xVel + xAcc);
+			player.setX(oldX + xVel);
+			player.setY(oldY + yVel);
+		}
 	}
 	
 	public boolean isColliding(Block p1, Block p2) {
