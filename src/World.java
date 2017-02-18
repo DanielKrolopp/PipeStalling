@@ -10,6 +10,8 @@ public class World
 	private double width;
 	private double height;
 	public final double ACCELERATION = -9.8;
+	
+	GameSettings settings = new GameSettings();
 
 	public World(double width, double height)
 	{
@@ -139,8 +141,8 @@ public class World
 
 		player.setYVel(yVel + yAcc);
 		player.setXVel(xVel + xAcc);
-		player.setX(oldX + xVel);
-		player.setY(oldY + yVel);
+		player.setXPos(oldX + xVel);
+		player.setYPos(oldY + yVel);
 	}
 
 	public boolean isColliding(Block p1, Block p2) {
@@ -152,5 +154,49 @@ public class World
 
 	public boolean isLowerBoundColliding(Block p1, Block p2) {
 		return !(p1.getHeight() + p1.getYPos() > p2.getYPos());
+	}
+	
+	public void registerKeys()
+	{
+		for(int i = 0; i < playerList.size(); i++)
+		{
+			if(settings.getPlayerJump(i).isPressed())
+			{
+				playerList.get(i).jump();
+			}
+			
+			if(settings.getPlayerSmash(i).isPressed())
+			{
+				playerList.get(i).slam();
+			}
+			
+			if(settings.getPlayerRight(i).isPressed())
+			{
+				playerList.get(i).setXAcc(1);
+			}
+			
+			else if(settings.getPlayerLeft(i).isPressed())
+			{
+				playerList.get(i).setXAcc(-1);
+			}
+			
+			else
+			{
+				playerList.get(i).setXAcc(-playerList.get(i).getXVel());
+			}
+			
+			if(settings.getPlayerBeam(i).isPressed())
+			{
+				playerList.get(i).shootBeam();
+			}
+			
+			if(settings.getPlayerSuper(i).isPressed())
+			{
+				playerList.get(i).special();
+			}
+			
+			
+		}
+		
 	}
 }

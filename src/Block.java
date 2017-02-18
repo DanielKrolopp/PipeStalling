@@ -1,26 +1,26 @@
 
 public class Block {
 	
-	double x, y, height, width;
+	double xPos, yPos, height, width;
 	
 	public Block(double x, double y, double height, double width){
-		this.x = x;
-		this.y = y;
+		this.xPos = x;
+		this.yPos = y;
 		this.height = height;
 		this.width = width;
 	}
 	
 	public double getXPos(){
-		return x;
+		return xPos;
 	}
 	public double getYPos(){
-		return y;
+		return yPos;
 	}
-	public void setX(double amount){
-		x = amount;
+	public void setXPos(double amount){
+		xPos = amount;
 	}
-	public void setY(double amount){
-		y = amount;
+	public void setYPos(double amount){
+		yPos = amount;
 	}
 	public double getHeight(){
 		return height;
