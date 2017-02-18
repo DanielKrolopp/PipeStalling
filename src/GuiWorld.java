@@ -4,7 +4,7 @@ import com.polaris.engine.gui.GuiScreen;
 public class GuiWorld extends GuiScreen<GameSettings>
 {
 
-	private World logicWorld;
+	private World world;
 	
 	public GuiWorld(App<GameSettings> app) 
 	{
@@ -14,18 +14,20 @@ public class GuiWorld extends GuiScreen<GameSettings>
 	public void init()
 	{
 		super.init();
-		logicWorld = World.generateWorld(gameSettings, gameSettings.getWorldWidth(), gameSettings.getWorldHeight());
+		world = World.generateWorld(gameSettings, gameSettings.getWorldWidth(), gameSettings.getWorldHeight());
 	}
 	
 	public void update(double delta)
 	{
 		super.update(delta);
-		logicWorld.update(delta);
+		world.update(delta);
 	}
 	
 	public void render(double delta)
 	{
 		super.render(delta);
+		
+		world.render(delta);
 	}
 
 }

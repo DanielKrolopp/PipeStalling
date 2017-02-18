@@ -13,6 +13,16 @@ public class World
 		blockList = new ArrayList<Block>();	
 	}
 	
+	public void update(double delta)
+	{
+		
+	}
+	
+	public void render(double delta)
+	{
+		
+	}
+	
 	public List<Player> getPlayers(){
 		return playerList;
 	}

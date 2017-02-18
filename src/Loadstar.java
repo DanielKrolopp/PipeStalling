@@ -5,4 +5,12 @@ public class Loadstar extends Player {
 		super(x, y);
 		characterType = "LOAD";
 	}
+	
+	public void special(){
+		usingSpecial = true;
+	}
+	
+	public void render(double delta) {
+		
+	}
 }

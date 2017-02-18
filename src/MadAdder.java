@@ -5,4 +5,15 @@ public class MadAdder extends Player {
 		super(x, y);
 		characterType = "ADD";
 	}
+	
+	
+	
+	public void special() {
+		usingSpecial = true;
+		
+	}
+	
+	public void render(double delta) {
+		
+	}
 }
