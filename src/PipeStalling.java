@@ -1,22 +1,22 @@
 import com.polaris.engine.App;
 
-public class TestApp extends App<GameSettings>
+public class PipeStalling extends App<GameSettings>
 {
 	
-	protected TestApp() 
+	protected PipeStalling() 
 	{
 		super(true);
 	}
 
 	public static void main(String[] args)
 	{
-		App.start(new TestApp());
+		App.start(new PipeStalling());
 	}
 	
 	public void init()
 	{
 		super.init();
-		this.initGui(new GuiTest(this));
+		this.initGui(new GuiWorld(this));
 	}
 
 	@Override

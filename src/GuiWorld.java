@@ -1,10 +1,10 @@
 import com.polaris.engine.App;
 import com.polaris.engine.gui.GuiScreen;
 
-public class GuiTest extends GuiScreen<GameSettings>
+public class GuiWorld extends GuiScreen<GameSettings>
 {
 
-	public GuiTest(App<GameSettings> app) {
+	public GuiWorld(App<GameSettings> app) {
 		super(app);
 	}
 	
