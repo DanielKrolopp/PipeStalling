@@ -39,4 +39,15 @@ public class World
 		blockList.add(block);
 		return true;
 	}
+	/*
+	 * Adds a player to the world. Returns false if already in world.
+	 */
+	public boolean addPlayer(Player player){
+		if(playerList.contains(player)){
+			return false;
+		}
+		playerList.add(player);
+		return true;
+		
+	}
 }
