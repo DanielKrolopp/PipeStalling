@@ -10,10 +10,10 @@ public class Block {
 		this.width = width;
 	}
 	
-	public double getX(){
+	public double getXPos(){
 		return x;
 	}
-	public double getY(){
+	public double getYPos(){
 		return y;
 	}
 	public void setX(double amount){
