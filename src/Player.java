@@ -67,17 +67,21 @@ public class Player extends Block
 		return yAcc;
 	}
 	
-	public void updateMotion()		//Update motion statistics as if no collision occured
+	public void updateXMotion()		//Update motion statistics as if no collision occured
 	{
 		xVel += xAcc;
-		yVel += yAcc;
 		xPos += xVel;
+	}
+	
+	public void updateYMotion()
+	{
+		yVel += yAcc;
 		yPos += yVel;	
 	}
 	
 	public void fall()
 	{
-		yAcc = -2;					//Sets acceleration for falling, aka gravity
+		yAcc = 2;					//Sets acceleration for falling, aka gravity
 		jumpCount = 1;
 	}
 	
@@ -87,8 +91,8 @@ public class Player extends Block
 		{
 			jumping = true;
 			jumpCount--;
-			yVel = 10;				//Sets velocity for normal jumping
-			yAcc = -2;				//Sets acceleration for normal jumping, aka gravity
+			yVel = -10;				//Sets velocity for normal jumping
+			yAcc = 2;				//Sets acceleration for normal jumping, aka gravity
 		}
 	}
 	
@@ -98,10 +102,10 @@ public class Player extends Block
 	}
 	public void slam()
 	{
-		if(!slamming && yAcc != 0)
+		if(!slamming && yAcc != -0.5)
 		{
 			slamming = true;
-			yAcc = -5;				//Sets acceleration for slamming			
+			yAcc = 5;				//Sets acceleration for slamming			
 		}
 	}
 	
@@ -116,14 +120,14 @@ public class Player extends Block
 		slamming = false;
 		jumpCount = 2;
 		yVel = 0;
-		yAcc = 0;
+		yAcc = 0.5;
 	}
 	
-	public void incrementHealth(int amount){
+	public void heal(int amount){
 		healthCount += amount;
 	}
 	
-	public void decrementHealth(int amount){
-		healthCount -= amount;
+	public void damage(int amount, Player enemy){
+		enemy.healthCount -= amount;
 	}
 }
