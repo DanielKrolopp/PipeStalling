@@ -33,4 +33,8 @@ public class Player
 		isSlamming = false;
 		yVel = 0;
 	}
+	
+	public void computeGravity(){
+		
+	}
 }
