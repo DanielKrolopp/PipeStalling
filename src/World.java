@@ -104,7 +104,7 @@ public class World
 
 	}
 	
-	public static List<Player> getPlayers(){
+	public List<Player> getPlayers(){
 		return playerList;
 	}
 	public List<Block> getBlocks(){
