@@ -85,7 +85,7 @@ public class Player extends Block
 		return xAcc;
 	}
 	
-	public double getYAcceleartion(){
+	public double getYAcceleration(){
 		return yAcc;
 	}
 	

@@ -20,11 +20,13 @@ public class World
 		for(Player player : playerList){
 			double yVel = player.getYVelocity();
 			double xVel = player.getXVelocity();
+			double yAcc = player.getYAcceleration();
+			double xAcc = player.getXAcceleration();
 			double oldX = player.getX();
 			double oldY = player.getY();
-			double yAcc = player.ge
-			player.setYVelocity(yVel + );
 			
+			player.setYVelocity(yVel + yAcc);
+			player.setXVelocity(xVel + xAcc);
 		}
 	}
 	
