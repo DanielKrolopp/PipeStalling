@@ -11,6 +11,8 @@ public class Player extends Block
 	protected double yVel;
 	protected double xAcc;
 	protected double yAcc;
+	protected double xPos;
+	protected double yPos;
 	
 	protected int healthCount;		//Maxes out at 100, no effect on size
 	protected int jumpCount;
