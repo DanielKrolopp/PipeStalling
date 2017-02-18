@@ -1,7 +1,6 @@
 import com.polaris.engine.App;
-import com.polaris.engine.options.Settings;
 
-public class TestApp extends App<Settings>
+public class TestApp extends App<GameSettings>
 {
 	
 	protected TestApp() 
@@ -21,9 +20,9 @@ public class TestApp extends App<Settings>
 	}
 
 	@Override
-	protected Settings loadSettings() 
+	protected GameSettings loadSettings() 
 	{
-		return new Settings();
+		return new GameSettings();
 	}
 
 }
