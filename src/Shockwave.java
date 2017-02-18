@@ -16,7 +16,7 @@ public class Shockwave {
 		width = w;
 	}
 	
-	public List<Player> detectTargets()
+	public List<Player> detectTargets()		//This implementation is pretty crappy
 	{
 		List<Player> hitlist = new ArrayList<Player>();
 		for(Player pBlock : World.getPlayers())

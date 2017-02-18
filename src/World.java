@@ -6,10 +6,13 @@ public class World
 	
 	private static List<Player> playerList;
 	private List<Block> blockList;
+	private List<Mine> mineList;
 
 	private double width;
 	private double height;
 	public final double ACCELERATION = -9.8;
+	
+	GameSettings settings = new GameSettings();
 
 	public World(double width, double height)
 	{
@@ -17,6 +20,7 @@ public class World
 		this.height = height;
 		playerList = new ArrayList<Player>();
 		blockList = new ArrayList<Block>();	
+		mineList = new ArrayList<Mine>();
 	}
 
 	public void update(double delta)
@@ -51,6 +55,10 @@ public class World
 							} else {
 								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
 								player.setYVel(0);
+								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
+								{
+									player.damage(10, otherPlayer);
+								}
 							}
 						}
 					}
@@ -98,7 +106,7 @@ public class World
 
 	}
 	
-	public static List<Player> getPlayers(){
+	public List<Player> getPlayers(){
 		return playerList;
 	}
 	public List<Block> getBlocks(){
@@ -112,6 +120,14 @@ public class World
 			return false;
 		}
 		blockList.add(block);
+		return true;
+	}
+	
+	public boolean addMine(Mine mine){
+		if(mineList.contains(mine)){
+			return false;
+		}
+		mineList.add(mine);
 		return true;
 	}
 	/*
@@ -135,8 +151,8 @@ public class World
 
 		player.setYVel(yVel + yAcc);
 		player.setXVel(xVel + xAcc);
-		player.setX(oldX + xVel);
-		player.setY(oldY + yVel);
+		player.setXPos(oldX + xVel);
+		player.setYPos(oldY + yVel);
 	}
 
 	public boolean isColliding(Block p1, Block p2) {
@@ -148,5 +164,49 @@ public class World
 
 	public boolean isLowerBoundColliding(Block p1, Block p2) {
 		return !(p1.getHeight() + p1.getYPos() > p2.getYPos());
+	}
+	
+	public void registerKeys()
+	{
+		for(int i = 0; i < playerList.size(); i++)
+		{
+			if(settings.getPlayerJump(i).isPressed())
+			{
+				playerList.get(i).jump();
+			}
+			
+			if(settings.getPlayerSmash(i).isPressed())
+			{
+				playerList.get(i).slam();
+			}
+			
+			if(settings.getPlayerRight(i).isPressed())
+			{
+				playerList.get(i).setXAcc(1);
+			}
+			
+			else if(settings.getPlayerLeft(i).isPressed())
+			{
+				playerList.get(i).setXAcc(-1);
+			}
+			
+			else
+			{
+				playerList.get(i).setXAcc(-playerList.get(i).getXVel());
+			}
+			
+			if(settings.getPlayerBeam(i).isPressed())
+			{
+				playerList.get(i).shootBeam();
+			}
+			
+			if(settings.getPlayerSuper(i).isPressed())
+			{
+				playerList.get(i).special();
+			}
+			
+			
+		}
+		
 	}
 }

@@ -13,8 +13,6 @@ public class Player extends Block
 	protected double yVel;
 	protected double xAcc;
 	protected double yAcc;
-	protected double xPos;
-	protected double yPos;
 	
 	protected int health;		//Maxes out at 100, no effect on size
 	protected int jumpCount;
@@ -28,7 +26,7 @@ public class Player extends Block
 		super(x, y, Player.size, Player.size);
 		health = 100;
 		jumpCount = 2;
-		xAcc = 1;
+		xAcc = 0;
 		yAcc = 0;
 	}
 	
@@ -75,6 +73,16 @@ public class Player extends Block
 	public double getYAcc()
 	{
 		return yAcc;
+	}
+	
+	public void setXAcc(double x)
+	{
+		xAcc = x;
+	}
+	
+	public void setYAcc(double y)
+	{
+		yAcc = y;
 	}
 	
 	public void updateXMotion()		//Update motion statistics as if no collision occured
@@ -152,4 +160,12 @@ public class Player extends Block
 	public boolean getFacingLeft(){
 		return facingLeft;
 	}
+	
+	public void shootBeam()
+	{
+		
+	}
+	
+	public void special() {}
+	public void stopSpecial() {}
 }

@@ -50,13 +50,12 @@ public class GameSettings extends Settings
 		this.worldWidth = 500;
 		this.worldHeight = 500;
 		
-		this.jumpKey = new Key[]{i.getKey(GLFW.GLFW_KEY_W), i.getKey(GLFW.GLFW_KEY_I)};
-		this.smashKey = new Key[]{i.getKey(GLFW.GLFW_KEY_S), i.getKey(GLFW.GLFW_KEY_K)};
-		this.leftKey = new Key[]{i.getKey(GLFW.GLFW_KEY_A), i.getKey(GLFW.GLFW_KEY_J)};
-		this.rightKey = new Key[]{i.getKey(GLFW.GLFW_KEY_D), i.getKey(GLFW.GLFW_KEY_L)};
-		this.beamKey = new Key[]{i.getKey(GLFW.GLFW_KEY_E), i.getKey(GLFW.GLFW_KEY_O)};
-		this.superKey = new Key[]{i.getKey(GLFW.GLFW_KEY_Q), i.getKey(GLFW.GLFW_KEY_U)};
-		this.runKey = new Key[]{i.getKey(GLFW.GLFW_KEY_LEFT_SHIFT), i.getKey(GLFW.GLFW_KEY_RIGHT_SHIFT)};
+		this.jumpKey = new Key[]{i.getKey(GLFW.GLFW_KEY_W), i.getKey(GLFW.GLFW_KEY_I), i.getKey(GLFW.GLFW_KEY_T), i.getKey(GLFW.GLFW_KEY_UP)};
+		this.smashKey = new Key[]{i.getKey(GLFW.GLFW_KEY_S), i.getKey(GLFW.GLFW_KEY_K), i.getKey(GLFW.GLFW_KEY_G), i.getKey(GLFW.GLFW_KEY_DOWN)};
+		this.leftKey = new Key[]{i.getKey(GLFW.GLFW_KEY_A), i.getKey(GLFW.GLFW_KEY_J), i.getKey(GLFW.GLFW_KEY_F), i.getKey(GLFW.GLFW_KEY_LEFT)};
+		this.rightKey = new Key[]{i.getKey(GLFW.GLFW_KEY_D), i.getKey(GLFW.GLFW_KEY_L), i.getKey(GLFW.GLFW_KEY_H), i.getKey(GLFW.GLFW_KEY_RIGHT)};
+		this.beamKey = new Key[]{i.getKey(GLFW.GLFW_KEY_E), i.getKey(GLFW.GLFW_KEY_O), i.getKey(GLFW.GLFW_KEY_Y), i.getKey(GLFW.GLFW_KEY_RIGHT_SHIFT)};
+		this.superKey = new Key[]{i.getKey(GLFW.GLFW_KEY_Q), i.getKey(GLFW.GLFW_KEY_U), i.getKey(GLFW.GLFW_KEY_R), i.getKey(GLFW.GLFW_KEY_SLASH)};
 	}
 	
 	public void createFonts()
