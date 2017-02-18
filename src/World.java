@@ -7,6 +7,8 @@ public class World
 	private List<Player> playerList;
 	private List<Block> blockList;
 	
+	public final double ACCELERATION = -9.8;
+	
 	public World()
 	{
 		playerList = new ArrayList<Player>();
@@ -48,6 +50,5 @@ public class World
 		}
 		playerList.add(player);
 		return true;
-		
 	}
 }
