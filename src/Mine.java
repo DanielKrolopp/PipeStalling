@@ -28,7 +28,7 @@ public class Mine extends Block{
 		}
 	}
 	
-	public void damage(){
+	public void damage(){ //Jordan Buckmaster please fix this for me
 		double centerX = (2 * this.getXPos() + MINE_SIZE)/2;
 		double centerY = (2 * this.getYPos() + MINE_SIZE)/2;
 		for(Player player : GuiWorld.world.getPlayers()){ //Iterates over players
