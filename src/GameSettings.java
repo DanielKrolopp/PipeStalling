@@ -3,11 +3,15 @@
  */
 
 
+import java.io.File;
+
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWVidMode;
 
 import com.polaris.engine.options.Input;
 import com.polaris.engine.options.Key;
 import com.polaris.engine.options.Settings;
+import com.polaris.engine.render.Font;
 
 /**
  * @author lec50
@@ -20,6 +24,8 @@ public class GameSettings extends Settings
 	 * 
 	 */
 	private static final long serialVersionUID = -8852791905224500366L;
+	
+	private Font gameFont;
 	
 	private int worldWidth;
 	private int worldHeight;
@@ -36,6 +42,11 @@ public class GameSettings extends Settings
 	{
 		super.init(i);
 		
+		GLFWVidMode video = this.getMonitor().getVideoMode();
+		
+		this.setWindowWidth((int) (video.width() / 1.5));
+		this.setWindowHeight((int) (video.height() / 1.5));
+		
 		this.worldWidth = 500;
 		this.worldHeight = 500;
 		
@@ -46,6 +57,21 @@ public class GameSettings extends Settings
 		this.beamKey = new Key[]{i.getKey(GLFW.GLFW_KEY_E), i.getKey(GLFW.GLFW_KEY_O)};
 		this.superKey = new Key[]{i.getKey(GLFW.GLFW_KEY_Q), i.getKey(GLFW.GLFW_KEY_U)};
 		this.runKey = new Key[]{i.getKey(GLFW.GLFW_KEY_LEFT_SHIFT), i.getKey(GLFW.GLFW_KEY_RIGHT_SHIFT)};
+	}
+	
+	public void createFonts()
+	{
+		gameFont = Font.createFont(new File("font/copper.ttf"), 128);
+	}
+	
+	public String getTitle()
+	{
+		return "Pipe Stalling";
+	}
+	
+	public Font getFont()
+	{
+		return gameFont;
 	}
 	
 	public int getWorldWidth()

@@ -14,7 +14,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 	public void init()
 	{
 		super.init();
-		world = World.generateWorld(gameSettings, gameSettings.getWorldWidth(), gameSettings.getWorldHeight());
+		//world = World.generateWorld(gameSettings, gameSettings.getWorldWidth(), gameSettings.getWorldHeight());
 	}
 	
 	public void update(double delta)
@@ -26,7 +26,6 @@ public class GuiWorld extends GuiScreen<GameSettings>
 	public void render(double delta)
 	{
 		super.render(delta);
-		
 		world.render(delta);
 	}
 
