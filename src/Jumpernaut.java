@@ -9,13 +9,16 @@ public class Jumpernaut extends Player {
 	
 	public void slam() {
 		//Jumpernaut has a special slam, overrides slam in player
-		if(usingSpecial) {
-			//special slam
+		if(!slamming && yAcc != 0) {
+			if(usingSpecial) {
+				//special slam
+				yAcc = 0.75; //temp value;
 			
-		
-		} else {
-			//regular slam
+			} else {
+				super.slam();
+			}
 		}
+		
 	}
 	
 	public void special() {
