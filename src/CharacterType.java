@@ -28,5 +28,5 @@ public enum CharacterType {
 		default:
 			return ADD;
 		}
-	}
+	}	//STORE > LOAD > ADD > JUMP > STORE
 }

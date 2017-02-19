@@ -173,7 +173,15 @@ public class Player extends Block
 	public void damage(int amount, Player enemy){
 		if(!enemy.immuneToDamage)
 		{
-			enemy.health -= amount;
+			double multiplier = 1;
+			if((this.getCharacter() == CharacterType.STORE && enemy.getCharacter() == CharacterType.LOAD) || 
+					(this.getCharacter() == CharacterType.LOAD && enemy.getCharacter() == CharacterType.ADD) ||
+					(this.getCharacter() == CharacterType.ADD && enemy.getCharacter() == CharacterType.JUMP) ||
+					(this.getCharacter() == CharacterType.JUMP && enemy.getCharacter() == CharacterType.STORE))
+			{
+				multiplier = 1.5;
+			}
+			enemy.health -= Math.round(amount*multiplier);
 			if(enemy.health < 0){
 				enemy.alive = false;
 			}
