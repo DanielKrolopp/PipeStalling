@@ -9,20 +9,42 @@ public class World
 	private List<Mine> mineList;
 	private double width;
 	private double height;
+	private long startCountdown = 0;
+	private boolean ready;
+	private boolean set;
+	private boolean go;
 	
-	GameSettings settings = new GameSettings();
+	private GameSettings settings;
 
-	public World(double width, double height)
+	public World(double width, double height, GameSettings game)
 	{
 		this.width = width;
 		this.height = height;
 		playerList = new ArrayList<Player>();
 		blockList = new ArrayList<Block>();	
 		mineList = new ArrayList<Mine>();
+		settings = game;
 	}
 
 	public void update(double delta)
 	{
+		if(startCountdown == 0)
+		{
+			startCountdown = System.currentTimeMillis();
+		}
+		
+		long countdown = System.currentTimeMillis() - startCountdown;
+		
+		if(!go)
+		{
+			if(!ready && countdown >= 1000)
+				ready = true;
+			else if(!set && countdown >= 2000)
+				set = true;
+			else if(!go && countdown >= 3000)
+				go = true;
+			return;
+		}
 		for(Player player : playerList) {
 			//block collisions, y-axis
 			player.updateYMotion();

@@ -1,6 +1,6 @@
 public class WorldGenerator {
 	public static World generateWorld(GameSettings gameSettings, int worldWidth, int worldHeight) {
-		World generated = new World(worldWidth, worldHeight);
+		World generated = new World(worldWidth, worldHeight, gameSettings);
 		int i = 0;
 		while(i < 20){ //Blocks will NOT overlap (at least they shouldn't)
 			int width = (int)(Math.random() * 40) + 20;
