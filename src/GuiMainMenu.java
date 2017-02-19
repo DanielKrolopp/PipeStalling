@@ -1,9 +1,7 @@
 import java.io.File;
-import java.nio.FloatBuffer;
 
 import org.joml.Vector3d;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
@@ -96,6 +94,10 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
                 }
             }
         }
+        if(input.getKey(GLFW.GLFW_KEY_ENTER).isPressed())
+        {
+        	GL11.glColor4f(0, 0, 0, 1);
+        }
         
         gameSettings.getFont().draw("START A GAME", 1920 / 2f - gameSettings.getFont().getWidth("START A GAME", 48f / 128f) / 2, 600f, .5f, 48f / 128f);
 		
@@ -122,6 +124,11 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
                 ticks[i] = (float) MathHelper.getExpValue(ticks[i], toTicks[i], .25, delta);
             }
         }
+		
+		if(input.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
+		{
+        	application.initGui(new GuiPlayerChoose(this, colorShader, time, color));
+		}
 	}
 	
 }
