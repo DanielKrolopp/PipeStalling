@@ -135,16 +135,6 @@ public class GuiWorld extends GuiScreen<GameSettings>
 					foundColor = false;
 				}
 			}
-			else if(blocks != null)
-			{
-				maxDiff = (int) Math.abs(blocks.x * 255 - red);
-				maxDiff += (int) Math.abs(blocks.y * 255 - green);
-				maxDiff += (int) Math.abs(blocks.z * 255 - blue);
-				if(maxDiff < 275 - players.length * 15)
-				{
-					foundColor = false;
-				}
-			}
 			else
 			{
 				maxDiff = Math.max(Math.abs(red - green), Math.abs(red - blue));

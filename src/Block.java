@@ -1,4 +1,5 @@
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 import org.lwjgl.opengl.GL11;
 
 public class Block {
@@ -29,6 +30,11 @@ public class Block {
 	}
 	public double getWidth(){
 		return width;
+	}
+	
+	public Vector4d getPosVector()
+	{
+		return new Vector4d(xPos, yPos, width, height);
 	}
 	
 	public void render(double delta, Vector3d vec)
