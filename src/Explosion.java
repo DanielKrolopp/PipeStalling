@@ -14,7 +14,7 @@ public class Explosion {
 	private double midY;
 	private Player attacker;
 	private boolean selfDamage;
-	
+	private long startTime;
 	//explosion constructor takes midpoint of explosion, blast radius, 
 	//number of rays (possible chances for someone to take damage) 
 	//and x incrememnt value (the smaller, the more accurate)
@@ -27,7 +27,16 @@ public class Explosion {
 		increment = 2*(Math.PI) / rays;
 		distances = new double[rays];
 		slopes = new double[rays];
+		startTimer();
 				
+	}
+	
+	public void startTimer() {
+		startTime = System.currentTimeMillis();
+	}
+	
+	public long getTime() {
+		return System.currentTimeMillis() - startTime;
 	}
 	
 	public void explode() {

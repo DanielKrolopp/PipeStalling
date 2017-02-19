@@ -8,9 +8,10 @@ public class WorldGenerator {
 		double worldWidth = 1920;
 		double worldHeight = 1080;
 		World generated = new World(worldWidth, worldHeight, gameSettings, players);
-
+		
+		//adds ceiling and floor
 		generated.addBlock(new Block(-200, 0, 2500, 30));
-		generated.addBlock(new Block(-200, worldHeight - 30 , 2500, 30));
+		//generated.addBlock(new Block(-200, worldHeight - 30 , 2500, 30));
 
 		/*double xBase = worldWidth % 10 / 2 + 100;
 		double yBase = worldHeight % 10 / 2 + 100;

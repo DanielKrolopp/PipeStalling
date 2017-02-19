@@ -217,7 +217,7 @@ public class Player extends Block
 			}
 			
 			GL11.glPushMatrix();
-			
+
 			GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 			GL11.glTranslated(xPos + width / 2 - 960, -500 + height / 2 * mul + yPos, -999);
 			GL11.glScaled(width / 2 * (mul / 2), height / 2 * (mul / 2), 7.5 * (mul / 2));
@@ -241,7 +241,7 @@ public class Player extends Block
 		}
 		
 		GL11.glPushMatrix();
-		
+
 		GL11.glTranslated(xPos + width / 2 - 960, -500 + yPos + height * 1.5, -999);
 		
 		GL11.glColor4f(0, 0, 0, 1);
