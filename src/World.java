@@ -13,9 +13,7 @@ public class World
 	private double width;
 	private double height;
 	private long startCountdown = 0;
-	private boolean ready;
-	private boolean set; 
-	private boolean go;
+	private int go;
 	
 	private GameSettings settings;
 
@@ -97,16 +95,25 @@ public class World
 			startCountdown = System.currentTimeMillis();
 		}
 		
-		long countdown = System.currentTimeMillis() - startCountdown;
-		
-		if(!go)
+		if(go < 3)
 		{
-			if(!ready && countdown >= 1000)
-				ready = true;
-			else if(!set && countdown >= 2000)
-				set = true;
-			else if(!go && countdown >= 3000)
-				go = true;
+			long countdown = System.currentTimeMillis() - startCountdown;
+			if(countdown >= 3000)
+			{
+				go = 3;
+			}
+			else if(countdown >= 2000)
+			{
+				go = 2;
+			}
+			else if(countdown >= 1000)
+			{
+				go = 1;
+			}
+			else
+			{
+				go = 0;
+			}
 			return;
 		}
 
@@ -124,10 +131,10 @@ public class World
 					if(isColliding(player, block)){
 						if(player.getYVel() > 0) {
 							player.setYPos(block.getYPos() - player.getHeight());
-							player.land();
 						} else {
 							player.setYPos(block.getYPos()+block.getHeight());
-							player.setYVel(0);
+							player.land();
+							
 						}
 					}
 				}
@@ -142,7 +149,6 @@ public class World
 								{
 									player.damage(5, otherPlayer);
 								}
-								player.land();
 							} else {
 								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
 								player.setYVel(0);
@@ -150,6 +156,7 @@ public class World
 								{
 									player.damage(10, otherPlayer);
 								}
+								player.land();
 							}
 						}
 					}
@@ -194,6 +201,22 @@ public class World
 
 	public void render(double delta, Vector3d[] players, Vector3d blocks)
 	{
+		if(go < 3)
+		{
+			if(go == 0)
+			{
+				
+			}
+			else if(go == 1)
+			{
+				
+			}
+			else
+			{
+				
+			}
+		}
+		
 		GL11.glColor4f(1, 1, 1, 1);
 		for(int i = 0; i < players.length; i++)
 		{
