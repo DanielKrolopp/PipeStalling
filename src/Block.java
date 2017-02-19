@@ -32,12 +32,31 @@ public class Block {
 	
 	public void render(double delta)
 	{
-		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glPushMatrix();
+		
+		GL11.glColor4f(1, 0, 0, 1);
+		GL11.glTranslated(xPos - 960, -500 + yPos, -999);
+		GL11.glScaled(width / 2, height / 2, width / 2);
+		
+		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		genCube();
+		
+		GL11.glColor4f(0, 0, 0, 1);
+		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+		GL11.glLineWidth(1f);
+		GL11.glScaled(1.01d, 1.02d, 1.02d);
+		genCube();
+		
+		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		
+		GL11.glPopMatrix();
+		
+		/*GL11.glBegin(GL11.GL_QUADS);
 		GL11.glVertex3d(xPos, yPos, 0f);
 		GL11.glVertex3d(xPos, yPos + height, 0);
 		GL11.glVertex3d(xPos + width, yPos + height, 0);
 		GL11.glVertex3d(xPos + width, yPos, 0);
-		GL11.glEnd();
+		GL11.glEnd();*/
 	}
 	
 	public boolean collidesWith(Block block){
@@ -66,5 +85,46 @@ public class Block {
 			return true;
 		}
 		return false;
+	}
+	
+	public void genCube()
+	{
+		GL11.glBegin(GL11.GL_QUADS);                // Begin drawing the color cube with 6 quads
+		// Top face (y = 1.0f)
+		// Define vertices in counter-clockwise (CCW) order with normal pointing out
+		GL11.glVertex3f( 1.0f, 1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, 1.0f, -1.0f);
+		GL11. glVertex3f(-1.0f, 1.0f,  1.0f);
+		GL11.glVertex3f( 1.0f, 1.0f,  1.0f);
+		
+		GL11.glVertex3f( 1.0f,  -1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f,  -1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, 1.0f);
+		GL11.glVertex3f( 1.0f, -1.0f, 1.0f);
+
+		// Front face  (z = 1.0f)
+		GL11.glVertex3f( 1.0f,  1.0f, 1.0f);
+		GL11.glVertex3f(-1.0f,  1.0f, 1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, 1.0f);
+		GL11.glVertex3f( 1.0f, -1.0f, 1.0f);
+
+		// Back face (z = -1.0f)
+		GL11.glVertex3f( 1.0f, -1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f,  1.0f, -1.0f);
+		GL11.glVertex3f( 1.0f,  1.0f, -1.0f);
+
+		// Left face (x = -1.0f)    // Blue
+		GL11.glVertex3f(-1.0f,  1.0f,  1.0f);
+		GL11.glVertex3f(-1.0f,  1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f,  1.0f);
+
+		// Right face (x = 1.0f)  // Magenta
+		GL11.glVertex3f(1.0f,  1.0f, -1.0f);
+		GL11.glVertex3f(1.0f,  1.0f,  1.0f);
+		GL11.glVertex3f(1.0f, -1.0f,  1.0f);
+		GL11.glVertex3f(1.0f, -1.0f, -1.0f);
+		GL11.glEnd();  // End of drawing color-cube
 	}
 }
