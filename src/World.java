@@ -35,8 +35,8 @@ public class World
 		settings = game;
 		numPlayers = playerCharacters.length;
 		assignTypes(playerCharacters);
-		/*if(numPlayers == 2)
-			spawnTwo();*/
+		if(numPlayers == 2)
+			spawnTwo();
 		if(numPlayers == 3)
 			spawnThree();
 		if(numPlayers == 4)
@@ -62,10 +62,8 @@ public class World
 	{
 		playerList.get(0).setXPos(width/10 - 50);
 		playerList.get(0).setYPos(height/10);
-		blockList.add(new Block(width/10 - 50, height/10 - 10, 100, 10));
 		playerList.get(1).setXPos(width*9/10 - 50);
-		playerList.get(1).setYPos(height/10);
-		blockList.add(new Block(width*9/10 - 50, height/10 - 10, 100, 10));		
+		playerList.get(1).setYPos(height/10);	
 	}
 	
 	public void spawnThree()
