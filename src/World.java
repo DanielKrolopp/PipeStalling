@@ -27,46 +27,46 @@ public class World
 		mineList = new ArrayList<Mine>();
 		settings = game;
 		numPlayers = playerCharacters.length;
-		CharacterType[] types = new CharacterType[numPlayers];
-		types = assignTypes(types, playerCharacters);
+		assignTypes(playerCharacters);
 		if(numPlayers == 2)
-			spawnTwo(types);
+			spawnTwo();
 		if(numPlayers == 2)
-			spawnThree(types);
+			spawnThree();
 		if(numPlayers == 2)
-			spawnFour(types);
+			spawnFour();
 	}
 	
-	public CharacterType[] assignTypes(CharacterType[] types, int[] playerCharacters)
+	public void assignTypes(int[] playerCharacters)
 	{
 		for(int i = 0; i < numPlayers; i++)
 		{
 			if(playerCharacters[i] == 0)
-				types[i] = CharacterType.LOAD;
+				playerList.add(new Loadstar(0, 0));
 			if(playerCharacters[i] == 1)
-				types[i] = CharacterType.STORE;
+				playerList.add(new Bulbastore(0, 0));
 			if(playerCharacters[i] == 2)
-				types[i] = CharacterType.JUMP;
+				playerList.add(new Jumpernaut(0, 0));
 			if(playerCharacters[i] == 3)
-				types[i] = CharacterType.ADD;
+				playerList.add(new MadAdder(0, 0));
 		}
-		return types;
 	}
 	
-	public void spawnTwo(CharacterType[] types)
+	public void spawnTwo()
 	{
-		playerList.add(new Player(width/10 - 50, height*9/10, types[0]));
+		playerList.get(0).setXPos(width/10 - 50);
+		playerList.get(0).setYPos(height*9/10);
 		blockList.add(new Block(width/10 - 50, height*9/10 + 100, 100, 10));
-		playerList.add(new Player(width*9/10 - 50, height*9/10, types[0]));
+		playerList.get(0).setXPos(width*9/10 - 50);
+		playerList.get(0).setYPos(height*9/10);
 		blockList.add(new Block(width*9/10 - 50, height*9/10 + 100, 100, 10));		
 	}
 	
-	public void spawnThree(CharacterType[] types)
+	public void spawnThree()
 	{
 		
 	}
 	
-	public void spawnFour(CharacterType[] types)
+	public void spawnFour()
 	{
 		
 	}
