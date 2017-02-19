@@ -41,6 +41,7 @@ public class Mine extends Block {
 		}*/
 		Explosion explode = new Explosion(BLAST_RADIUS, 8, (2 * this.getXPos() + MINE_SIZE)/2, 
 				(2 * this.getYPos() + MINE_SIZE)/2, 5, player, true);
+		GuiWorld.world.addExplosion(explode);
 		explode.explode(BLAST_STRENGTH);
 	}
 	

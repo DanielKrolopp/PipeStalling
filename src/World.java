@@ -9,6 +9,8 @@ public class World
 	private static List<Player> playerList;
 	private List<Block> blockList;
 	private List<Mine> mineList;
+	private List<Explosion> explosionList;
+	private List<Beam> beamList;
 	private int numPlayers;
 	private double width;
 	private double height;
@@ -217,7 +219,11 @@ public class World
 				}
 			}
 		}
-
+		for(Explosion ex : explosionList) {
+			if(ex.getTime() > 500) {
+				explosionList.remove(ex);
+			}
+		}
 	}
 
 	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
@@ -293,6 +299,14 @@ public class World
 			return false;
 		}
 		blockList.add(block);
+		return true;
+	}
+	
+	public boolean addExplosion(Explosion ex) {
+		if(explosionList.contains(ex)) {
+			return false;
+		}
+		explosionList.add(ex);
 		return true;
 	}
 
