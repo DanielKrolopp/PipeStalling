@@ -122,6 +122,10 @@ public class World
 		for(Player player : playerList) {
 			//block collisions, y-axis
 			fell = true;
+			if(player.getCharacter() == CharacterType.STORE)
+			{
+				((Bulbastore)player).updateTimer();
+			}
 			player.updateYMotion();
 			if(player.getYPos() >= height) {
 				player.setYPos(0 - player.getHeight());
@@ -168,7 +172,19 @@ public class World
 
 			//block collisions, x-axis
 			if(fell)
-				player.fall();
+			{
+				if(player.getCharacter() == CharacterType.JUMP)
+				{
+					if(!player.usingSpecial)
+					{
+						player.fall();
+					}
+				}
+				else
+				{
+					player.fall();
+				}
+			}
 			player.updateXMotion();
 			if(player.getXPos() >= width) {
 				player.setXPos(0-player.getWidth());
@@ -340,21 +356,25 @@ public class World
 			if(settings.getPlayerRight(i).isDoublePressed())
 			{
 				playerList.get(i).setXVel(22);
+				playerList.get(i).facingLeft = false;
 			}
 			
 			else if(settings.getPlayerRight(i).isPressed())
 			{
 				playerList.get(i).setXVel(15);
+				playerList.get(i).facingLeft = false;
 			}
 			
 			else if(settings.getPlayerLeft(i).isDoublePressed())
 			{
 				playerList.get(i).setXVel(-22);
+				playerList.get(i).facingLeft = true;
 			}		
 			
 			else if(settings.getPlayerLeft(i).isPressed())
 			{
 				playerList.get(i).setXVel(-15);
+				playerList.get(i).facingLeft = true;
 			}
 
 			else
@@ -362,10 +382,17 @@ public class World
 				playerList.get(i).setXAcc(-playerList.get(i).getXVel());
 			}
 
-			if(settings.getPlayerBeam(i).isPressed())
+			if(settings.getPlayerBeam(i).wasQuickPressed())
 			{
 				Beam shot = new Beam(playerList.get(i), 7);
 				shot.shootBeam();
+			}
+			
+			if(settings.getPlayerSuper(i).wasQuickPressed())
+			{
+				if(playerList.get(i).getCharacter() == CharacterType.ADD){
+				((MadAdder)playerList.get(i)).special();
+				}
 			}
 
 			if(settings.getPlayerSuper(i).isPressed())
@@ -375,9 +402,6 @@ public class World
 				}
 				if(playerList.get(i).getCharacter() == CharacterType.JUMP){
 					((Jumpernaut)playerList.get(i)).special();
-				}
-				if(playerList.get(i).getCharacter() == CharacterType.ADD){
-					((MadAdder)playerList.get(i)).special();
 				}
 				if(playerList.get(i).getCharacter() == CharacterType.STORE) {
 					((Bulbastore)(playerList.get(i))).startTimer();

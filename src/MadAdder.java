@@ -13,7 +13,13 @@ public class MadAdder extends Player {
 		usingSpecial = true;
 		Beam shoot = new Beam(this, damage);
 		if(shoot.shootBeam())
+		{
+			if(health >= 110)
+				return;
+			if(health >= 100)
+				this.heal(damage/4);
 			this.heal(damage/2);
+		}
 	}
 	
 	public void render(double delta, Vector3d vec) {
