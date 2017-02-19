@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 public class World 
 {
 	
@@ -113,6 +115,7 @@ public class World
 
 	public void render(double delta)
 	{
+		GL11.glColor4f(1, 1, 1, 1);
 		for(Player p : playerList)
 		{
 			p.render(delta);

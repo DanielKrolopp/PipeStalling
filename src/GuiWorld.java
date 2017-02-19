@@ -1,3 +1,5 @@
+import org.lwjgl.opengl.GL11;
+
 import com.polaris.engine.App;
 import com.polaris.engine.gui.GuiScreen;
 
@@ -30,6 +32,13 @@ public class GuiWorld extends GuiScreen<GameSettings>
 	public void render(double delta)
 	{
 		super.render(delta);
+		
+		GL11.glPushMatrix();
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, 1920, 1080, 0, -1, 1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
 		world.render(delta);
 	}
 
