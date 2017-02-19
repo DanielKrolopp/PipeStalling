@@ -27,9 +27,6 @@ public class GameSettings extends Settings
 	
 	private Font gameFont;
 	
-	private int worldWidth;
-	private int worldHeight;
-	
 	private Key[] jumpKey;
 	private Key[] smashKey;
 	private Key[] leftKey;
@@ -46,21 +43,22 @@ public class GameSettings extends Settings
 		
 		this.setWindowWidth((int) (video.width() / 1.5));
 		this.setWindowHeight((int) (video.height() / 1.5));
-		
-		this.worldWidth = 500;
-		this.worldHeight = 500;
-		
-		this.jumpKey = new Key[]{i.getKey(GLFW.GLFW_KEY_W), i.getKey(GLFW.GLFW_KEY_I), i.getKey(GLFW.GLFW_KEY_T), i.getKey(GLFW.GLFW_KEY_UP)};
-		this.smashKey = new Key[]{i.getKey(GLFW.GLFW_KEY_S), i.getKey(GLFW.GLFW_KEY_K), i.getKey(GLFW.GLFW_KEY_G), i.getKey(GLFW.GLFW_KEY_DOWN)};
-		this.leftKey = new Key[]{i.getKey(GLFW.GLFW_KEY_A), i.getKey(GLFW.GLFW_KEY_J), i.getKey(GLFW.GLFW_KEY_F), i.getKey(GLFW.GLFW_KEY_LEFT)};
-		this.rightKey = new Key[]{i.getKey(GLFW.GLFW_KEY_D), i.getKey(GLFW.GLFW_KEY_L), i.getKey(GLFW.GLFW_KEY_H), i.getKey(GLFW.GLFW_KEY_RIGHT)};
-		this.beamKey = new Key[]{i.getKey(GLFW.GLFW_KEY_E), i.getKey(GLFW.GLFW_KEY_O), i.getKey(GLFW.GLFW_KEY_Y), i.getKey(GLFW.GLFW_KEY_RIGHT_SHIFT)};
-		this.superKey = new Key[]{i.getKey(GLFW.GLFW_KEY_Q), i.getKey(GLFW.GLFW_KEY_U), i.getKey(GLFW.GLFW_KEY_R), i.getKey(GLFW.GLFW_KEY_SLASH)};
 	}
 	
 	public void createFonts()
 	{
 		gameFont = Font.createFont(new File("font/copper.ttf"), 128);
+	}
+	
+	public void getKeys()
+	{
+		
+		this.jumpKey = new Key[]{input.getKey(GLFW.GLFW_KEY_W), input.getKey(GLFW.GLFW_KEY_I), input.getKey(GLFW.GLFW_KEY_T), input.getKey(GLFW.GLFW_KEY_UP)};
+		this.smashKey = new Key[]{input.getKey(GLFW.GLFW_KEY_S), input.getKey(GLFW.GLFW_KEY_K), input.getKey(GLFW.GLFW_KEY_G), input.getKey(GLFW.GLFW_KEY_DOWN)};
+		this.leftKey = new Key[]{input.getKey(GLFW.GLFW_KEY_A), input.getKey(GLFW.GLFW_KEY_J), input.getKey(GLFW.GLFW_KEY_F), input.getKey(GLFW.GLFW_KEY_LEFT)};
+		this.rightKey = new Key[]{input.getKey(GLFW.GLFW_KEY_D), input.getKey(GLFW.GLFW_KEY_L), input.getKey(GLFW.GLFW_KEY_H), input.getKey(GLFW.GLFW_KEY_RIGHT)};
+		this.beamKey = new Key[]{input.getKey(GLFW.GLFW_KEY_E), input.getKey(GLFW.GLFW_KEY_O), input.getKey(GLFW.GLFW_KEY_Y), input.getKey(GLFW.GLFW_KEY_RIGHT_SHIFT)};
+		this.superKey = new Key[]{input.getKey(GLFW.GLFW_KEY_Q), input.getKey(GLFW.GLFW_KEY_U), input.getKey(GLFW.GLFW_KEY_R), input.getKey(GLFW.GLFW_KEY_SLASH)};
 	}
 	
 	public String getTitle()
@@ -71,16 +69,6 @@ public class GameSettings extends Settings
 	public Font getFont()
 	{
 		return gameFont;
-	}
-	
-	public int getWorldWidth()
-	{
-		return worldWidth;
-	}
-	
-	public int getWorldHeight()
-	{
-		return worldHeight;
 	}
 	
 	public Key getPlayerJump(int i)

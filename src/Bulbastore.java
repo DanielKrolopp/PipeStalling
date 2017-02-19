@@ -24,11 +24,11 @@ public class Bulbastore extends Player {
 		immuneToDamage = false;
 		Explosion explode = new Explosion(175+damageCounter/3, 36, 
 				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, 
-				10);
-		explode.explode(damageCounter, this);
+				10, this, false);
+		explode.explode(damageCounter);
 	}
 	
 	public void render(double delta) {
-		
+		super.render(delta);
 	}
 }

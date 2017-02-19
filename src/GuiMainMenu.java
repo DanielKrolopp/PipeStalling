@@ -72,11 +72,17 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
             shiftX += gameSettings.getFont().getWidth("" + sequence[i]);
         }
         
+		GL11.glColor4d(76 / 255d, 181 / 255d, 8 / 255d, 1d);
+        
         if(input.getMouseX() >= 1920 / 2 - gameSettings.getFont().getWidth("START A GAME", 48 / 128f) && input.getMouseX() <= 1920 / 2 + gameSettings.getFont().getWidth("START A GAME", 48f / 128f))
         {
             if(input.getMouseY() >= 600 - 64 && input.getMouseY() <= 600 + 32)
             {
                 GL11.glColor4f(0, 0, 0, 1);
+                if(input.getMouse(0).isPressed())
+                {
+                	application.initGui(new GuiPlayerChoose(this));
+                }
             }
         }
         

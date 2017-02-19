@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.opengl.GL11;
+
 public class World 
 {
 	
@@ -25,7 +27,15 @@ public class World
 		mineList = new ArrayList<Mine>();
 		settings = game;
 	}
-
+	
+	public double getWidth(){
+		return width;
+	}
+	
+	public double getHeight(){
+		return height;
+	}
+	
 	public void update(double delta)
 	{
 		if(startCountdown == 0)
@@ -127,7 +137,16 @@ public class World
 
 	public void render(double delta)
 	{
-
+		GL11.glColor4f(1, 1, 1, 1);
+		for(Player p : playerList)
+		{
+			p.render(delta);
+		}
+		
+		for(Block b : blockList)
+		{
+			b.render(delta);
+		}
 	}
 	
 	public List<Player> getPlayers(){

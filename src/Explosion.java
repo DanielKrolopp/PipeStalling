@@ -12,17 +12,25 @@ public class Explosion {
 	private double[] slopes;
 	private double midX;
 	private double midY;
+	private Player attacker;
+	private boolean selfDamage;
 	
-	public Explosion(double radius, int rays, double midX, double midY, int xIncr) {
+	//explosion constructor takes midpoint of explosion, blast radius, 
+	//number of rays (possible chances for someone to take damage) 
+	//and x incrememnt value (the smaller, the more accurate)
+	public Explosion(double radius, int rays, double midX, 
+			double midY, int xIncr, Player attacker, boolean selfDamage) {
 		this.radius = radius;
 		this.rays = rays;
+		this.selfDamage = selfDamage;
+		this.attacker = attacker;
 		increment = 2*(Math.PI) / rays;
 		distances = new double[rays];
 		slopes = new double[rays];
 				
 	}
 	
-	public void explode(Player attacker) {
+	public void explode() {
 		for(int i = 0; i < rays; i++) {
 			slopes[i] = Math.tan(i*increment);
 			distances[i] = 0;
@@ -43,7 +51,7 @@ public class Explosion {
 		}
 	}
 	
-	public void explode(int base, Player attacker) {
+	public void explode(int base) {
 		for(int i = 0; i < rays; i++) {
 			slopes[i] = Math.tan(i*increment);
 			distances[i] = 0;
@@ -68,7 +76,8 @@ public class Explosion {
 		List<Player> playersList = GuiWorld.world.getPlayers();
 		List<Block> blockList = GuiWorld.world.getBlocks();
 		for(Player player : playersList) {
-			if(player.getCharacter() != CharacterType.STORE) {
+			if(player.getCharacter() != attacker.getCharacter() || 
+					selfDamage) {
 				if(x > player.getXPos() && x < player.getXPos() + 
 					player.getWidth() && y > player.getYPos() &&
 					y < player.getYPos() + player.getHeight()) {
