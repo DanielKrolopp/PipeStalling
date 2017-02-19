@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 
 public class World 
 {
-	
 	private static List<Player> playerList;
 	private List<Block> blockList;
 	private List<Mine> mineList;
@@ -38,6 +37,7 @@ public class World
 	
 	public void update(double delta)
 	{
+
 		if(startCountdown == 0)
 		{
 			startCountdown = System.currentTimeMillis();
@@ -55,6 +55,9 @@ public class World
 				go = true;
 			return;
 		}
+
+		registerKeys();
+
 		for(Player player : playerList) {
 			//block collisions, y-axis
 			player.updateYMotion();
@@ -250,10 +253,20 @@ public class World
 			
 			if(settings.getPlayerSuper(i).isPressed())
 			{
-				playerList.get(i).special();		//Does this work?
-			}
-			
-			
+				if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
+					((Loadstar)playerList.get(i)).special();
+				}
+				if(playerList.get(i).getCharacter() == CharacterType.JUMP){
+					((Jumpernaut)playerList.get(i)).special();
+				}
+				if(playerList.get(i).getCharacter() == CharacterType.ADD){
+					((MadAdder)playerList.get(i)).special();
+				}
+				if(playerList.get(i).getCharacter() == CharacterType.STORE) {
+					((Bulbastore)(playerList.get(i))).startTimer();
+					((Bulbastore)playerList.get(i)).special();
+				}
+			} 
 		}
 		
 	}

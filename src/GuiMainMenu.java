@@ -81,7 +81,7 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
                 GL11.glColor4f(0, 0, 0, 1);
                 if(input.getMouse(0).isPressed())
                 {
-                	application.initGui(new GuiPlayerChoose(this));
+                	application.initGui(new GuiPlayerChoose(this, colorShader, time));
                 }
             }
         }
