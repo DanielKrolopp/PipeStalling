@@ -3,9 +3,6 @@ import java.util.List;
 
 import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-
-import com.polaris.engine.render.Shader;
 
 public class World 
 {
@@ -325,14 +322,17 @@ public class World
 			b.render(delta);
 		}
 		
+		Vector3d vec = new Vector3d(effectTimer.getEffect());
+		vec.mul((Math.abs(ticks % .25 - .125) - .0625) * 16);
+		
 		for(int i = 0; i < players.length; i++)
 		{
-			playerList.get(i).render(delta, players[i], effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+			playerList.get(i).render(delta, players[i], vec);
 		}
 
 		for(Block b : blockList)
 		{
-			b.render(delta, b instanceof Pipe ? pipe : blocks, effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+			b.render(delta, b instanceof Pipe ? pipe : blocks, vec);
 		}
 		
 		int p = 0;
@@ -347,7 +347,7 @@ public class World
 
 		for(Mine m : mineList)
 		{
-			m.render(delta, players[p], effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+			m.render(delta, players[p], vec);
 		}
 	}
 

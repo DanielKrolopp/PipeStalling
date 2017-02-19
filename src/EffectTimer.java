@@ -1,13 +1,13 @@
+import org.joml.Vector3d;
 import org.joml.Vector4d;
 
-import com.google.common.base.Stopwatch;
 import com.polaris.engine.util.MathHelper;
 
 public class EffectTimer {
 	private long timer;
 	private static final long DURATION = 1 * 1000; //Seconds an effect lasts
 	private long expiry;
-	private Vector4d rotationVec = new Vector4d(0);
+	private Vector3d rotationVec = new Vector3d(0);
 
 	public EffectTimer(){
 		timer = System.currentTimeMillis();
@@ -20,16 +20,14 @@ public class EffectTimer {
 	 * Precondition: effect cannot be null
 	 * Returns succss of operation
 	 */
-	public boolean setEffect(Vector4d effect){
+	public boolean setEffect(Vector3d effect){
 		rotationVec.x = Math.max(effect.x, rotationVec.x);
+		rotationVec.y = Math.max(effect.y, rotationVec.y);
+		rotationVec.z = Math.max(effect.z, rotationVec.z);
 		return false;
 	}
 
-	public Vector4d getEffect(){
-		if(rotationVec == null)
-		{
-			return new Vector4d(0);
-		}
+	public Vector3d getEffect(){
 		return rotationVec;
 	}
 }
