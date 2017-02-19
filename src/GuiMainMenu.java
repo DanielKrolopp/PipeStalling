@@ -94,9 +94,6 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 		GL11.glLoadIdentity();
 		GL11.glOrtho(-1, 1, -1, 1, -1, 1);
 		GL11.glPopMatrix();
-		
-		colorShader.bind();
-		colorShader.unbind();
 	}
 
 	public void update(double delta)

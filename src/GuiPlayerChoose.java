@@ -22,8 +22,8 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 	private int time;
 	
 	private String[] names = new String[] {"Loadstar", "Bulbastore", "Jumpernaut", "Mad Adder"};
-	private Vector3d[] colors = new Vector3d[] {new Vector3d(204 / 255d, 204 / 255d, 0), new Vector3d(50 / 255d, 205 / 255d, 50 / 255d), 
-		new Vector3d(0, 191 / 255d, 1d), new Vector3d(128 / 255d, 0, 0)};
+	private Vector3d[] colors = new Vector3d[] {CharacterType.LOAD.getColor(), CharacterType.STORE.getColor(), CharacterType.JUMP.getColor(),
+			CharacterType.ADD.getColor()};
 	private int player1 = 0;
 	private int player2 = 1;
 	
@@ -158,8 +158,6 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
 		GL11.glColor4f(1, 1, 1, 1);
-
-
 		
 		GL11.glPushMatrix();
 		GL11.glTranslatef(0, -2, -7);
