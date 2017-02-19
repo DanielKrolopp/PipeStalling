@@ -64,9 +64,9 @@ public class World
 	public void spawnTwo()
 	{
 		playerList.get(0).setXPos(width/10 - 50);
-		playerList.get(0).setYPos(height/10);
+		playerList.get(0).setYPos(30);
 		playerList.get(1).setXPos(width*9/10 - 50);
-		playerList.get(1).setYPos(height/10);	
+		playerList.get(1).setYPos(30);	
 	}
 
 	public void spawnThree()
@@ -164,18 +164,24 @@ public class World
 							fell = false;
 							if(player.getYVel() > 0) {
 								player.setYPos(otherPlayer.getYPos() - player.getHeight());
-								if(player.isSlamming())
+								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
 								{
-									player.damage(5, otherPlayer);
+									player.damage(15, otherPlayer);
+									player.setYVel(0);
 								}
 							} else {
 								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
 								player.setYVel(0);
-								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
+								if(player.isSlamming())
 								{
-									player.damage(5, otherPlayer);
+									if(player.characterType == CharacterType.JUMP && player.isUsingSpecial())
+										player.damage(20, otherPlayer);
+									else 
+										player.damage(10, otherPlayer);
+									player.bounce();
 								}
-								player.land();
+								else
+									player.land();
 							}
 						}
 					}
@@ -183,7 +189,7 @@ public class World
 			}
 
 			//block collisions, x-axis
-			if(fell)
+			if(fell && !player.isSlamming())
 			{
 				if(player.getCharacter() == CharacterType.JUMP)
 				{
@@ -420,7 +426,7 @@ public class World
 	
 				if(settings.getPlayerBeam(i).wasQuickPressed())
 				{
-					Beam shot = new Beam(playerList.get(i), 7);
+					Beam shot = new Beam(playerList.get(i), 10);
 					shot.shootBeam();
 				}
 				

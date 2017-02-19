@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import com.polaris.engine.util.MathHelper;
+
 public class WorldGenerator {
 
 
@@ -8,7 +10,7 @@ public class WorldGenerator {
 		double worldWidth = 1920;
 		double worldHeight = 1080;
 		World generated = new World(worldWidth, worldHeight, gameSettings, players);
-		
+
 		//adds ceiling and floor
 		generated.addBlock(new Block(-200, 0, 2500, 30));
 		//generated.addBlock(new Block(-200, worldHeight - 30 , 2500, 30));
@@ -49,8 +51,8 @@ public class WorldGenerator {
 				i++;
 			}
 		}*/
-		
-		ArrayList<Block> blocks = generateBlocks(generated, 1920, 1080, 15);
+
+		ArrayList<Block> blocks = generateBlocks(generated, (int)worldWidth, (int)worldHeight, 15);
 		for(Block b : blocks)
 		{
 			generated.addBlock(b);
@@ -68,25 +70,57 @@ public class WorldGenerator {
 		width -= baseX + baseX;
 		height -= baseY + 100;
 
-		double blockX, blockY, blockWidth, blockHeight;
-		boolean notOverlapping = true;
+		int blocksAdded = 0;
+		while(blocksAdded < numBlocks) {
+			System.out.println("Starting loop");
+			int layer = MathHelper.random(2);
+			int half = MathHelper.random(1);
+			
+			int maxPerLayer = (int)(Math.ceil(numBlocks/3.0));
+			int maxPerHalf = (int)(Math.ceil(numBlocks/2.0));
+			int[] numBlocksInLayer = {0, 0, 0};
+			int[] numBlocksInHalf = {0, 0};
+			double blockX = 0;
+			double blockY = 0;
+			if(layer == 0) {
+				if(numBlocksInLayer[0] < maxPerLayer) {
+					blockY = MathHelper.random(120, height/3);
+				}
+			} else if(layer == 1) {
+				if(numBlocksInLayer[1] < maxPerLayer) {
+					blockY = MathHelper.random(height/3+25, 2*height/3);
+				}
+			} else {
+				if(numBlocksInLayer[2] < maxPerLayer) {
+					blockY = MathHelper.random(2*height/3+25, height-60);
+				}
+			}
 
-		int size = 50;
+			if(half == 0) {
+				if(numBlocksInHalf[0] < maxPerHalf) {
+					blockX = MathHelper.random(25, width/2 - 30);
+				}
+			} else {
+				if(numBlocksInHalf[1] < maxPerHalf) {
+					blockX = MathHelper.random(width/2 + 30, width - 25);
+				}
+			}
 
-		for(int i = 0; i < numBlocks; i++)
-		{	
+			double blockWidth, blockHeight;
+			boolean notOverlapping = true;
+
+			int size = 50;
+
 			int numTallBlocks = 0;
-			blockX = baseX + (int) (Math.random() * (width - size * 2) / size) * size;
-			blockY = baseY + (int) (Math.random() * (height - size) / size) * size;
-			blockWidth = (int) (Math.random() * Math.min((width - blockX) / size, 5) + 1) * size;
-			if(blockWidth <= 100 && numTallBlocks <= 4) {
+			blockWidth = (int) (Math.random() * Math.min((width - blockX) / size, 6) + 1) * size;
+			if(blockWidth <= 100 && numTallBlocks <= 2) {
 				if(blockWidth == 100)
 					blockWidth = 75;
-				blockHeight = (int)(Math.random() * Math.min((height - blockY) / size, 5) + 2) * size;
+				blockHeight = (int)(Math.random() * Math.min((height - blockY) / size, 4) + 2) * size;
 				numTallBlocks++;
 			}
 			else
-				blockHeight = (int) (Math.random() * Math.min((height - blockY) / size, 2) + 1) * size;
+				blockHeight = (int) (Math.random() * Math.min((height - blockY) / size, 1) + 1) * size;
 
 			notOverlapping = true;
 			if(blockHeight < 10){
@@ -107,7 +141,14 @@ public class WorldGenerator {
 			if(notOverlapping)
 			{
 				blocks.add(block);
+				blocksAdded++;
+				System.out.println("Blocks added: "+blocksAdded);
+				System.out.println(layer);
+				numBlocksInLayer[layer]++;
+				System.out.println("test "+layer);
+				numBlocksInHalf[half]++;
 			}
+			System.out.println("test");
 		}
 		return blocks;
 	}

@@ -127,6 +127,13 @@ public class Player extends Block
 		}
 	}
 	
+	public void bounce()
+	{
+		jumping = true;
+		yVel = 40;
+		yAcc = -2;
+	}
+	
 	public boolean isJumping()
 	{
 		return jumping;
@@ -143,6 +150,11 @@ public class Player extends Block
 	public boolean isSlamming()
 	{
 		return slamming;
+	}
+	
+	public boolean isUsingSpecial()
+	{
+		return usingSpecial;
 	}
 
 	public void land()				//Lands character on the ground, updating necessary fields
@@ -161,7 +173,15 @@ public class Player extends Block
 	public void damage(int amount, Player enemy){
 		if(!enemy.immuneToDamage)
 		{
-			enemy.health -= amount;
+			double multiplier = 1;
+			if((this.getCharacter() == CharacterType.STORE && enemy.getCharacter() == CharacterType.LOAD) || 
+					(this.getCharacter() == CharacterType.LOAD && enemy.getCharacter() == CharacterType.ADD) ||
+					(this.getCharacter() == CharacterType.ADD && enemy.getCharacter() == CharacterType.JUMP) ||
+					(this.getCharacter() == CharacterType.JUMP && enemy.getCharacter() == CharacterType.STORE))
+			{
+				multiplier = 1.5;
+			}
+			enemy.health -= Math.round(amount*multiplier);
 			if(enemy.health < 0){
 				enemy.alive = false;
 			}
@@ -170,7 +190,7 @@ public class Player extends Block
 		{
 			enemy.damageCounter += amount;
 		}
-		health -= Math.round(amount/5.00);
+		health -= Math.round(amount/2.5);
 		if(health < 0){
 		}
 	}
@@ -181,7 +201,7 @@ public class Player extends Block
 	
 	public void miss(int amount)
 	{
-		health -= Math.round(amount/7.00);
+		health -= Math.round(amount/5.00);
 		if(health < 0){
 			alive = false;
 		}

@@ -18,7 +18,14 @@ public class Beam {
 	
 	public Beam(Player pBlock, int amount)
 	{
-		xPos = pBlock.getXPos()+pBlock.getWidth()/2;
+		if(pBlock.getFacingLeft())
+		{
+			xPos = pBlock.getXPos();
+		}
+		else
+		{
+			xPos = pBlock.getXPos()+pBlock.getWidth();
+		}
 		yPos = pBlock.getYPos()+pBlock.getHeight()/2;
 		facingLeft = pBlock.getFacingLeft();
 		shooter = pBlock;
