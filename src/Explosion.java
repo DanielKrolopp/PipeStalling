@@ -1,6 +1,6 @@
 import java.util.List;
 
-import com.polaris.engine.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 public class Explosion {
 	
@@ -15,6 +15,8 @@ public class Explosion {
 	private boolean selfDamage;
 	private long startTime;
 	private Player collidedPlayer;
+	
+	private double ticks = 0;
 	//explosion constructor takes midpoint of explosion, blast radius, 
 	//number of rays (possible chances for someone to take damage) 
 	//and x incrememnt value (the smaller, the more accurate)
@@ -117,7 +119,26 @@ public class Explosion {
 		return Math.sqrt((x-midX)*(x-midX)+(y-midY)*(y-midY));
 	}
 	
-	public void render(double delta) {
+	public void render(double delta) 
+	{
+		ticks += delta;
+		
+		GL11.glColor4f(0, 0, 0, 1);
+		GL11.glBegin(GL11.GL_LINES);
+		
+		double mul1 = Math.max(.8 - 10 * ticks, 0);
+		double mul2 = Math.max(1 - 10 * ticks, 0);
+		
+		for(int i = 0; i < 360; i += 10)
+		{
+			double rad = Math.toRadians(i);
+			double cos = Math.cos(rad) * distances[i / 10];
+			double sin = Math.sin(rad) * this.distances[i / 10];
+
+			GL11.glVertex3d(this.midX + cos * mul1, 1080 - (this.midY + sin * mul1), 0);
+			GL11.glVertex3d(this.midX + cos * mul2, 1080 - (this.midY + sin * mul2), 0);
+		}
+		GL11.glEnd();
 		
 	}
 }

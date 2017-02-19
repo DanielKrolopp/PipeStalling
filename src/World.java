@@ -254,7 +254,7 @@ public class World
 		}
 	}
 
-	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
+	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text, Vector3d pipe)
 	{
 
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -298,9 +298,7 @@ public class World
 		
 		for(Explosion e : explosionList)
 		{
-			GL11.glBegin(GL11.GL_LINES);
 			e.render(delta);
-			GL11.glEnd();
 		}
 		
 		ticks += delta;
@@ -326,7 +324,7 @@ public class World
 
 		for(Block b : blockList)
 		{
-			b.render(delta, blocks, effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+			b.render(delta, b instanceof Pipe ? pipe : blocks, effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
 		}
 		
 		int p = 0;
