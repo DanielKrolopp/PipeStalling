@@ -5,6 +5,9 @@ import com.polaris.engine.util.MathHelper;
 
 public class Bulbastore extends Player {
 	
+	private long startTime;
+	private long currentTime;
+	
 	public Bulbastore(double x, double y) {
 		super(x, y);
 		characterType = CharacterType.STORE;
@@ -26,6 +29,17 @@ public class Bulbastore extends Player {
 				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, 
 				10, this, false);
 		explode.explode(damageCounter);
+	}
+	
+	public void startTimer() {
+		startTime = System.currentTimeMillis();
+	}
+	
+	public void updateTimer() {
+		currentTime = System.currentTimeMillis();
+		if(currentTime - startTime > 4000 && usingSpecial) {
+			stopSpecial();
+		}
 	}
 	
 	public void render(double delta) {
