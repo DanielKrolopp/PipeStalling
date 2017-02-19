@@ -33,7 +33,7 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 		color[0] = GL20.glGetUniformLocation(colorShader.getShaderId(), "red");
 		color[1] = GL20.glGetUniformLocation(colorShader.getShaderId(), "green");
 		color[2] = GL20.glGetUniformLocation(colorShader.getShaderId(), "blue");
-		
+				
 		stackSmashingStartX = 1920 / 2 - gameSettings.getFont().getWidth(new String(sequence)) / 2f;
 	}
 	

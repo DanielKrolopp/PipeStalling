@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector3d;
-import org.joml.Vector4d;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+
+import com.polaris.engine.render.Shader;
 
 public class World 
 {
@@ -31,6 +33,8 @@ public class World
 		playerList = new ArrayList<Player>();
 		blockList = new ArrayList<Block>();	
 		mineList = new ArrayList<Mine>();
+		explosionList = new ArrayList<Explosion>();
+		beamList = new ArrayList<Beam>();
 		settings = game;
 		numPlayers = playerCharacters.length;
 		assignTypes(playerCharacters);
@@ -240,6 +244,14 @@ public class World
 
 	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
 	{
+
+		for(Beam b : beamList)
+		{
+			GL11.glBegin(GL11.GL_QUADS);
+			b.render(delta);
+			GL11.glEnd();
+		}
+		
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
 		

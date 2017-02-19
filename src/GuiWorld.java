@@ -34,6 +34,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		backgroundShader = s;
 		time = t;
 		color = c;
+		
 	}
 	
 	public void close()
