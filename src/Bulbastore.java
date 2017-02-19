@@ -34,7 +34,7 @@ public class Bulbastore extends Player {
 	
 	public void updateTimer() {
 		currentTime = System.currentTimeMillis();
-		if(currentTime - startTime > 500 && usingSpecial) {
+		if(currentTime - startTime > 4000 && usingSpecial) {
 			stopSpecial();
 		}
 	}

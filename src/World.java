@@ -11,6 +11,7 @@ public class World
 {
 	private static List<Player> playerList;
 	private List<Block> blockList;
+	private List<Pipe> pipeList;
 	private List<Mine> mineList;
 	private List<Explosion> explosionList;
 	private List<Beam> beamList;
@@ -351,6 +352,9 @@ public class World
 	public List<Mine> getMines(){
 		return mineList;
 	}
+	public List<Pipe> getPipes(){
+		return pipeList;
+	}
 	/*
 	 * Adds a block to the world. Returns false if already in world.
 	 */
@@ -359,6 +363,13 @@ public class World
 			return false;
 		}
 		blockList.add(block);
+		return true;
+	}
+	public boolean addPipe(Pipe pipe){
+		if(pipeList.contains(pipe)){
+			return false;
+		}
+		pipeList.add(pipe);
 		return true;
 	}
 
@@ -409,8 +420,7 @@ public class World
 
 	public void registerKeys()
 	{
-		for(int i = 0; i < playerList.size(); i++)
-		{
+		for(int i = 0; i < playerList.size(); i++){
 			if(playerList.get(i).isAlive())
 			{
 				if(settings.getPlayerJump(i).isPressed())
