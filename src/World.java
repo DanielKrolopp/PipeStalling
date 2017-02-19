@@ -257,14 +257,14 @@ public class World
 	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text, Vector3d pipe)
 	{
 
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glDepthMask(true);
-
 		GL11.glPushMatrix();
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, 1920, 1080, 0, -1, 1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(true);
 
 		if(go < 3)
 		{
@@ -288,13 +288,6 @@ public class World
 			}
 			settings.getFont().unbind();
 		}
-
-		for(Beam b : beamList)
-		{
-			GL11.glBegin(GL11.GL_LINES);
-			b.render(delta);
-			GL11.glEnd();
-		}
 		
 		for(Explosion e : explosionList)
 		{
@@ -317,6 +310,12 @@ public class World
 		GL11.glLoadIdentity();
 
 		GL11.glColor4f(1, 1, 1, 1);
+		
+		for(Beam b : beamList)
+		{
+			b.render(delta);
+		}
+		
 		for(int i = 0; i < players.length; i++)
 		{
 			playerList.get(i).render(delta, players[i], effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);

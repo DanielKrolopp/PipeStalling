@@ -5,20 +5,20 @@ import com.polaris.engine.render.Shader;
 import net.jafama.FastMath;
 
 public class Beam {
-	
+
 	private double xPos;
 	private double yPos;
 	private double xPosEnd;
-	
+
 	private boolean facingLeft;
 	private boolean adderBeam;
-	
+
 	private int damage;
-	
+
 	private long startTime;
-	
+
 	Player shooter;
-	
+
 	public Beam(Player pBlock, int amount, boolean add)
 	{
 		if(pBlock.getFacingLeft())
@@ -27,9 +27,9 @@ public class Beam {
 		}
 		else
 		{
-			xPos = pBlock.getXPos()+pBlock.getWidth();
+			xPos = pBlock.getXPos() + pBlock.getWidth();
 		}
-		yPos = pBlock.getYPos()+pBlock.getHeight()/2;
+		yPos = pBlock.getYPos()+pBlock.getHeight() / 2;
 		facingLeft = pBlock.getFacingLeft();
 		adderBeam = add;
 		shooter = pBlock;
@@ -37,15 +37,15 @@ public class Beam {
 		startTimer();
 		GuiWorld.world.addBeam(this);
 	}
-	
+
 	public void startTimer() {
 		startTime = System.currentTimeMillis();
 	}
-	
+
 	public long getTime() {
 		return System.currentTimeMillis() - startTime;
 	}
-	
+
 	public boolean isAdder()
 	{
 		return adderBeam;
@@ -169,21 +169,39 @@ public class Beam {
 			shooter.miss(damage);
 			return false;
 		}
-	
+
 	}
-	
+
 	public void render(double delta)
 	{
 		double time = (System.currentTimeMillis() - startTime) / 20f;
-		double x = xPos;
-		double y = 1080 - (yPos + FastMath.sin(time) * 10);
-		for(int i = 0; i < (int)((xPosEnd - xPos) / 10); i++)
+		GL11.glBegin(GL11.GL_LINES);
+		GL11.glColor3f(0, 0, 0);
+		if(xPos < xPosEnd)
 		{
-			GL11.glVertex3d(x, y, 0);
-			x += 10;
-			y = 1080 - (yPos + FastMath.sin(time + x - xPos) * 10);
-			GL11.glVertex3d(x, y, 0);
+			double x = xPos - 960;
+			double y = -500 + (yPos + FastMath.sin(time) * 10);
+			for(int i = 0; i < (int)((xPosEnd - xPos) / 10); i++)
+			{
+				GL11.glVertex3d(x, y, -999);
+				x += 10;
+				y = -500 + (yPos + FastMath.sin(time + x - xPos) * 10);
+				GL11.glVertex3d(x, y, -999);
+			}
 		}
+		else
+		{
+			double x = xPosEnd - 960;
+			double y = -500 + (yPos + FastMath.sin(time) * 10);
+			for(int i = 0; i < (int)((xPos - xPosEnd) / 10); i++)
+			{
+				GL11.glVertex3d(x, y, -999);
+				x += 10;
+				y = -500 + (yPos + FastMath.sin(time + x - xPosEnd) * 10);
+				GL11.glVertex3d(x, y, -999);
+			}
+		}
+		GL11.glEnd();
 	}
 
 }
