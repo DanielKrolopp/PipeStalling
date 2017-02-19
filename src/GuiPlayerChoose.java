@@ -5,8 +5,6 @@ import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glViewport;
 
-import java.io.File;
-
 import org.joml.Vector3d;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -20,6 +18,7 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 
 	private Shader colorShader;
 	private int time;
+	private int[] color;
 	
 	private String[] names = new String[] {"Loadstar", "Bulbastore", "Jumpernaut", "Mad Adder"};
 	private Vector3d[] colors = new Vector3d[] {CharacterType.LOAD.getColor(), CharacterType.STORE.getColor(), CharacterType.JUMP.getColor(),
@@ -31,12 +30,18 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 	private double player1Ticks = 0;
 	private double player2Ticks = 3;
 
-	public GuiPlayerChoose(GuiMainMenu gui, Shader s, int t) 
+	public GuiPlayerChoose(GuiMainMenu gui, Shader s, int t, int[] c) 
 	{
 		super(gui);
 		
 		colorShader = s;
 		time = t;
+		color = c;
+	}
+	
+	public void close()
+	{
+		super.close();
 	}
 
 	public void update(double delta)
@@ -69,7 +74,7 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 		
 		if(input.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
 		{
-			application.initGui(new GuiWorld(application, colorShader, time, 2, player1, player2));
+			application.initGui(new GuiWorld(application, colorShader, time, color, 2, player1, player2));
 		}
 		
 		player1 = (player1 + move1);
@@ -115,6 +120,9 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 		GL11.glDepthMask(false);
 		
 		colorShader.bind();
+		GL20.glUniform1f(color[0], 1f);
+		GL20.glUniform1f(color[1], 1f);
+		GL20.glUniform1f(color[2], .8f);
 		GL20.glUniform1f(time, (System.currentTimeMillis() % 1024) / 1024f);
 
 		GL11.glBegin(GL11.GL_QUADS);

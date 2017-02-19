@@ -183,7 +183,7 @@ public class World
 
 	}
 
-	public void render(double delta, Vector3d[] players, Vector3d background, Vector3d blocks)
+	public void render(double delta, Vector3d[] players, Vector3d blocks)
 	{
 		GL11.glColor4f(1, 1, 1, 1);
 		for(int i = 0; i < players.length; i++)
