@@ -52,12 +52,6 @@ public class Block {
 		
 		GL11.glPopMatrix();
 		
-		/*GL11.glBegin(GL11.GL_QUADS);
-		GL11.glVertex3d(xPos, yPos, 0f);
-		GL11.glVertex3d(xPos, yPos + height, 0);
-		GL11.glVertex3d(xPos + width, yPos + height, 0);
-		GL11.glVertex3d(xPos + width, yPos, 0);
-		GL11.glEnd();*/
 	}
 	
 	public boolean collidesWith(Block block){
