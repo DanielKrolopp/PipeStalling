@@ -5,8 +5,8 @@ public class WorldGenerator {
 
 	//worldWidth and worldHeight are width/height of the untrimmed world, Killian	
 	public static World generateWorld(GameSettings gameSettings, int widthTrim, int heightTrim, int[] players) {
-		double worldWidth = 1920 - 2 * widthTrim;
-		double worldHeight = 1080 - 2 * heightTrim;
+		double worldWidth = 1920;
+		double worldHeight = 1080;
 		World generated = new World(worldWidth, worldHeight, gameSettings, players);
 		double xBase = worldWidth % 10 / 2 + 100;
 		double yBase = worldHeight % 10 / 2 + 100;
@@ -44,6 +44,8 @@ public class WorldGenerator {
 				i++;
 			}
 		}
+		generated.addBlock(new Block(-100, 0, 2200, 30));
+		generated.addBlock(new Block(-100, worldHeight - 30 , 2200, 30));
 		return generated;
 	}
 }

@@ -141,7 +141,8 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 		gameSettings.getFont().draw("Player 2", 1920 * 3 / 4f - gameSettings.getFont().getWidth("Player 2", .8f) / 2, 200f, .5f, .8f);
 		GL11.glPushMatrix();
 		GL11.glColor4f(50 / 255f, 50 / 255f, 50 / 255f, 1f);
-		gameSettings.getFont().draw("VS", 1920 / 2 - gameSettings.getFont().getWidth("VS", 1.2f + (float)Math.abs((ticksExisted % 2 - 1) / 2)) / 2, 500f, .5f, 1.2f + (float)Math.abs((ticksExisted % 2 - 1) / 2));
+		float size =  1.2f + (float)Math.abs((ticksExisted % 2 - 1) / 2);
+		gameSettings.getFont().draw("VS", 1920 / 2 - gameSettings.getFont().getWidth("VS", size) / 2, 500f + gameSettings.getFont().getSize() * size / 2, .5f, size);
 		GL11.glPopMatrix();
 		GL11.glColor4d(colors[player1].x, colors[player1].y, colors[player1].z, 1f);
 		gameSettings.getFont().draw(names[player1], 1920 / 4f - gameSettings.getFont().getWidth(names[player1], .6f) / 2, 700f, .5f, .6f);       

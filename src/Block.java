@@ -61,7 +61,7 @@ public class Block {
 	}
 	
 	public boolean collidesWith(Block block){
-		if(getXPos() < block.getXPos() && getXPos() + getWidth() > block.getXPos()){
+		/*if(getXPos() < block.getXPos() && getXPos() + getWidth() > block.getXPos()){
 			return true;
 		}
 		else if(block.getXPos() < getXPos() && block.getXPos() + block.getWidth() > getXPos()){
@@ -73,7 +73,12 @@ public class Block {
 		else if(block.getYPos() < getYPos() && block.getYPos() + block.getHeight() > getYPos()){
 			return true;
 		}
-		return false;
+		return false;*/
+		
+		return (getXPos() < block.getXPos() + block.getWidth() &&
+				getXPos() + getWidth() > block.getXPos() &&
+				getYPos() < block.getYPos() + block.getHeight() &&
+				getHeight() + getYPos() > block.getYPos());
 	}
 	
 	@Override

@@ -28,6 +28,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 	private Vector3d background;
 	private Vector3d blocks;
+	private Vector3d text;
 	private Vector3d[] players;
 
 	private int[] playerCharacters;
@@ -61,6 +62,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		
 		background = genColor(players.length);
 		blocks = genColor(players.length);
+		text = genColor(players.length);
 		
 		world = WorldGenerator.generateWorld(gameSettings, 10, 20, playerCharacters);
 	}
@@ -93,25 +95,14 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		GL11.glEnd();
 
 		backgroundShader.unbind();
+		
+		GL11.glPushMatrix();
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, 1920, 1080, 0, -1, 1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 
-		int windowWidth = gameSettings.getWindowWidth();
-		int windowHeight = gameSettings.getWindowHeight();
-		glViewport(0, 0, windowWidth, windowHeight);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		double ymax = .01 * Math.tan( 60 * Math.PI / 360.0 );
-		double ymin = -ymax;
-		double xmin = ymin * windowWidth / windowHeight;
-		double xmax = ymax * windowWidth / windowHeight;
-		glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glDepthMask(true);
-		GL11.glColor4f(1, 1, 1, 1);
-
-		world.render(delta, players, blocks);
+		world.render(delta, players, blocks, text);
 	}
 
 	private Vector3d genColor(int iteration)
@@ -139,6 +130,16 @@ public class GuiWorld extends GuiScreen<GameSettings>
 				maxDiff = (int) Math.abs(background.x * 255 - red);
 				maxDiff += (int) Math.abs(background.y * 255 - green);
 				maxDiff += (int) Math.abs(background.z * 255 - blue);
+				if(maxDiff < 275 - players.length * 15)
+				{
+					foundColor = false;
+				}
+			}
+			else if(blocks != null)
+			{
+				maxDiff = (int) Math.abs(blocks.x * 255 - red);
+				maxDiff += (int) Math.abs(blocks.y * 255 - green);
+				maxDiff += (int) Math.abs(blocks.z * 255 - blue);
 				if(maxDiff < 275 - players.length * 15)
 				{
 					foundColor = false;
