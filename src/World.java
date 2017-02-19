@@ -343,71 +343,74 @@ public class World
 	{
 		for(int i = 0; i < playerList.size(); i++)
 		{
-			if(settings.getPlayerJump(i).isPressed())
+			if(playerList.get(i).isAlive())
 			{
-				playerList.get(i).jump();
-			}
-
-			if(settings.getPlayerSmash(i).isPressed())
-			{
-				playerList.get(i).slam();
-			}
-			
-			if(settings.getPlayerRight(i).isDoublePressed())
-			{
-				playerList.get(i).setXVel(22);
-				playerList.get(i).facingLeft = false;
-			}
-			
-			else if(settings.getPlayerRight(i).isPressed())
-			{
-				playerList.get(i).setXVel(15);
-				playerList.get(i).facingLeft = false;
-			}
-			
-			else if(settings.getPlayerLeft(i).isDoublePressed())
-			{
-				playerList.get(i).setXVel(-22);
-				playerList.get(i).facingLeft = true;
-			}		
-			
-			else if(settings.getPlayerLeft(i).isPressed())
-			{
-				playerList.get(i).setXVel(-15);
-				playerList.get(i).facingLeft = true;
-			}
-
-			else
-			{
-				playerList.get(i).setXAcc(-playerList.get(i).getXVel());
-			}
-
-			if(settings.getPlayerBeam(i).wasQuickPressed())
-			{
-				Beam shot = new Beam(playerList.get(i), 7);
-				shot.shootBeam();
-			}
-			
-			if(settings.getPlayerSuper(i).wasQuickPressed())
-			{
-				if(playerList.get(i).getCharacter() == CharacterType.ADD){
-				((MadAdder)playerList.get(i)).special();
+				if(settings.getPlayerJump(i).isPressed())
+				{
+					playerList.get(i).jump();
+				}
+				
+				if(settings.getPlayerSmash(i).isPressed())
+				{
+					playerList.get(i).slam();
+				}
+				
+				if(settings.getPlayerRight(i).isDoublePressed())
+				{
+					playerList.get(i).setXVel(22);
+					playerList.get(i).facingLeft = false;
+				}
+				
+				else if(settings.getPlayerRight(i).isPressed())
+				{
+					playerList.get(i).setXVel(15);
+					playerList.get(i).facingLeft = false;
+				}
+				
+				else if(settings.getPlayerLeft(i).isDoublePressed())
+				{
+					playerList.get(i).setXVel(-22);
+					playerList.get(i).facingLeft = true;
+				}		
+				
+				else if(settings.getPlayerLeft(i).isPressed())
+				{
+					playerList.get(i).setXVel(-15);
+					playerList.get(i).facingLeft = true;
+				}
+	
+				else
+				{
+					playerList.get(i).setXAcc(-playerList.get(i).getXVel());
+				}
+	
+				if(settings.getPlayerBeam(i).wasQuickPressed())
+				{
+					Beam shot = new Beam(playerList.get(i), 7);
+					shot.shootBeam();
+				}
+				
+				if(settings.getPlayerSuper(i).wasQuickPressed())
+				{
+					if(playerList.get(i).getCharacter() == CharacterType.ADD){
+						((MadAdder)playerList.get(i)).special();
+					}
+				}
+	
+				if(settings.getPlayerSuper(i).isPressed())
+				{
+					if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
+						((Loadstar)playerList.get(i)).special();
+					}
+					if(playerList.get(i).getCharacter() == CharacterType.JUMP){
+						((Jumpernaut)playerList.get(i)).special();
+					}
+					if(playerList.get(i).getCharacter() == CharacterType.STORE) {
+						((Bulbastore)(playerList.get(i))).startTimer();
+						((Bulbastore)playerList.get(i)).special();
+					}
 				}
 			}
-
-			if(settings.getPlayerSuper(i).isPressed())
-			{
-				if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
-					((Loadstar)playerList.get(i)).special();
-				}
-				if(playerList.get(i).getCharacter() == CharacterType.JUMP){
-					((Jumpernaut)playerList.get(i)).special();
-				}
-				if(playerList.get(i).getCharacter() == CharacterType.STORE) {
-					((Bulbastore)(playerList.get(i))).startTimer();
-					((Bulbastore)playerList.get(i)).special();
-				}
-			} 
 		}
 
 	}
