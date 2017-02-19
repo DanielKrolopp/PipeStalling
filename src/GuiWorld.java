@@ -22,6 +22,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 	private Vector3d background;
 	private Vector3d blocks;
 	private Vector3d[] players;
+	private Vector3d text;
 
 	private int[] playerCharacters;
 
@@ -54,6 +55,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		
 		background = genColor(players.length);
 		blocks = genColor(players.length);
+		text = genColor(players.length);
 		
 		world = WorldGenerator.generateWorld(gameSettings, 10, 20, playerCharacters);
 	}
@@ -87,24 +89,9 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 		backgroundShader.unbind();
 
-		int windowWidth = gameSettings.getWindowWidth();
-		int windowHeight = gameSettings.getWindowHeight();
-		GL11.glViewport(0, 0, windowWidth, windowHeight);
-		GL11.glMatrixMode(GL11.GL_PROJECTION);
-		GL11.glLoadIdentity();
-		double ymax = .01 * Math.tan( 60 * Math.PI / 360.0 );
-		double ymin = -ymax;
-		double xmin = ymin * windowWidth / windowHeight;
-		double xmax = ymax * windowWidth / windowHeight;
-		GL11.glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
-		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		GL11.glLoadIdentity();
 
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glDepthMask(true);
-		GL11.glColor4f(1, 1, 1, 1);
 
-		world.render(delta, players, blocks);
+		world.render(delta, players, blocks, text);
 	}
 
 	private Vector3d genColor(int iteration)

@@ -1,4 +1,4 @@
-import com.polaris.engine.util.MathHelper;
+import java.util.ArrayList;
 
 public class WorldGenerator {
 
@@ -8,14 +8,18 @@ public class WorldGenerator {
 		double worldWidth = 1920;
 		double worldHeight = 1080;
 		World generated = new World(worldWidth, worldHeight, gameSettings, players);
-		double xBase = worldWidth % 10 / 2 + 100;
+
+		generated.addBlock(new Block(-200, 0, 2500, 30));
+		generated.addBlock(new Block(-200, worldHeight - 30 , 2500, 30));
+
+		/*double xBase = worldWidth % 10 / 2 + 100;
 		double yBase = worldHeight % 10 / 2 + 100;
 		int size = 50;
-		
+
 		double blockX;
 		double blockY;
 		double baseVal = 30;
-		
+
 		int i = 0;
 		while(i < 15){ 
 			blockX = xBase + (int) (Math.random() * (worldWidth - size * 2) / size) * size;
@@ -29,9 +33,9 @@ public class WorldGenerator {
 			}
 			double blockWidth = baseVal * widthMultiplier;
 			double blockHeight = baseVal * heightMultiplier;
-		
+
 			Block block = new Block(blockX, blockY, blockHeight, blockWidth);
-			
+
 			boolean collision = false;
 			for(Block b : generated.getBlocks()){
 				if(block.collidesWith(b)){
@@ -43,9 +47,65 @@ public class WorldGenerator {
 				generated.addBlock(block);
 				i++;
 			}
+		}*/
+		
+		ArrayList<Block> blocks = generateBlocks(generated, 1920, 1080, 15);
+		for(Block b : blocks)
+		{
+			generated.addBlock(b);
 		}
-		generated.addBlock(new Block(-200, 0, 2500, 30));
-		generated.addBlock(new Block(-200, worldHeight - 30 , 2500, 30));
 		return generated;
+	}
+
+	public static ArrayList<Block> generateBlocks(World world, int width, int height, int numBlocks)
+	{
+		ArrayList<Block> blocks = new ArrayList<Block>();
+
+		int baseX = width % 10 / 2 + 100;
+		int baseY = height % 10 / 2 + 100;
+
+		width -= baseX + baseX;
+		height -= baseY + 100;
+
+		double blockX, blockY, blockWidth, blockHeight;
+		boolean notOverlapping = true;
+
+		int size = 50;
+
+		for(int i = 0; i < numBlocks; i++)
+		{	
+			int numTallBlocks = 0;
+			blockX = baseX + (int) (Math.random() * (width - size * 2) / size) * size;
+			blockY = baseY + (int) (Math.random() * (height - size) / size) * size;
+			blockWidth = (int) (Math.random() * Math.min((width - blockX) / size, 5) + 1) * size;
+			if(blockWidth <= 100 && numTallBlocks <= 4) {
+				if(blockWidth == 100)
+					blockWidth = 75;
+				blockHeight = (int)(Math.random() * Math.min((height - blockY) / size, 5) + 2) * size;
+				numTallBlocks++;
+			}
+			else
+				blockHeight = (int) (Math.random() * Math.min((height - blockY) / size, 2) + 1) * size;
+
+			notOverlapping = true;
+
+			Block block = new Block(blockX, blockY, blockWidth, blockHeight);
+
+			for(int j = 0; j < blocks.size(); j++)
+			{
+				Block collider = blocks.get(j);
+				Block newCollider = new Block(collider.getXPos() - 20, collider.getYPos() - 20, collider.getWidth() + 40, collider.getHeight() + 40);
+				if(world.isColliding(block, newCollider))
+				{
+					notOverlapping = false;
+					j = blocks.size();
+				}
+			}
+			if(notOverlapping)
+			{
+				blocks.add(block);
+			}
+		}
+		return blocks;
 	}
 }

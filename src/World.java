@@ -110,12 +110,13 @@ public class World
 			else if(countdown >= 1000)
 			{
 				go = 1;
+				return;
 			}
 			else
 			{
 				go = 0;
+				return;
 			}
-			return;
 		}
 
 		registerKeys();
@@ -200,52 +201,38 @@ public class World
 
 	}
 
-	public void render(double delta, Vector3d[] players, Vector3d blocks)
+	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
 	{
-		/*for(int i = 0; i < players.length; i ++)
-		{
-			Player player = playerList.get(i);
-			GL11.glColor4d(players[i].x, players[i].y, players[i].z, 1);
-
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-			GL11.glBegin(GL11.GL_QUADS);
-			GL11.glVertex3d(player.getXPos(), 1080 - (player.getYPos() + player.getHeight() / 3), 0);
-			GL11.glVertex3d(player.getXPos(), 1080 - (player.getYPos() + player.getHeight() / 2), 0);
-			GL11.glVertex3d(player.getXPos() + player.getWidth(), 1080 - (player.getYPos() + player.getHeight() / 2), 0);
-			GL11.glVertex3d(player.getXPos() + player.getWidth(), 1080 - (player.getYPos() + player.getHeight() / 3), 0);
-			GL11.glEnd();
-
-			GL11.glColor4f(0, 0, 0, 1);
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-			GL11.glLineWidth(1f);
-			
-			GL11.glBegin(GL11.GL_QUADS);
-			GL11.glVertex3d(player.getXPos(), 1080 - (player.getYPos() + player.getHeight() / 3), 0);
-			GL11.glVertex3d(player.getXPos(), 1080 - (player.getYPos() + player.getHeight() / 2), 0);
-			GL11.glVertex3d(player.getXPos() + player.getWidth(), 1080 - (player.getYPos() + player.getHeight() / 2), 0);
-			GL11.glVertex3d(player.getXPos() + player.getWidth(), 1080 - (player.getYPos() + player.getHeight() / 3), 0);
-			GL11.glEnd();
-
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-		}*/
-
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
 		
+		GL11.glPushMatrix();
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, 1920, 1080, 0, -1, 1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
 		if(go < 3)
 		{
+			float ticks = (System.currentTimeMillis() - this.startCountdown) % 1000f / 1000f;
+			float size = .5f + ticks;
+			float alpha = 1 - Math.abs(ticks - .5f) * 2;
+			GL11.glColor4d(text.x, text.y, text.z, alpha);
+			settings.getFont().bind();
 			if(go == 0)
 			{
-				
+				settings.getFont().draw("READY?", 1920 / 2 - settings.getFont().getWidth("READY?", size) / 2, 540 + settings.getFont().getSize() * size / 2, 0, size);
 			}
 			else if(go == 1)
 			{
-				
+				settings.getFont().draw("SET", 1920 / 2 - settings.getFont().getWidth("SET", size) / 2, 540 + settings.getFont().getSize() * size / 2, 0, size);
 			}
 			else
 			{
-				
+				settings.getFont().draw("GO!", 1920 / 2 - settings.getFont().getWidth("GO!", size) / 2, 540 + settings.getFont().getSize() * size / 2, 0, size);
+
 			}
+			settings.getFont().unbind();
 		}
 
 		int windowWidth = settings.getWindowWidth();
