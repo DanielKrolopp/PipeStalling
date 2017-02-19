@@ -1,6 +1,8 @@
 import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
 
+import com.polaris.engine.util.MathHelper;
+
 public class Player extends Block
 {
 	protected boolean jumping;
@@ -23,6 +25,8 @@ public class Player extends Block
 	protected int jumpCount;
 	protected int damageCounter;
 	protected static int size = 100;
+	
+	private double ticks = 0;
 	
 	protected CharacterType characterType;	//Can be JUMP, ADD, LOAD, or STORE
 	
@@ -193,8 +197,37 @@ public class Player extends Block
 	}
 	
 	public void render(double delta, Vector3d vec)
-	{
-		super.render(delta, vec);
+	{	
+		double mul = (1 - Math.min(ticks, .25) * 4);
+		double mul1 = (ticks > .25 ? 0 : 1);
+		if(health <= 0.001)
+		{
+			health = 0;
+			ticks += delta;
+			
+			GL11.glPushMatrix();
+			
+			GL11.glColor4d(vec.x, vec.y, vec.z, 1);
+			GL11.glTranslated(xPos + width / 2 - 960, -500 + height / 2 * mul + yPos, -999);
+			GL11.glScaled(width / 2 * (mul / 2), height / 2 * (mul / 2), 7.5 * (mul / 2));
+			
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+			genCube();
+			
+			GL11.glColor4f(0, 0, 0, 1);
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+			GL11.glLineWidth(1f);
+			GL11.glScaled(1.01d, 1.02d, 1.02d);
+			genCube();
+			
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+			
+			GL11.glPopMatrix();
+		}
+		else
+		{
+			super.render(delta, vec);
+		}
 		
 		GL11.glPushMatrix();
 		
@@ -203,14 +236,14 @@ public class Player extends Block
 		GL11.glColor4f(0, 0, 0, 1);
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
 		GL11.glLineWidth(1.5f);
-		GL11.glScaled(width / 2, 7.5, 7.5);
+		GL11.glScaled(width / 2 * mul, 7.5 * mul1, 7.5 * mul1);
 		GL11.glScaled(1.02d, 1.02d, 1.02d);
 		genCube();
 		GL11.glPopMatrix();
 		
 		GL11.glPushMatrix();
 		GL11.glTranslated(xPos + width / 2 * (health / 100d) - 960, -500 + yPos + height * 1.5, -999);
-		GL11.glScaled(width / 2 * (health / 100d), 7.5, 7.5);
+		GL11.glScaled(width / 2 * (health / 100d), 7.5 * (MathHelper.isEqual(health, 0) ? 0 : 1), 7.5 * (MathHelper.isEqual(health, 0) ? 0 : 1));
 		GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		genCube();
