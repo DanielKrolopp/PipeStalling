@@ -5,8 +5,9 @@ public class WorldGenerator {
 		World generated = new World(worldWidth, worldHeight, gameSettings);
 		int i = 0;
 		while(i < 20){ //Blocks will NOT overlap (at least they shouldn't)
-			int width = (int)(Math.random() * 40) + 20;
-			int height = (int)(Math.random() * 40) + 20;
+			//Bucky mess with this stuff
+			int width =  ((int)(Math.random() * 150 + 80));
+			int height = 25 + ((int)(Math.random() * 40) * 5);
 			int x = (int)(Math.random() * (worldWidth - width));
 			int y = (int)(Math.random() * (worldHeight - height));
 			Block block = new Block(x, y, height, width);
