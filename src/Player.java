@@ -15,6 +15,7 @@ public class Player extends Block
 	protected boolean facingLeft;
 	protected boolean usingSpecial;	//State to determine if the unique ability of character is used
 	protected boolean immuneToDamage;
+	protected boolean alive;
 	
 	protected double xVel;
 	protected double yVel;
@@ -36,6 +37,7 @@ public class Player extends Block
 	{
 		super(x, y, Player.size, Player.size);
 		health = 100;
+		alive = true;
 		jumpCount = 2;
 		xAcc = 0;
 		yAcc = 0;
@@ -160,17 +162,29 @@ public class Player extends Block
 		if(!enemy.immuneToDamage)
 		{
 			enemy.health -= amount;
+			if(enemy.health < 0){
+				enemy.alive = false;
+			}
 		}
 		else
 		{
 			enemy.damageCounter += amount;
 		}
 		health -= Math.round(amount/5.00);
+		if(health < 0){
+		}
+	}
+	
+	public boolean isAlive(){
+		return alive;
 	}
 	
 	public void miss(int amount)
 	{
 		health -= Math.round(amount/7.00);
+		if(health < 0){
+			alive = false;
+		}
 	}
 	
 	public boolean getFacingLeft(){
