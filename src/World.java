@@ -28,46 +28,46 @@ public class World
 		mineList = new ArrayList<Mine>();
 		settings = game;
 		numPlayers = playerCharacters.length;
-		CharacterType[] types = new CharacterType[numPlayers];
-		types = assignTypes(types, playerCharacters);
+		assignTypes(playerCharacters);
 		if(numPlayers == 2)
-			spawnTwo(types);
+			spawnTwo();
 		if(numPlayers == 2)
-			spawnThree(types);
+			spawnThree();
 		if(numPlayers == 2)
-			spawnFour(types);
+			spawnFour();
 	}
 	
-	public CharacterType[] assignTypes(CharacterType[] types, int[] playerCharacters)
+	public void assignTypes(int[] playerCharacters)
 	{
 		for(int i = 0; i < numPlayers; i++)
 		{
 			if(playerCharacters[i] == 0)
-				types[i] = CharacterType.LOAD;
+				playerList.add(new Loadstar(0, 0));
 			if(playerCharacters[i] == 1)
-				types[i] = CharacterType.STORE;
+				playerList.add(new Bulbastore(0, 0));
 			if(playerCharacters[i] == 2)
-				types[i] = CharacterType.JUMP;
+				playerList.add(new Jumpernaut(0, 0));
 			if(playerCharacters[i] == 3)
-				types[i] = CharacterType.ADD;
+				playerList.add(new MadAdder(0, 0));
 		}
-		return types;
 	}
 	
-	public void spawnTwo(CharacterType[] types)
+	public void spawnTwo()
 	{
-		playerList.add(new Player(width/10 - 50, height*9/10, types[0]));
-		blockList.add(new Block(width/10 - 50, height*9/10 + 100, 100, 10));
-		playerList.add(new Player(width*9/10 - 50, height*9/10, types[0]));
-		blockList.add(new Block(width*9/10 - 50, height*9/10 + 100, 100, 10));		
+		playerList.get(0).setXPos(width/10 - 50);
+		playerList.get(0).setYPos(height/10);
+		blockList.add(new Block(width/10 - 50, height/10, 100, 10));
+		playerList.get(1).setXPos(width*9/10 - 50);
+		playerList.get(1).setYPos(height/10);
+		blockList.add(new Block(width*9/10 - 50, height/10, 100, 10));		
 	}
 	
-	public void spawnThree(CharacterType[] types)
+	public void spawnThree()
 	{
 		
 	}
 	
-	public void spawnFour(CharacterType[] types)
+	public void spawnFour()
 	{
 		
 	}
@@ -232,6 +232,20 @@ public class World
 		return true;
 	}
 
+	public void updateVelocityAcceleration(Player player){
+		double yVel = player.getYVel();
+		double xVel = player.getXVel();
+		double yAcc = player.getYAcc();
+		double xAcc = player.getXAcc();
+		double oldX = player.getXPos();
+		double oldY = player.getYPos();
+
+		player.setYVel(yVel + yAcc);
+		player.setXVel(xVel + xAcc);
+		player.setXPos(oldX + xVel);
+		player.setYPos(oldY + yVel);
+	}
+
 	public boolean isColliding(Block p1, Block p2) {
 		return (p1.getXPos() < p2.getXPos() + p2.getWidth() &&
 				p1.getXPos() + p1.getWidth() > p2.getXPos() &&
@@ -260,15 +274,15 @@ public class World
 			if(settings.getPlayerRight(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(2);
-				playerList.get(i).setXVel(1);
+					playerList.get(i).setXVel(20);
+				playerList.get(i).setXVel(10);
 			}
 			
 			else if(settings.getPlayerLeft(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(-2);
-				playerList.get(i).setXVel(-1);
+					playerList.get(i).setXVel(-20);
+				playerList.get(i).setXVel(-10);
 			}
 			
 			else

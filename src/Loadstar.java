@@ -3,7 +3,7 @@ import org.joml.Vector3d;
 public class Loadstar extends Player {
 
 	public Loadstar(double x, double y) {
-		super(x, y, CharacterType.LOAD);
+		super(x, y);
 		characterType = CharacterType.LOAD;
 	}
 	

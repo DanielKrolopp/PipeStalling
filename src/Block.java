@@ -5,7 +5,7 @@ public class Block {
 	
 	double xPos, yPos, height, width;
 	
-	public Block(double x, double y, double height, double width){
+	public Block(double x, double y, double width, double height){
 		this.xPos = x;
 		this.yPos = y;
 		this.height = height;

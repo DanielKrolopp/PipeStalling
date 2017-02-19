@@ -5,7 +5,7 @@ public class MadAdder extends Player {
 	private final int damage = 4; //Can be modified
 	
 	public MadAdder(double x, double y) {
-		super(x, y, CharacterType.ADD);
+		super(x, y);
 		characterType = CharacterType.ADD;
 	}
 	
