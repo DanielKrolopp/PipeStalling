@@ -24,6 +24,7 @@ public class Player extends Block
 	protected double yAcc;
 	
 	protected long jumpTime;
+	protected long lastTeleport;
 	
 	protected int health;		//Maxes out at 100, no effect on size
 	protected int jumpCount;

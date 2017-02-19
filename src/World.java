@@ -255,6 +255,11 @@ public class World
 				beamList.remove(beam);
 			}
 		}
+		for(Block block : blockList){
+			if(block instanceof Pipe){
+				((Pipe) block).update();
+			}
+		}
 	}
 
 	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text, Vector3d pipe)
