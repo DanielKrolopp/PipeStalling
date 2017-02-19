@@ -25,7 +25,7 @@ public class Jumpernaut extends Player {
 	
 	public void land()
 	{
-		if(usingSpecial)
+		if(usingSpecial && slamming)
 		{
 			GuiWorld.world.effectTimer.setEffect(new Vector3d(4, 0, 0));
 
