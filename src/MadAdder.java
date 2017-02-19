@@ -17,8 +17,8 @@ public class MadAdder extends Player {
 			if(health >= 110)
 				return;
 			if(health >= 100)
-				this.heal(damage/4);
-			this.heal(damage/2);
+				this.heal((int)Math.round(damage/3.00));
+			this.heal((int)Math.round(damage*2.00/3.00));
 		}
 	}
 }
