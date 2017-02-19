@@ -296,7 +296,14 @@ public class World
 			b.render(delta);
 			GL11.glEnd();
 		}
-
+		
+		for(Explosion e : explosionList)
+		{
+			GL11.glBegin(GL11.GL_LINES);
+			e.render(delta);
+			GL11.glEnd();
+		}
+		
 		ticks += delta;
 
 		int windowWidth = settings.getWindowWidth();
@@ -321,6 +328,21 @@ public class World
 		for(Block b : blockList)
 		{
 			b.render(delta, blocks, effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+		}
+		
+		int p = 0;
+		for(int i = 0; i < players.length; i++)
+		{
+			if(playerList.get(i).getCharacter() == CharacterType.LOAD)
+			{
+				p = i;
+				break;
+			}
+		}
+
+		for(Mine m : mineList)
+		{
+			m.render(delta, players[p], effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
 		}
 	}
 

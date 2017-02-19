@@ -13,7 +13,7 @@ public class Loadstar extends Player {
 	public void special(){
 		if(System.currentTimeMillis() > lastSpecial + 1000){
 			usingSpecial = true;
-			Mine mine = new Mine(getXPos(), getYPos());
+			Mine mine = new Mine(getXPos() + this.getWidth() / 2, getYPos());
 			GuiWorld.world.addMine(mine);
 			System.out.println("Placed a mine at ("+getXPos()+", "+getYPos()+").");
 			this.damage(5, this);
