@@ -28,6 +28,8 @@ public class Beam {
 		//Blocks and Players and iterating over it
 		if(facingLeft){ 
 			for(Player player : GuiWorld.world.getPlayers()){
+				if(shooter.getCharacter() == player.getCharacter())
+					continue;
 				double other_top = player.getYPos();
 				double other_bottom = player.getYPos() + player.getHeight();
 				double other_centerY = (2* player.getYPos() + player.getHeight())/2;
@@ -62,6 +64,8 @@ public class Beam {
 		}
 		else{
 			for(Player player : GuiWorld.world.getPlayers()){
+				if(shooter.getCharacter() == player.getCharacter())
+					continue;
 				double other_top = player.getYPos();
 				double other_bottom = player.getYPos() + player.getHeight();
 				double other_centerY = (2* player.getYPos() + player.getHeight())/2;

@@ -52,8 +52,8 @@ public class World
 			//block collisions, y-axis
 			player.updateYMotion();
 			if(player.getYPos() >= height) {
-				player.setYPos(player.getHeight());
-			} else if(player.getYPos() <= 0) {
+				player.setYPos(0 - player.getHeight());
+			} else if(player.getYPos() <= 0 - player.getHeight()) {
 				player.setYPos(height);
 			} else {
 				for(Block block : blockList) {
@@ -74,6 +74,10 @@ public class World
 						if(isColliding(player, otherPlayer)){
 							if(player.getYVel() > 0) {
 								player.setYPos(otherPlayer.getYPos() - player.getHeight());
+								if(player.isSlamming())
+								{
+									player.damage(5, otherPlayer);
+								}
 								player.land();
 							} else {
 								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
@@ -92,7 +96,7 @@ public class World
 			player.updateXMotion();
 			if(player.getXPos() >= width) {
 				player.setXPos(0-player.getWidth());
-			} else if (player.getXPos() <= 0) {
+			} else if (player.getXPos() <= 0 - player.getWidth()) {
 				player.setXPos(width);
 			} else {
 				for(Block block : blockList) {
