@@ -8,7 +8,7 @@ public class Loadstar extends Player {
 	
 	public void special(){
 		usingSpecial = true;
-		Mine mine = new Mine(x, y);
+		Mine mine = new Mine(getXPos(), getYPos());
 		GuiWorld.world.addMine(mine);
 	}
 	

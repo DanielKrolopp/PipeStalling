@@ -171,6 +171,20 @@ public class Player extends Block
 		
 	}
 	
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof Player)){
+			return false;
+		}
+		Player p = (Player) o;
+		if(p.getXPos() == this.getXPos() && p.getYPos() == this.getYPos() && p.getHeight() == this.getHeight() && p.getWidth() == this.getWidth()){
+			if(p.characterType == characterType){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void special() {}
 	public void stopSpecial() {}
 }
