@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
 
 public class World 
@@ -113,11 +112,11 @@ public class World
 			} else {
 				for(Block block : blockList) {
 					if(isColliding(player, block)){
-						if(player.getYVel() < 0) {
-							player.setYPos(block.getYPos() + player.getHeight());
+						if(player.getYVel() > 0) {
+							player.setYPos(block.getYPos() - player.getHeight());
 							player.land();
 						} else {
-							player.setYPos(block.getYPos() - block.getHeight());
+							player.setYPos(block.getYPos()+block.getHeight());
 							player.setYVel(0);
 						}
 					}
@@ -127,15 +126,15 @@ public class World
 					if(otherPlayer.getCharacter() != player.getCharacter()) 
 					{
 						if(isColliding(player, otherPlayer)){
-							if(player.getYVel() < 0) {
-								player.setYPos(otherPlayer.getYPos() + player.getHeight());
+							if(player.getYVel() > 0) {
+								player.setYPos(otherPlayer.getYPos() - player.getHeight());
 								if(player.isSlamming())
 								{
 									player.damage(5, otherPlayer);
 								}
 								player.land();
 							} else {
-								player.setYPos(otherPlayer.getYPos() - otherPlayer.getHeight());
+								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
 								player.setYVel(0);
 								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
 								{
@@ -183,17 +182,17 @@ public class World
 
 	}
 
-	public void render(double delta, Vector3d[] players, Vector3d background, Vector3d blocks)
+	public void render(double delta)
 	{
 		GL11.glColor4f(1, 1, 1, 1);
-		for(int i = 0; i < players.length; i++)
+		for(Player p : playerList)
 		{
-			playerList.get(i).render(delta, players[i]);
+			p.render(delta);
 		}
 		
 		for(Block b : blockList)
 		{
-			b.render(delta, blocks);
+			b.render(delta);
 		}
 	}
 	
@@ -230,6 +229,20 @@ public class World
 		}
 		playerList.add(player);
 		return true;
+	}
+
+	public void updateVelocityAcceleration(Player player){
+		double yVel = player.getYVel();
+		double xVel = player.getXVel();
+		double yAcc = player.getYAcc();
+		double xAcc = player.getXAcc();
+		double oldX = player.getXPos();
+		double oldY = player.getYPos();
+
+		player.setYVel(yVel + yAcc);
+		player.setXVel(xVel + xAcc);
+		player.setXPos(oldX + xVel);
+		player.setYPos(oldY + yVel);
 	}
 
 	public boolean isColliding(Block p1, Block p2) {
