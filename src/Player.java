@@ -110,7 +110,7 @@ public class Player extends Block
 		{
 			jumping = true;
 			jumpCount--;
-			yVel = 100;				//Sets velocity for normal jumping
+			yVel = 20;				//Sets velocity for normal jumping
 			yAcc = -2;				//Sets acceleration for normal jumping, aka gravity
 		}
 	}
@@ -124,7 +124,7 @@ public class Player extends Block
 		if(!slamming && yAcc != -0.5)
 		{
 			slamming = true;
-			yAcc = -5;				//Sets acceleration for slamming			
+			yAcc = -6;				//Sets acceleration for slamming			
 		}
 	}
 	
