@@ -13,6 +13,7 @@ public class World
 	private double width;
 	private double height;
 	private long startCountdown = 0;
+	private boolean fell;
 	private boolean ready;
 	private boolean set; 
 	private boolean go;
@@ -56,10 +57,10 @@ public class World
 	{
 		playerList.get(0).setXPos(width/10 - 50);
 		playerList.get(0).setYPos(height/10);
-		blockList.add(new Block(width/10 - 50, height/10, 100, 10));
+		blockList.add(new Block(width/10 - 50, height/10 - 10, 100, 10));
 		playerList.get(1).setXPos(width*9/10 - 50);
 		playerList.get(1).setYPos(height/10);
-		blockList.add(new Block(width*9/10 - 50, height/10, 100, 10));		
+		blockList.add(new Block(width*9/10 - 50, height/10 - 10, 100, 10));		
 	}
 	
 	public void spawnThree()
@@ -67,7 +68,7 @@ public class World
 		spawnTwo();
 		playerList.get(2).setXPos(width/2 - 50);
 		playerList.get(2).setYPos(height*4/5);
-		blockList.add(new Block(width/2 - 50, height*4/5, 100, 10));				
+		blockList.add(new Block(width/2 - 50, height*4/5 - 10, 100, 10));				
 	}
 	
 	public void spawnFour()
@@ -75,10 +76,10 @@ public class World
 		spawnTwo();
 		playerList.get(2).setXPos(width/10 - 50);
 		playerList.get(2).setYPos(height*4/5);
-		blockList.add(new Block(width/10 - 50, height*4/5, 100, 10));
+		blockList.add(new Block(width/10 - 50, height*4/5 - 10, 100, 10));
 		playerList.get(3).setXPos(width*9/10 - 50);
 		playerList.get(3).setYPos(height*4/5);
-		blockList.add(new Block(width*9/10 - 50, height*4/5, 100, 10));	
+		blockList.add(new Block(width*9/10 - 50, height*4/5 - 10, 100, 10));	
 	}
 	
 	public double getWidth(){
@@ -113,6 +114,7 @@ public class World
 		registerKeys();
 
 		for(Player player : playerList) {
+			fell = true;
 			//block collisions, y-axis
 			player.updateYMotion();
 			if(player.getYPos() >= height) {
@@ -122,6 +124,7 @@ public class World
 			} else {
 				for(Block block : blockList) {
 					if(isColliding(player, block)){
+						fell = false;
 						if(player.getYVel() > 0) {
 							player.setYPos(block.getYPos() - player.getHeight());
 							player.land();
@@ -155,6 +158,8 @@ public class World
 					}
 				}
 			}
+			if(!fell)
+				player.fall();
 
 			//block collisions, x-axis
 			player.updateXMotion();
