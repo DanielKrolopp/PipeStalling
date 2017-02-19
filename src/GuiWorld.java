@@ -89,16 +89,16 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 		int windowWidth = gameSettings.getWindowWidth();
 		int windowHeight = gameSettings.getWindowHeight();
-		glViewport(0, 0, windowWidth, windowHeight);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
+		GL11.glViewport(0, 0, windowWidth, windowHeight);
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
 		double ymax = .01 * Math.tan( 60 * Math.PI / 360.0 );
 		double ymin = -ymax;
 		double xmin = ymin * windowWidth / windowHeight;
 		double xmax = ymax * windowWidth / windowHeight;
-		glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+		GL11.glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
 
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
