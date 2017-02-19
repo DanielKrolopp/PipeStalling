@@ -24,6 +24,7 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 	private String[] names = new String[] {"Loadstar", "Bulbastore", "Jumpernaut", "Mad Adder"};
 	private Vector3d[] colors = new Vector3d[] {CharacterType.LOAD.getColor(), CharacterType.STORE.getColor(), CharacterType.JUMP.getColor(),
 			CharacterType.ADD.getColor()};
+	
 	private int player1 = 0;
 	private int player2 = 1;
 	

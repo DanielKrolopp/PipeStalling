@@ -1,3 +1,4 @@
+import org.joml.Vector3d;
 
 public class Loadstar extends Player {
 
@@ -12,7 +13,7 @@ public class Loadstar extends Player {
 		GuiWorld.world.addMine(mine);
 	}
 	
-	public void render(double delta) {
-		super.render(delta);
+	public void render(double delta, Vector3d vec) {
+		super.render(delta, vec);
 	}
 }

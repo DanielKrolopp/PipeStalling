@@ -1,3 +1,5 @@
+import org.joml.Vector3d;
+
 public class Bulbastore extends Player {
 	
 	private long startTime;
@@ -37,7 +39,7 @@ public class Bulbastore extends Player {
 		}
 	}
 	
-	public void render(double delta) {
-		super.render(delta);
+	public void render(double delta, Vector3d vec) {
+		super.render(delta, vec);
 	}
 }
