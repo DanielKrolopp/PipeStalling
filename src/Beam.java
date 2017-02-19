@@ -7,6 +7,7 @@ public class Beam {
 	private double xPos;
 	private double yPos;
 	private double xPosEnd;
+	private double curl;
 
 	private boolean adderBeam;
 
@@ -16,10 +17,10 @@ public class Beam {
 
 	Player shooter;
 
-	public Beam(Player pBlock, int amount, boolean add)
+	public Beam(Player pBlock, int amount, boolean add, double curl)
 	{
 		xPos = pBlock.getXPos() + pBlock.getWidth()/2;
-		yPos = pBlock.getYPos() + pBlock.getHeight() / 2;
+		yPos = pBlock.getYPos() + pBlock.getHeight()/2;
 		adderBeam = add;
 		shooter = pBlock;
 		damage = amount;
@@ -57,8 +58,8 @@ public class Beam {
 		for(Player player : GuiWorld.world.getPlayers()){
 			if(shooter.getCharacter() == player.getCharacter())
 				continue;
-			double other_top = player.getYPos();
-			double other_bottom = player.getYPos() + player.getHeight();
+			double other_top = player.getYPos() +-curl;
+			double other_bottom = player.getYPos() + player.getHeight() + curl;
 			double other_centerY = (2* player.getYPos() + player.getHeight())/2;
 			double other_centerX = (2 * player.getXPos() + player.getWidth())/2; 
 			if(player.getXPos() < xPos){ //Checks if victim is left of player
@@ -89,8 +90,8 @@ public class Beam {
 		for(Player player : GuiWorld.world.getPlayers()){
 			if(shooter.getCharacter() == player.getCharacter())
 				continue;
-			double other_top = player.getYPos();
-			double other_bottom = player.getYPos() + player.getHeight();
+			double other_top = player.getYPos() - curl;
+			double other_bottom = player.getYPos() + player.getHeight() + curl;
 			double other_centerY = (2* player.getYPos() + player.getHeight())/2;
 			double other_centerX = (2 * player.getXPos() + player.getWidth())/2; 
 			if(player.getXPos() > xPos){ //Checks if victim is left of player
@@ -117,6 +118,12 @@ public class Beam {
 					}
 				}
 			}
+		}
+		yPos = shooter.getYPos();
+		if(minDistanceLeft == Double.MAX_VALUE && minDistanceRight == Double.MAX_VALUE)
+		{
+			shooter.miss(damage);
+			return false;
 		}
 		Block closestVictim = null;
 		if(minDistanceLeft < minDistanceRight)
@@ -160,7 +167,6 @@ public class Beam {
 				xPosEnd = closestVictimRight.getXPos();
 			}
 		}
-		yPos = shooter.getYPos();
 		if(closestVictim != null && closestVictim instanceof Player){ //Means he hit someone
 			shooter.damage(damage, (Player) closestVictim); //Janky casting is my specialty	
 			return true;

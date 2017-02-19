@@ -4,6 +4,8 @@ public class Bulbastore extends Player {
 	
 	private long startTime;
 	private long currentTime;
+	private long cooldownStart;
+	private boolean cooling;
 	
 	public Bulbastore(double x, double y) {
 		super(x, y);
@@ -11,7 +13,7 @@ public class Bulbastore extends Player {
 	}
 	
 	public void special() {
-		if(usingSpecial) {
+		if(usingSpecial || cooling) {
 			return;
 		}
 		usingSpecial = true;
@@ -28,6 +30,18 @@ public class Bulbastore extends Player {
 		explode.explode(10, damageCounter);
 		GuiWorld.world.effectTimer.setEffect(new Vector3d(0, 8, 0));
 		explode.explode(5, damageCounter);
+		startCooldown();
+		cooling = true;
+	}
+	
+	public void startCooldown() {
+		cooldownStart = System.currentTimeMillis();
+	}
+	
+	public void updateCooldown() {
+		if(System.currentTimeMillis() - cooldownStart > 3000) {
+			cooling = false;
+		}
 	}
 	
 	public void startTimer() {
