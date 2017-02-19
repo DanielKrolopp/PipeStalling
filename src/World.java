@@ -136,9 +136,9 @@ public class World
 			}
 			player.updateYMotion();
 			if(player.getYPos() >= height) {
-				player.setYPos(0 - player.getHeight());
-			} else if(player.getYPos() <= 0 - player.getHeight()) {
 				player.setYPos(height);
+			} else if(player.getYPos() <= 0 - player.getHeight()) {
+				player.setYPos(player.getHeight());
 			} else {
 				for(Block block : blockList) {
 					if(isColliding(player, block)){
