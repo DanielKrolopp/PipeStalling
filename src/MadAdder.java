@@ -1,5 +1,3 @@
-import org.joml.Vector3d;
-
 public class MadAdder extends Player {
 	
 	private final int damage = 6; //Can be modified

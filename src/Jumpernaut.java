@@ -1,5 +1,3 @@
-import java.util.List;
-
 import org.joml.Vector3d;
 
 public class Jumpernaut extends Player {
@@ -27,6 +25,11 @@ public class Jumpernaut extends Player {
 	
 	public void land()
 	{
+		if(usingSpecial)
+		{
+			GuiWorld.world.effectTimer.setEffect(new Vector3d(4, 0, 0));
+
+		}
 		usingSpecial= false;
 		super.land();
 	}

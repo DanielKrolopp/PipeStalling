@@ -67,7 +67,7 @@ public class Explosion {
 		}
 	}
 	
-	public void explode(int base, int multiplier) {
+	public void explode(double base, double multiplier) {
 		for(int i = 1; i <= rays; i++) {
 			slopes[i-1] = Math.tan(i*increment);
 			double xIncr = Math.cos(i*increment);
@@ -85,7 +85,7 @@ public class Explosion {
 			}
 			
 			if(collidedWith == 1) { //player found
-				attacker.damage(multiplier/3+base, collidedPlayer);
+				attacker.damage((int) (multiplier/3+base), collidedPlayer);
 			}
 			collidedPlayer = null;
 		}

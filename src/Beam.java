@@ -1,7 +1,5 @@
 import org.lwjgl.opengl.GL11;
 
-import com.polaris.engine.render.Shader;
-
 import net.jafama.FastMath;
 
 public class Beam {
@@ -11,7 +9,6 @@ public class Beam {
 	private double xPosEnd;
 	private double curl;
 
-	private boolean facingLeft;
 	private boolean adderBeam;
 
 	private int damage;
@@ -24,7 +21,6 @@ public class Beam {
 	{
 		xPos = pBlock.getXPos() + pBlock.getWidth()/2;
 		yPos = pBlock.getYPos() + pBlock.getHeight()/2;
-		facingLeft = pBlock.getFacingLeft();
 		adderBeam = add;
 		shooter = pBlock;
 		damage = amount;

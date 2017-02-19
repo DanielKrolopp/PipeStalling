@@ -3,9 +3,6 @@ import java.util.List;
 
 import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-
-import com.polaris.engine.render.Shader;
 
 public class World 
 {
@@ -15,7 +12,7 @@ public class World
 	private List<Mine> mineList;
 	private List<Explosion> explosionList;
 	private List<Beam> beamList;
-	private EffectTimer effectTimer = new EffectTimer();
+	public EffectTimer effectTimer;
 	private int numPlayers;
 	private double width;
 	private double height;
@@ -23,6 +20,8 @@ public class World
 	private int go;
 	private boolean fell;
 
+	private Player winner;
+	
 	private double ticks = 0;
 
 	private GameSettings settings;
@@ -37,7 +36,10 @@ public class World
 		explosionList = new ArrayList<Explosion>();
 		beamList = new ArrayList<Beam>();
 		settings = game;
+		winner = null;
 		numPlayers = playerCharacters.length;
+		effectTimer = new EffectTimer();
+		winner = null;
 		assignTypes(playerCharacters);
 		if(numPlayers == 2)
 			spawnTwo();
@@ -134,7 +136,13 @@ public class World
 
 		registerKeys();
 
+		ArrayList<Player> livePlayers = new ArrayList<Player>();
 		for(Player player : playerList) {
+			//Win conditions
+			if(player.isAlive()){
+				livePlayers.add(player);
+			}
+			
 			//block collisions, y-axis
 			fell = true;
 			for(Mine mine : mineList) {
@@ -214,8 +222,8 @@ public class World
 			}
 			player.updateXMotion();
 			if(player.getXPos() >= width+1.75*player.getWidth()) {
-				player.setXPos(-1.5*player.getWidth());
-			} else if (player.getXPos() <= -1.75*player.getWidth()) {
+				player.setXPos(-2.5*player.getWidth());
+			} else if (player.getXPos() <= -2.5*player.getWidth()) {
 				player.setXPos(width+player.getWidth()/2);
 			} else {
 				for(Block block : blockList) {
@@ -243,6 +251,9 @@ public class World
 						}
 				}
 			}
+		}
+		if(livePlayers.size() == 1){
+			winner = livePlayers.get(0);
 		}
 		for(Explosion ex : explosionList) {
 			if(ex.getTime() > 1000) { //time might need to be changed
@@ -324,14 +335,17 @@ public class World
 			b.render(delta);
 		}
 		
+		Vector3d vec = new Vector3d(effectTimer.getEffect());
+		vec.mul((Math.abs(ticks % .25 - .125) - .0625) * 16);
+		
 		for(int i = 0; i < players.length; i++)
 		{
-			playerList.get(i).render(delta, players[i], effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+			playerList.get(i).render(delta, players[i], vec);
 		}
 
 		for(Block b : blockList)
 		{
-			b.render(delta, b instanceof Pipe ? pipe : blocks, effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+			b.render(delta, b instanceof Pipe ? pipe : blocks, vec);
 		}
 		
 		int p = 0;
@@ -346,7 +360,7 @@ public class World
 
 		for(Mine m : mineList)
 		{
-			m.render(delta, players[p], effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+			m.render(delta, players[p], vec);
 		}
 	}
 
@@ -442,25 +456,45 @@ public class World
 
 				if(settings.getPlayerRight(i).isDoublePressed())
 				{
-					playerList.get(i).setXVel(22);
+					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+							playerList.get(i).isUsingSpecial()) {
+						playerList.get(i).setXVel(16);
+					} else {
+						playerList.get(i).setXVel(22);
+					}
 					playerList.get(i).facingLeft = false;
 				}
 
 				else if(settings.getPlayerRight(i).isPressed())
 				{
-					playerList.get(i).setXVel(15);
+					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+							playerList.get(i).isUsingSpecial()) {
+						playerList.get(i).setXVel(10);
+					} else {
+						playerList.get(i).setXVel(15);
+					}
 					playerList.get(i).facingLeft = false;
 				}
 
 				else if(settings.getPlayerLeft(i).isDoublePressed())
 				{
-					playerList.get(i).setXVel(-22);
+					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+							playerList.get(i).isUsingSpecial()) {
+						playerList.get(i).setXVel(-16);
+					} else {
+						playerList.get(i).setXVel(-22);
+					}
 					playerList.get(i).facingLeft = true;
 				}		
 
 				else if(settings.getPlayerLeft(i).isPressed())
 				{
-					playerList.get(i).setXVel(-15);
+					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+							playerList.get(i).isUsingSpecial()) {
+						playerList.get(i).setXVel(-10);
+					} else {
+						playerList.get(i).setXVel(-15);
+					}
 					playerList.get(i).facingLeft = true;
 				}
 
