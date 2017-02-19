@@ -1,7 +1,7 @@
 
 public class MadAdder extends Player {
 	
-	private final int SPECIAL_DAMAGE = 2; //Can be modified
+	private final int damage = 4; //Can be modified
 	
 	public MadAdder(double x, double y) {
 		super(x, y);
@@ -10,8 +10,9 @@ public class MadAdder extends Player {
 	
 	public void special() {
 		usingSpecial = true;
-		NegaBeam shoot = new NegaBeam(this);
-		shoot.shootBeam();
+		Beam shoot = new Beam(this, damage);
+		if(shoot.shootBeam())
+			this.heal(damage/2);
 	}
 	
 	public void render(double delta) {

@@ -199,7 +199,7 @@ public class World
 			
 			if(settings.getPlayerBeam(i).isPressed())
 			{
-				Beam shot = new Beam(playerList.get(i));
+				Beam shot = new Beam(playerList.get(i), 7);
 				shot.shootBeam();
 			}
 			
