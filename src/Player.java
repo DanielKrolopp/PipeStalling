@@ -243,7 +243,7 @@ public class Player extends Block
 			
 			GL11.glPushMatrix();
 			
-			GL11.glRotated(rotate, 0, 0, 1);
+			GL11.glRotated(rotate, 1, 0, 0);
 
 			GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 			GL11.glTranslated(xPos + width / 2 - 960, -500 + height / 2 * mul + yPos, -999);
@@ -269,7 +269,7 @@ public class Player extends Block
 		
 		GL11.glPushMatrix();
 
-		GL11.glRotated(rotate, 0, 0, 1);
+		GL11.glRotated(rotate, 1, 0, 0);
 		
 		GL11.glTranslated(xPos + width / 2 - 960, -500 + yPos + height * 1.5, -999);
 		

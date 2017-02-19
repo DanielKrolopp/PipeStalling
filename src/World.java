@@ -15,7 +15,7 @@ public class World
 	private List<Mine> mineList;
 	private List<Explosion> explosionList;
 	private List<Beam> beamList;
-	private EffectTimer effectTimer = new EffectTimer();
+	public EffectTimer effectTimer;
 	private int numPlayers;
 	private double width;
 	private double height;
@@ -38,6 +38,7 @@ public class World
 		beamList = new ArrayList<Beam>();
 		settings = game;
 		numPlayers = playerCharacters.length;
+		effectTimer = new EffectTimer();
 		assignTypes(playerCharacters);
 		if(numPlayers == 2)
 			spawnTwo();

@@ -1,4 +1,5 @@
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 
 public class Bulbastore extends Player {
 	
@@ -17,6 +18,7 @@ public class Bulbastore extends Player {
 		usingSpecial = true;
 		immuneToDamage = true;
 		damageCounter = 0;
+		
 	}
 	
 	public void stopSpecial() {
@@ -26,6 +28,7 @@ public class Bulbastore extends Player {
 				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, 
 				this, false);
 		explode.explode(10, damageCounter);
+		GuiWorld.world.effectTimer.setEffect(new Vector4d(8, 0, 0, 1));
 	}
 	
 	public void startTimer() {

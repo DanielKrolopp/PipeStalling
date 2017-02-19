@@ -8,7 +8,7 @@ public class EffectTimer {
 	private static final long DURATION = 1 * 1000; //Seconds an effect lasts
 	private long expiry;
 	private Vector4d rotationVec = new Vector4d(0);
-	
+
 	public EffectTimer(){
 		timer = System.currentTimeMillis();
 	}
@@ -21,14 +21,10 @@ public class EffectTimer {
 	 * Returns succss of operation
 	 */
 	public boolean setEffect(Vector4d effect){
-		if(MathHelper.isEqual(rotationVec.x, 0, .1)){
-			rotationVec.x = effect.x;
-			expiry = System.currentTimeMillis() + DURATION;
-			return true;
-		}
+		rotationVec.x = Math.max(effect.x, rotationVec.x);
 		return false;
 	}
-	
+
 	public Vector4d getEffect(){
 		if(rotationVec == null)
 		{
