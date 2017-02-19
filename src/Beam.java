@@ -17,6 +17,7 @@ public class Beam {
 
 	public Beam(Player pBlock, int amount, boolean add)
 	{
+		xPos = pBlock.getXPos() + pBlock.getWidth() / 2;
 		yPos = pBlock.getYPos();
 		adderBeam = add;
 		shooter = pBlock;
