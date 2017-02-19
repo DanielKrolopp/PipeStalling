@@ -1,7 +1,7 @@
 public class WorldGenerator {
 	//worldWidth and worldHeight are width/height of the untrimmed world, Killian
 	public static World generateWorld(GameSettings gameSettings, int widthTrim, int heightTrim, int[] playerCharacters) {
-		World generated = new World(widthTrim, heightTrim);
+		World generated = new World(widthTrim, heightTrim, gameSettings);
 		int i = 0;
 		while(i < 20){ //Blocks will NOT overlap (at least they shouldn't)
 			int width = (int)(Math.random() * 40) + 20;
