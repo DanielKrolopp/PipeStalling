@@ -24,7 +24,7 @@ public class Bulbastore extends Player {
 		immuneToDamage = false;
 		Explosion explode = new Explosion(175+damageCounter/3, 36, 
 				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, 
-				10, this, false);
+				this, false);
 		explode.explode(damageCounter);
 	}
 	
@@ -34,7 +34,7 @@ public class Bulbastore extends Player {
 	
 	public void updateTimer() {
 		currentTime = System.currentTimeMillis();
-		if(currentTime - startTime > 4000 && usingSpecial) {
+		if(currentTime - startTime > 500 && usingSpecial) {
 			stopSpecial();
 		}
 	}
