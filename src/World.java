@@ -201,7 +201,8 @@ public class World
 			
 			if(settings.getPlayerBeam(i).isPressed())
 			{
-				playerList.get(i).shootBeam();
+				Beam shot = new Beam(playerList.get(i));
+				shot.shootBeam();
 			}
 			
 			if(settings.getPlayerSuper(i).isPressed())
