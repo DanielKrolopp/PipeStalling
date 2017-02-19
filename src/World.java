@@ -248,6 +248,9 @@ public class World
 				beamList.remove(beam);
 			}
 		}
+		for(Mine mine : mineList) {
+			mine.update(delta);
+		}
 	}
 
 	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
@@ -324,6 +327,9 @@ public class World
 	}
 	public List<Block> getBlocks(){
 		return blockList;
+	}
+	public List<Mine> getMines(){
+		return mineList;
 	}
 	/*
 	 * Adds a block to the world. Returns false if already in world.

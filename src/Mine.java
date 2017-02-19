@@ -14,6 +14,12 @@ public class Mine extends Block {
 	 * Checks if a player is touching the mine, dealing damage to 
 	 * all within a designated radius. Boom. Bye bye Madadder.
  	 */
+	
+	
+	public void update(double delta){
+		detonate();
+	}
+	
 	public void detonate(){
 		double centerX = (2 * this.getXPos() + MINE_SIZE)/2;
 		double centerY = (2 * this.getYPos() + MINE_SIZE)/2;
@@ -21,9 +27,11 @@ public class Mine extends Block {
 			double playerCenterX = (2 * player.getXPos() + MINE_SIZE)/2;
 			double playerCenterY = (2 * player.getYPos() + MINE_SIZE)/2;
 			double distance = Math.sqrt(Math.pow(centerX - playerCenterX, 2) + Math.pow(centerY - playerCenterY, 2));
-			if(distance <= MINE_SIZE + 5){ //If within tolerant distance of mine
-				this.damage(player); //Go kaboom
+			if(player.characterType != CharacterType.LOAD && distance <= MINE_SIZE + 5){ //If within tolerant distance of mine
+				//this.damage(player); //Go kaboom
+				System.out.println("Boom goes the mine");
 				visible = false;
+				GuiWorld.world.getMines().remove(this);
 			}
 		}
 	}

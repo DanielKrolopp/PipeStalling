@@ -32,7 +32,7 @@ public class Explosion {
 		slopes = new double[rays];
 		startTimer();
 		GuiWorld.world.addExplosion(this);
-		System.out.println("REACHED 2");
+		//System.out.println("REACHED 2");
 				
 	}
 	
@@ -67,7 +67,7 @@ public class Explosion {
 	
 	public void explode(int base) {
 		for(int i = 1; i <= rays; i++) {
-			System.out.println("REACHED"+i);
+			//System.out.println("REACHED"+i);
 			slopes[i] = Math.tan(i*increment);
 		
 			distances[i] = 0;
@@ -75,15 +75,15 @@ public class Explosion {
 			double y = slopes[i]*x+midY;
 			
 			Block collidedWith = lineIsColliding(x, y);
-			System.out.println("REACHED"+i+" 2");
+			//System.out.println("REACHED"+i+" 2");
 			while(collidedWith == null && distances[i] <= radius) {
 				distances[i] = MathHelper.pythagoreon(x-midX, y-midY);
 				//System.out.println(distances[i]);
-				System.out.println(slopes[i]);
+				//System.out.println(slopes[i]);
 				x += xIncr;
-				System.out.println(x);
+				//System.out.println(x);
 				y = slopes[i]*x+midY;
-				System.out.println(y);
+				//System.out.println(y);
 				collidedWith = lineIsColliding(x, y);
 			}
 			if(collidedWith instanceof Player) {
