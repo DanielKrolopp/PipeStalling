@@ -260,15 +260,15 @@ public class World
 			if(settings.getPlayerRight(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(2);
-				playerList.get(i).setXVel(1);
+					playerList.get(i).setXVel(20);
+				playerList.get(i).setXVel(10);
 			}
 			
 			else if(settings.getPlayerLeft(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(-2);
-				playerList.get(i).setXVel(-1);
+					playerList.get(i).setXVel(-20);
+				playerList.get(i).setXVel(-10);
 			}
 			
 			else
