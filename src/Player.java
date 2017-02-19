@@ -154,7 +154,12 @@ public class Player extends Block
 		{
 			enemy.damageCounter += amount;
 		}
-		health -= amount/5;
+		health -= Math.round(amount/5.00);
+	}
+	
+	public void miss(int amount)
+	{
+		health -= Math.round(amount/7.00);
 	}
 	
 	public boolean getFacingLeft(){

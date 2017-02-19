@@ -182,12 +182,16 @@ public class World
 			
 			if(settings.getPlayerRight(i).isPressed())
 			{
-				playerList.get(i).setXAcc(1);
+				if(settings.getPlayerRight(i).isDoublePressed())
+					playerList.get(i).setXVel(2);
+				playerList.get(i).setXVel(1);
 			}
 			
 			else if(settings.getPlayerLeft(i).isPressed())
 			{
-				playerList.get(i).setXAcc(-1);
+				if(settings.getPlayerRight(i).isDoublePressed())
+					playerList.get(i).setXVel(-2);
+				playerList.get(i).setXVel(-1);
 			}
 			
 			else
@@ -202,7 +206,7 @@ public class World
 			
 			if(settings.getPlayerSuper(i).isPressed())
 			{
-				playerList.get(i).special();
+				playerList.get(i).special();		//Does this work?
 			}
 			
 			
