@@ -31,10 +31,12 @@ public class Block {
 		return width;
 	}
 	
-	public void render(double delta, Vector3d vec, double rotate)
+	public void render(double delta, Vector3d vec, Vector3d vector3d)
 	{
 		GL11.glPushMatrix();
-		GL11.glRotated(rotate, 0, 0, 1);
+		GL11.glRotated(vector3d.x, 1, 0, 0);
+		GL11.glRotated(vector3d.y, 0, 1, 0);
+		GL11.glRotated(vector3d.z, 0, 0, 1);
 		
 		GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 		GL11.glTranslated(xPos + width / 2 - 960, -550  + height / 2 + yPos, -999);

@@ -1,5 +1,4 @@
 import org.joml.Vector3d;
-import org.joml.Vector4d;
 
 public class Mine extends Block {
 	private static final double MINE_SIZE = 20;
@@ -19,7 +18,7 @@ public class Mine extends Block {
 	
 	public void detonate(Player player){	
 		if(player.characterType != CharacterType.LOAD){
-			GuiWorld.world.effectTimer.setEffect(new Vector4d(4, 0, 0, 1));
+			GuiWorld.world.effectTimer.setEffect(new Vector3d(0, 0, 4));
 			damage(player); //Go kaboom
 			visible = false;
 			GuiWorld.world.getMines().remove(this);
@@ -32,11 +31,11 @@ public class Mine extends Block {
 		explode.explode(1, BLAST_STRENGTH);
 	}
 	
-	public void render(double delta, Vector3d p, double d) 
+	public void render(double delta, Vector3d p, Vector3d vector3d) 
 	{
 		//if(visible)
 		//{
-			super.render(delta, p, d);
+			super.render(delta, p, vector3d);
 		//}
 	}
 }
