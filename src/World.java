@@ -31,9 +31,9 @@ public class World
 		assignTypes(playerCharacters);
 		if(numPlayers == 2)
 			spawnTwo();
-		if(numPlayers == 2)
+		if(numPlayers == 3)
 			spawnThree();
-		if(numPlayers == 2)
+		if(numPlayers == 4)
 			spawnFour();
 	}
 	
