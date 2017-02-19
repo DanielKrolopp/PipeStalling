@@ -19,7 +19,7 @@ public class Shockwave {
 	public List<Player> detectTargets()		//This implementation is pretty crappy
 	{
 		List<Player> hitlist = new ArrayList<Player>();
-		for(Player pBlock : World.getPlayers())
+		for(Player pBlock : GuiWorld.world.getPlayers())
 		{
 			if(isColliding(pBlock))
 			{

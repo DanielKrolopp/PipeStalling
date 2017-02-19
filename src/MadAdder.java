@@ -85,7 +85,7 @@ public class MadAdder extends Player {
 			this.heal(SPECIAL_DAMAGE);
 		}
 		else{ //Indicates a miss
-			this.damage(SPECIAL_DAMAGE, this);
+			this.miss(SPECIAL_DAMAGE);
 		}
 	}
 	

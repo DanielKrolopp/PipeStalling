@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+
+import com.polaris.engine.util.MathHelper;
 
 public class Bulbastore extends Player {
 	
@@ -13,20 +17,15 @@ public class Bulbastore extends Player {
 		usingSpecial = true;
 		immuneToDamage = true;
 		damageCounter = 0;
-		
 	}
 	
 	public void stopSpecial() {
 		usingSpecial = false;
 		immuneToDamage = false;
-		explode();
-	}
-	
-	public void explode() {
-		for(double i = 0; i < (Math.PI)*2; i += Math.PI/180) {
-			
-		}
-		
+		Explosion explode = new Explosion(175+damageCounter/3, 36, 
+				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, 
+				10);
+		explode.explode(damageCounter, this);
 	}
 	
 	public void render(double delta) {
