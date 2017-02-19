@@ -9,6 +9,7 @@ public class World
 	private static List<Player> playerList;
 	private List<Block> blockList;
 	private List<Mine> mineList;
+	private int numPlayers;
 	private double width;
 	private double height;
 	private long startCountdown = 0;
@@ -18,7 +19,7 @@ public class World
 	
 	private GameSettings settings;
 
-	public World(double width, double height, GameSettings game)
+	public World(double width, double height, GameSettings game, int[] playerCharacters)
 	{
 		this.width = width;
 		this.height = height;
@@ -26,6 +27,49 @@ public class World
 		blockList = new ArrayList<Block>();	
 		mineList = new ArrayList<Mine>();
 		settings = game;
+		numPlayers = playerCharacters.length;
+		CharacterType[] types = new CharacterType[numPlayers];
+		types = assignTypes(types, playerCharacters);
+		if(numPlayers == 2)
+			spawnTwo(types);
+		if(numPlayers == 2)
+			spawnThree(types);
+		if(numPlayers == 2)
+			spawnFour(types);
+	}
+	
+	public CharacterType[] assignTypes(CharacterType[] types, int[] playerCharacters)
+	{
+		for(int i = 0; i < numPlayers; i++)
+		{
+			if(playerCharacters[i] == 0)
+				types[i] = CharacterType.LOAD;
+			if(playerCharacters[i] == 1)
+				types[i] = CharacterType.STORE;
+			if(playerCharacters[i] == 2)
+				types[i] = CharacterType.JUMP;
+			if(playerCharacters[i] == 3)
+				types[i] = CharacterType.ADD;
+		}
+		return types;
+	}
+	
+	public void spawnTwo(CharacterType[] types)
+	{
+		playerList.add(new Player(width/10 - 50, height*9/10, types[0]));
+		blockList.add(new Block(width/10 - 50, height*9/10 + 100, 100, 10));
+		playerList.add(new Player(width*9/10 - 50, height*9/10, types[0]));
+		blockList.add(new Block(width*9/10 - 50, height*9/10 + 100, 100, 10));		
+	}
+	
+	public void spawnThree(CharacterType[] types)
+	{
+		
+	}
+	
+	public void spawnFour(CharacterType[] types)
+	{
+		
 	}
 	
 	public double getWidth(){

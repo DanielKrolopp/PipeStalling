@@ -21,13 +21,14 @@ public class Player extends Block
 	
 	protected CharacterType characterType;	//Can be JUMP, ADD, LOAD, or STORE
 	
-	public Player(double x, double y)
+	public Player(double x, double y, CharacterType type)
 	{
 		super(x, y, Player.size, Player.size);
 		health = 100;
 		jumpCount = 2;
 		xAcc = 0;
 		yAcc = 0;
+		characterType = type;
 	}
 	
 	public CharacterType getCharacter()

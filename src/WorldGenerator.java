@@ -1,9 +1,9 @@
 public class WorldGenerator {
 	//worldWidth and worldHeight are width/height of the untrimmed world, Killian
 	public static World generateWorld(GameSettings gameSettings, int widthTrim, int heightTrim, int[] playerCharacters) {
-		World generated = new World(widthTrim, heightTrim, gameSettings);
+		World generated = new World(widthTrim, heightTrim, gameSettings, playerCharacters);
 		int i = 0;
-		while(i < 20){ //Blocks will NOT overlap (at least they shouldn't)
+		while(i < 20){ //Blocks will NOT overlap (at least they shouldn't) //0 means Loadstar, 1 Bulbastore, 2 Jumpernaut, 3 Mad Adder 
 			int width = (int)(Math.random() * 40) + 20;
 			int height = (int)(Math.random() * 40) + 20;
 			int x = (int)(Math.random() * (widthTrim - width));
