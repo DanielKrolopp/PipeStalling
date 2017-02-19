@@ -25,7 +25,7 @@ public class Bulbastore extends Player {
 		Explosion explode = new Explosion(175+damageCounter/3, 36, 
 				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, 
 				this, false);
-		explode.explode(damageCounter);
+		explode.explode(10, damageCounter);
 	}
 	
 	public void startTimer() {
