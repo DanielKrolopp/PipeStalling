@@ -14,7 +14,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 	public void init()
 	{
 		super.init();
-		world = World.generateWorld(gameSettings, gameSettings.getWorldWidth(), gameSettings.getWorldHeight());
+		world = WorldGenerator.generateWorld(gameSettings, gameSettings.getWorldWidth(), gameSettings.getWorldHeight());
 	}
 	
 	public void update(double delta)
