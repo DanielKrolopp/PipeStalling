@@ -36,7 +36,7 @@ public class Block {
 		GL11.glPushMatrix();
 		
 		GL11.glColor4d(vec.x, vec.y, vec.z, 1);
-		GL11.glTranslated(xPos + width / 2 - 960, -500  + height / 2 + yPos, -999);
+		GL11.glTranslated(xPos + width / 2 - 960, -550  + height / 2 + yPos, -999);
 		GL11.glScaled(width / 2, height / 2, 7.5);
 		
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
