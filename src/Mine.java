@@ -16,38 +16,16 @@ public class Mine extends Block {
 	 * all within a designated radius. Boom. Bye bye Madadder.
  	 */
 	
-	
-	public void update(double delta){
-		detonate();
-	}
-	
-	public void detonate(){
-		double centerX = (2 * this.getXPos() + MINE_SIZE)/2;
-		double centerY = (2 * this.getYPos() + MINE_SIZE)/2;
-		for(Player player : GuiWorld.world.getPlayers()){ //Iterates over players
-			double playerCenterX = (2 * player.getXPos() + MINE_SIZE)/2;
-			double playerCenterY = (2 * player.getYPos() + MINE_SIZE)/2;
-			double distance = Math.sqrt(Math.pow(centerX - playerCenterX, 2) + Math.pow(centerY - playerCenterY, 2));
-			if(player.characterType != CharacterType.LOAD && distance <= MINE_SIZE + 5){ //If within tolerant distance of mine
-				this.damage(player); //Go kaboom
-				visible = false;
-				GuiWorld.world.getMines().remove(this);
-			}
+	public void detonate(Player player){	
+		if(player.characterType != CharacterType.LOAD){
+			damage(player); //Go kaboom
+			visible = false;
+			GuiWorld.world.getMines().remove(this);
 		}
 	}
 	
-	public void damage(Player player){ //Jordan Buckmaster please fix this for me
-		/*double centerX = (2 * this.getXPos() + MINE_SIZE)/2;
-		double centerY = (2 * this.getYPos() + MINE_SIZE)/2;
-		for(Player player : GuiWorld.world.getPlayers()){ //Iterates over players
-			double playerCenterX = (2 * player.getXPos() + MINE_SIZE)/2;
-			double playerCenterY = (2 * player.getYPos() + MINE_SIZE)/2;
-			double distance = Math.sqrt(Math.pow(centerX - playerCenterX, 2) + Math.pow(centerY - playerCenterY, 2));
-			if(distance < BLAST_RADIUS){ //If within blast radius, damage the player
-				player.damage(BLAST_STRENGTH, player);
-			}
-		}*/
-		Explosion explode = new Explosion(BLAST_RADIUS, 16, (2 * this.getXPos() + MINE_SIZE)/2, 
+	public void damage(Player player){ 
+		Explosion explode = new Explosion(BLAST_RADIUS, 8, (2 * this.getXPos() + MINE_SIZE)/2, 
 				(2 * this.getYPos() + MINE_SIZE)/2, player, true);
 		explode.explode(BLAST_STRENGTH/2);
 	}
@@ -58,6 +36,5 @@ public class Mine extends Block {
 		//{
 			super.render(delta, p, d);
 		//}
-		
 	}
 }
