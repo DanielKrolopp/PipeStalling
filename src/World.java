@@ -131,10 +131,10 @@ public class World
 					if(isColliding(player, block)){
 						if(player.getYVel() > 0) {
 							player.setYPos(block.getYPos() - player.getHeight());
-							player.land();
 						} else {
 							player.setYPos(block.getYPos()+block.getHeight());
-							player.setYVel(0);
+							player.land();
+							
 						}
 					}
 				}
@@ -149,7 +149,6 @@ public class World
 								{
 									player.damage(5, otherPlayer);
 								}
-								player.land();
 							} else {
 								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
 								player.setYVel(0);
@@ -157,6 +156,7 @@ public class World
 								{
 									player.damage(10, otherPlayer);
 								}
+								player.land();
 							}
 						}
 					}
