@@ -72,7 +72,6 @@ public class WorldGenerator {
 
 		int blocksAdded = 0;
 		while(blocksAdded < numBlocks) {
-			System.out.println("Starting loop");
 			int layer = MathHelper.random(2);
 			int half = MathHelper.random(1);
 			
@@ -142,13 +141,9 @@ public class WorldGenerator {
 			{
 				blocks.add(block);
 				blocksAdded++;
-				System.out.println("Blocks added: "+blocksAdded);
-				System.out.println(layer);
 				numBlocksInLayer[layer]++;
-				System.out.println("test "+layer);
 				numBlocksInHalf[half]++;
 			}
-			System.out.println("test");
 		}
 		return blocks;
 	}

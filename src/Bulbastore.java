@@ -22,13 +22,10 @@ public class Bulbastore extends Player {
 	public void stopSpecial() {
 		usingSpecial = false;
 		immuneToDamage = false;
-		System.out.println("REACHED");
 		Explosion explode = new Explosion(175+damageCounter/3, 36, 
 				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, 
 				10, this, false);
-		GuiWorld.world.addExplosion(explode);
 		explode.explode(damageCounter);
-		System.out.println("REACHED");
 	}
 	
 	public void startTimer() {
