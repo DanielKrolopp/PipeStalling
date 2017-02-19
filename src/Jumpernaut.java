@@ -6,7 +6,7 @@ public class Jumpernaut extends Player {
 	
 	public Jumpernaut(double x, double y) {
 		super(x, y);
-		characterType = CharacterType.STORE;
+		characterType = CharacterType.JUMP;
 	}
 	
 	public void slam() {
@@ -21,7 +21,7 @@ public class Jumpernaut extends Player {
 			}
 		}
 		
-	}//TODO: deal damage in world from collision with player.
+	}
 	
 	public void land()
 	{
