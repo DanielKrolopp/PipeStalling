@@ -213,10 +213,10 @@ public class World
 				}
 			}
 			player.updateXMotion();
-			if(player.getXPos() >= width) {
-				player.setXPos(0-player.getWidth());
-			} else if (player.getXPos() <= 0 - player.getWidth()) {
-				player.setXPos(width);
+			if(player.getXPos() >= width+1.75*player.getWidth()) {
+				player.setXPos(-1.5*player.getWidth());
+			} else if (player.getXPos() <= -1.75*player.getWidth()) {
+				player.setXPos(width+player.getWidth()/2);
 			} else {
 				for(Block block : blockList) {
 					if(isColliding(player, block)) {
