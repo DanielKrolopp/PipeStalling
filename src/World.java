@@ -1,10 +1,3 @@
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.glFrustum;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glViewport;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +15,7 @@ public class World
 	private long startCountdown = 0;
 	private int go;
 	private boolean fell;
-	
+
 	private GameSettings settings;
 
 	public World(double width, double height, GameSettings game, int[] playerCharacters)
@@ -35,14 +28,14 @@ public class World
 		settings = game;
 		numPlayers = playerCharacters.length;
 		assignTypes(playerCharacters);
-		if(numPlayers == 2)
-			spawnTwo();
+		/*if(numPlayers == 2)
+			spawnTwo();*/
 		if(numPlayers == 3)
 			spawnThree();
 		if(numPlayers == 4)
 			spawnFour();
 	}
-	
+
 	public void assignTypes(int[] playerCharacters)
 	{
 		for(int i = 0; i < numPlayers; i++)
@@ -57,42 +50,44 @@ public class World
 				playerList.add(new MadAdder(0, 0));
 		}
 	}
-	
+
 	public void spawnTwo()
 	{
 		playerList.get(0).setXPos(width/10 - 50);
 		playerList.get(0).setYPos(height/10);
+		blockList.add(new Block(width/10 - 50, height/10, 100, 10));
 		playerList.get(1).setXPos(width*9/10 - 50);
-		playerList.get(1).setYPos(height/10);	
+		playerList.get(1).setYPos(height/10);
+		blockList.add(new Block(width*9/10 - 50, height/10, 100, 10));		
 	}
-	
+
 	public void spawnThree()
 	{
 		spawnTwo();
 		playerList.get(2).setXPos(width/2 - 50);
 		playerList.get(2).setYPos(height*4/5);
-		blockList.add(new Block(width/2 - 50, height*4/5 - 10, 100, 10));				
+		blockList.add(new Block(width/2 - 50, height*4/5, 100, 10));				
 	}
-	
+
 	public void spawnFour()
 	{
 		spawnTwo();
 		playerList.get(2).setXPos(width/10 - 50);
 		playerList.get(2).setYPos(height*4/5);
-		blockList.add(new Block(width/10 - 50, height*4/5 - 10, 100, 10));
+		blockList.add(new Block(width/10 - 50, height*4/5, 100, 10));
 		playerList.get(3).setXPos(width*9/10 - 50);
 		playerList.get(3).setYPos(height*4/5);
-		blockList.add(new Block(width*9/10 - 50, height*4/5 - 10, 100, 10));	
+		blockList.add(new Block(width*9/10 - 50, height*4/5, 100, 10));	
 	}
-	
+
 	public double getWidth(){
 		return width;
 	}
-	
+
 	public double getHeight(){
 		return height;
 	}
-	
+
 	public void update(double delta)
 	{
 
@@ -100,7 +95,7 @@ public class World
 		{
 			startCountdown = System.currentTimeMillis();
 		}
-		
+
 		if(go < 3)
 		{
 			long countdown = System.currentTimeMillis() - startCountdown;
@@ -127,7 +122,6 @@ public class World
 		registerKeys();
 
 		for(Player player : playerList) {
-			fell = true;
 			//block collisions, y-axis
 			player.updateYMotion();
 			if(player.getYPos() >= height) {
@@ -137,13 +131,12 @@ public class World
 			} else {
 				for(Block block : blockList) {
 					if(isColliding(player, block)){
-						fell = false;
 						if(player.getYVel() > 0) {
 							player.setYPos(block.getYPos() - player.getHeight());
 						} else {
 							player.setYPos(block.getYPos()+block.getHeight());
 							player.land();
-							
+
 						}
 					}
 				}
@@ -172,8 +165,6 @@ public class World
 					}
 				}
 			}
-			if(!fell)
-				player.fall();
 
 			//block collisions, x-axis
 			player.updateXMotion();
@@ -215,6 +206,13 @@ public class World
 	{
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
+		
+		GL11.glPushMatrix();
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, 1920, 1080, 0, -1, 1);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
 		if(go < 3)
 		{
 			float ticks = (System.currentTimeMillis() - this.startCountdown) % 1000f / 1000f;
@@ -237,32 +235,32 @@ public class World
 			}
 			settings.getFont().unbind();
 		}
-		
+
 		int windowWidth = settings.getWindowWidth();
 		int windowHeight = settings.getWindowHeight();
-		glViewport(0, 0, windowWidth, windowHeight);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
+		GL11.glViewport(0, 0, windowWidth, windowHeight);
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
 		double ymax = .01 * Math.tan( 60 * Math.PI / 360.0 );
 		double ymin = -ymax;
 		double xmin = ymin * windowWidth / windowHeight;
 		double xmax = ymax * windowWidth / windowHeight;
-		glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		
+		GL11.glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glLoadIdentity();
+
 		GL11.glColor4f(1, 1, 1, 1);
 		for(int i = 0; i < players.length; i++)
 		{
 			playerList.get(i).render(delta, players[i]);
 		}
-		
+
 		for(Block b : blockList)
 		{
 			b.render(delta, blocks);
 		}
 	}
-	
+
 	public List<Player> getPlayers(){
 		return playerList;
 	}
@@ -279,7 +277,7 @@ public class World
 		blockList.add(block);
 		return true;
 	}
-	
+
 	public boolean addMine(Mine mine){
 		if(mineList.contains(mine)){
 			return false;
@@ -322,7 +320,7 @@ public class World
 	public boolean isLowerBoundColliding(Block p1, Block p2) {
 		return !(p1.getHeight() + p1.getYPos() > p2.getYPos());
 	}
-	
+
 	public void registerKeys()
 	{
 		for(int i = 0; i < playerList.size(); i++)
@@ -331,7 +329,7 @@ public class World
 			{
 				playerList.get(i).jump();
 			}
-			
+
 			if(settings.getPlayerSmash(i).isPressed())
 			{
 				playerList.get(i).slam();
@@ -356,18 +354,18 @@ public class World
 			{
 				playerList.get(i).setXVel(-15);
 			}
-			
+
 			else
 			{
 				playerList.get(i).setXAcc(-playerList.get(i).getXVel());
 			}
-			
+
 			if(settings.getPlayerBeam(i).isPressed())
 			{
 				Beam shot = new Beam(playerList.get(i), 7);
 				shot.shootBeam();
 			}
-			
+
 			if(settings.getPlayerSuper(i).isPressed())
 			{
 				if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
@@ -385,6 +383,6 @@ public class World
 				}
 			} 
 		}
-		
+
 	}
 }

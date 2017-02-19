@@ -1,10 +1,3 @@
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.glFrustum;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glViewport;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +21,8 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 	private Vector3d background;
 	private Vector3d blocks;
-	private Vector3d text;
 	private Vector3d[] players;
+	private Vector3d text;
 
 	private int[] playerCharacters;
 
@@ -95,12 +88,8 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		GL11.glEnd();
 
 		backgroundShader.unbind();
-		
-		GL11.glPushMatrix();
-		GL11.glMatrixMode(GL11.GL_PROJECTION);
-		GL11.glLoadIdentity();
-		GL11.glOrtho(0, 1920, 1080, 0, -1, 1);
-		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+
+
 
 		world.render(delta, players, blocks, text);
 	}
