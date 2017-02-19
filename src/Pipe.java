@@ -24,6 +24,7 @@ public class Pipe extends Block{
 	public boolean isTop(){
 		return top;
 	}
+	
 	/*
 	 * boolean arg tells whether to return the top or bottom Pipe.
 	 * true: return top Pipe

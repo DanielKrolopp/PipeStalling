@@ -20,7 +20,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 	public void init()
 	{
 		super.init();
-		world = WorldGenerator.generateWorld(gameSettings, 10, 20, playerCount, playerCharacters);
+		world = WorldGenerator.generateWorld(gameSettings, 10, 20, playerCharacters);
 	}
 	
 	public void update(double delta)
