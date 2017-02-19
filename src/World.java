@@ -122,7 +122,7 @@ public class World
 			} else {
 				for(Block block : blockList) {
 					if(isColliding(player, block)){
-						if(player.getYVel() > 0) {
+						if(player.getYVel() < 0) {
 							player.setYPos(block.getYPos() - player.getHeight());
 							player.land();
 						} else {
@@ -136,7 +136,7 @@ public class World
 					if(otherPlayer.getCharacter() != player.getCharacter()) 
 					{
 						if(isColliding(player, otherPlayer)){
-							if(player.getYVel() > 0) {
+							if(player.getYVel() < 0) {
 								player.setYPos(otherPlayer.getYPos() - player.getHeight());
 								if(player.isSlamming())
 								{
