@@ -172,7 +172,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 				}
 			}
 		}
-		return new Vector3d(red, green, blue);
+		return new Vector3d(red / 255d, green / 255d, blue / 255d);
 	}
 
 }
