@@ -28,8 +28,8 @@ public class World
 		settings = game;
 		numPlayers = playerCharacters.length;
 		assignTypes(playerCharacters);
-		/*if(numPlayers == 2)
-			spawnTwo();*/
+		if(numPlayers == 2)
+			spawnTwo();
 		if(numPlayers == 3)
 			spawnThree();
 		if(numPlayers == 4)
@@ -55,10 +55,8 @@ public class World
 	{
 		playerList.get(0).setXPos(width/10 - 50);
 		playerList.get(0).setYPos(height/10);
-		blockList.add(new Block(width/10 - 50, height/10, 100, 10));
 		playerList.get(1).setXPos(width*9/10 - 50);
-		playerList.get(1).setYPos(height/10);
-		blockList.add(new Block(width*9/10 - 50, height/10, 100, 10));		
+		playerList.get(1).setYPos(height/10);	
 	}
 
 	public void spawnThree()
@@ -123,6 +121,7 @@ public class World
 
 		for(Player player : playerList) {
 			//block collisions, y-axis
+			fell = true;
 			player.updateYMotion();
 			if(player.getYPos() >= height) {
 				player.setYPos(0 - player.getHeight());
@@ -131,6 +130,7 @@ public class World
 			} else {
 				for(Block block : blockList) {
 					if(isColliding(player, block)){
+						fell = false;
 						if(player.getYVel() > 0) {
 							player.setYPos(block.getYPos() - player.getHeight());
 						} else {
@@ -167,6 +167,8 @@ public class World
 			}
 
 			//block collisions, x-axis
+			if(fell)
+				player.fall();
 			player.updateXMotion();
 			if(player.getXPos() >= width) {
 				player.setXPos(0-player.getWidth());
