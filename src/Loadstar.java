@@ -16,6 +16,7 @@ public class Loadstar extends Player {
 			Mine mine = new Mine(getXPos(), getYPos());
 			GuiWorld.world.addMine(mine);
 			System.out.println("Placed a mine at ("+getXPos()+", "+getYPos()+").");
+			this.damage(5, this);
 			lastSpecial = System.currentTimeMillis();
 		}
 	}
