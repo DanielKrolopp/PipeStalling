@@ -14,5 +14,5 @@ void main() {
     float luma = noise(gl_FragCoord.xy);
     luma *= .1f;
     gl_FragColor = vec4(1 - luma, 1 - luma, .8 - luma, 1);
-    gl_FragDepth = 0;
+    gl_FragDepth = -10;
 }

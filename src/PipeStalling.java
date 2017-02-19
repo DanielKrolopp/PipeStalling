@@ -17,6 +17,7 @@ public class PipeStalling extends App<GameSettings>
 	{
 		super.init();
 		gameSettings.createFonts();
+		gameSettings.getKeys();
 		this.initGui(new GuiMainMenu(this));
 	}
 
