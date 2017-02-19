@@ -341,6 +341,9 @@ public class World
 		
 		for(int i = 0; i < players.length; i++)
 		{
+			if(!playerList.get(i).isAlive()){
+				playerList.get(i).height = 0;
+			}
 			playerList.get(i).render(delta, players[i], vec);
 		}
 
