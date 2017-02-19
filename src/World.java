@@ -23,6 +23,8 @@ public class World
 	private int go;
 	private boolean fell;
 
+	private Player winner;
+	
 	private double ticks = 0;
 
 	private GameSettings settings;
@@ -37,8 +39,10 @@ public class World
 		explosionList = new ArrayList<Explosion>();
 		beamList = new ArrayList<Beam>();
 		settings = game;
+		winner = null;
 		numPlayers = playerCharacters.length;
 		effectTimer = new EffectTimer();
+		winner = null;
 		assignTypes(playerCharacters);
 		if(numPlayers == 2)
 			spawnTwo();
@@ -135,7 +139,13 @@ public class World
 
 		registerKeys();
 
+		ArrayList<Player> livePlayers = new ArrayList<Player>();
 		for(Player player : playerList) {
+			//Win conditions
+			if(player.isAlive()){
+				livePlayers.add(player);
+			}
+			
 			//block collisions, y-axis
 			fell = true;
 			for(Mine mine : mineList) {
@@ -244,6 +254,9 @@ public class World
 						}
 				}
 			}
+		}
+		if(livePlayers.size() == 1){
+			winner = livePlayers.get(0);
 		}
 		for(Explosion ex : explosionList) {
 			if(ex.getTime() > 1000) { //time might need to be changed
