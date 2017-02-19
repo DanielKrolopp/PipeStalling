@@ -21,14 +21,7 @@ public class Beam {
 
 	public Beam(Player pBlock, int amount, boolean add)
 	{
-		if(pBlock.getFacingLeft())
-		{
-			xPos = pBlock.getXPos();
-		}
-		else
-		{
-			xPos = pBlock.getXPos() + pBlock.getWidth();
-		}
+		xPos = pBlock.getXPos() + pBlock.getWidth()/2;
 		yPos = pBlock.getYPos()+pBlock.getHeight() / 2;
 		facingLeft = pBlock.getFacingLeft();
 		adderBeam = add;
