@@ -27,7 +27,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 	private int[] playerCharacters;
 
-	public GuiWorld(App<GameSettings> app, Shader s, int t, int[] c, int count, int ... pc) 
+	public GuiWorld(App<GameSettings> app, Shader s, int t, int[] c, int ... pc) 
 	{
 		super(app);
 		playerCharacters = pc;

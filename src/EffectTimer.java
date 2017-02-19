@@ -10,7 +10,10 @@ public class EffectTimer
 		rotationVec.x = MathHelper.getExpValue(rotationVec.x, 0, .5, delta);
 		rotationVec.y = MathHelper.getExpValue(rotationVec.y, 0, .5, delta);
 		rotationVec.z = MathHelper.getExpValue(rotationVec.z, 0, .5, delta);
-
+		
+		rotationVec.x = MathHelper.getLinearValue(rotationVec.x, 0, .1, delta);
+		rotationVec.y = MathHelper.getLinearValue(rotationVec.y, 0, .1, delta);
+		rotationVec.z = MathHelper.getLinearValue(rotationVec.z, 0, .1, delta);
 	}
 	/*
 	 * Precondition: effect cannot be null
