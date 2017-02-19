@@ -89,7 +89,9 @@ public class WorldGenerator {
 				blockHeight = (int) (Math.random() * Math.min((height - blockY) / size, 2) + 1) * size;
 
 			notOverlapping = true;
-
+			if(blockHeight < 10){
+				blockHeight += 20;
+			}
 			Block block = new Block(blockX, blockY, blockWidth, blockHeight);
 
 			for(int j = 0; j < blocks.size(); j++)
