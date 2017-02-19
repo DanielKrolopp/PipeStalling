@@ -344,7 +344,7 @@ public class World
 		
 		if(winner != null)
 		{
-			vec = new Vector4d(0, 0, ticks * 360, Math.max(ticks / 4, 0));
+			vec = new Vector4d(0, 0, ticks * 360, 1 - ticks % 4 / 4);
 		}
 		
 		for(int i = 0; i < players.length; i++)
