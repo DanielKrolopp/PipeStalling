@@ -19,7 +19,7 @@ public class Beam {
 
 	Player shooter;
 
-	public Beam(Player pBlock, int amount, boolean add)
+	public Beam(Player pBlock, int amount, boolean add)//
 	{
 		if(pBlock.getFacingLeft())
 		{
