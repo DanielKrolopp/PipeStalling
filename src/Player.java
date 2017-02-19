@@ -200,6 +200,7 @@ public class Player extends Block
 		}
 		health -= Math.round(amount/2.5);
 		if(health < 0){
+			health = 1;
 		}
 	}
 	
@@ -211,7 +212,7 @@ public class Player extends Block
 	{
 		health -= Math.round(amount/5.00);
 		if(health < 0){
-			alive = false;
+			health = 1;
 		}
 	}
 	
