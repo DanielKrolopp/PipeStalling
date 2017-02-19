@@ -30,12 +30,4 @@ public class Mine extends Block {
 				(2 * this.getYPos() + MINE_SIZE)/2, player, true);
 		explode.explode(1, BLAST_STRENGTH);
 	}
-	
-	public void render(double delta, Vector3d p, Vector3d vector3d) 
-	{
-		//if(visible)
-		//{
-			super.render(delta, p, vector3d);
-		//}
-	}
 }

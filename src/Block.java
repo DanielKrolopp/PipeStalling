@@ -1,4 +1,5 @@
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 import org.lwjgl.opengl.GL11;
 
 public class Block {
@@ -31,12 +32,14 @@ public class Block {
 		return width;
 	}
 	
-	public void render(double delta, Vector3d vec, Vector3d vector3d)
+	public void render(double delta, Vector3d vec, Vector4d vector3d)
 	{
 		GL11.glPushMatrix();
 		GL11.glRotated(vector3d.x, 1, 0, 0);
 		GL11.glRotated(vector3d.y, 0, 1, 0);
 		GL11.glRotated(vector3d.z, 0, 0, 1);
+		
+		GL11.glScaled(vector3d.w, vector3d.w, vector3d.w);
 		
 		GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 		GL11.glTranslated(xPos + width / 2 - 960, -550  + height / 2 + yPos, -999);
