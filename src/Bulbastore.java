@@ -40,4 +40,11 @@ public class Bulbastore extends Player {
 			stopSpecial();
 		}
 	}
+	
+	public void render(double delta, Vector3d vec, Vector3d rotate)
+	{
+		super.render(delta, usingSpecial && currentTime % 150 < 75 ? new Vector3d(1) : vec, rotate);
+		
+		
+	}
 }
