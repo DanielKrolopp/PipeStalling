@@ -29,8 +29,8 @@ public class World
 		settings = game;
 		numPlayers = playerCharacters.length;
 		assignTypes(playerCharacters);
-		if(numPlayers == 2)
-			spawnTwo();
+		/*if(numPlayers == 2)
+			spawnTwo();*/
 		if(numPlayers == 3)
 			spawnThree();
 		if(numPlayers == 4)

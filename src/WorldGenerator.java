@@ -44,6 +44,8 @@ public class WorldGenerator {
 				i++;
 			}
 		}
+		generated.addBlock(new Block(0, 0, worldWidth, 30));
+		generated.addBlock(new Block(0, worldHeight - 30, worldWidth, 30));
 		return generated;
 	}
 }
