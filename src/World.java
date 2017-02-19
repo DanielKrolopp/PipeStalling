@@ -154,6 +154,7 @@ public class World
 			if(player.getCharacter() == CharacterType.STORE)
 			{
 				((Bulbastore)player).updateTimer();
+				((Bulbastore)player).updateCooldown();
 			}
 			player.updateYMotion();
 			if(player.getYPos() >= height) {
