@@ -9,6 +9,8 @@ public class Beam {
 	
 	private int damage;
 	
+	private long startTime;
+	
 	Player shooter;
 	
 	public Beam(Player pBlock, int amount)
@@ -18,6 +20,16 @@ public class Beam {
 		facingLeft = pBlock.getFacingLeft();
 		shooter = pBlock;
 		damage = amount;
+		startTimer();
+		GuiWorld.world.addBeam(this);
+	}
+	
+	public void startTimer() {
+		startTime = System.currentTimeMillis();
+	}
+	
+	public long getTime() {
+		return System.currentTimeMillis() - startTime;
 	}
 
 	public boolean shootBeam()	//True means hit, false is a miss
