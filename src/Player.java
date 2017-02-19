@@ -15,6 +15,8 @@ public class Player extends Block
 	protected double xAcc;
 	protected double yAcc;
 	
+	protected long jumpTime;
+	
 	protected int health;		//Maxes out at 100, no effect on size
 	protected int jumpCount;
 	protected int damageCounter;
@@ -102,16 +104,16 @@ public class Player extends Block
 	public void fall()
 	{
 		yAcc = -2;					//Sets acceleration for falling, aka gravity
-		jumpCount = 1;
 	}
 	
 	public void jump()
 	{
-		if(jumpCount > 0)
+		if(jumpCount > 0 && System.currentTimeMillis() - jumpTime >= 250)
 		{
+			jumpTime = System.currentTimeMillis();
 			jumping = true;
 			jumpCount--;
-			yVel = 50;				//Sets velocity for normal jumping
+			yVel = 35;				//Sets velocity for normal jumping
 			yAcc = -2;				//Sets acceleration for normal jumping, aka gravity
 		}
 	}
@@ -125,7 +127,7 @@ public class Player extends Block
 		if(!slamming && yAcc != -0.5)
 		{
 			slamming = true;
-			yAcc = -6;				//Sets acceleration for slamming			
+			yAcc = -8;				//Sets acceleration for slamming			
 		}
 	}
 	

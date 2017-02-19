@@ -152,6 +152,7 @@ public class World
 					if(otherPlayer.getCharacter() != player.getCharacter()) 
 					{
 						if(isColliding(player, otherPlayer)){
+							fell = false;
 							if(player.getYVel() > 0) {
 								player.setYPos(otherPlayer.getYPos() - player.getHeight());
 								if(player.isSlamming())
@@ -163,7 +164,7 @@ public class World
 								player.setYVel(0);
 								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
 								{
-									player.damage(10, otherPlayer);
+									player.damage(5, otherPlayer);
 								}
 								player.land();
 							}
@@ -336,18 +337,24 @@ public class World
 				playerList.get(i).slam();
 			}
 			
-			if(settings.getPlayerRight(i).isPressed())
+			if(settings.getPlayerRight(i).isDoublePressed())
 			{
-				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(20);
-				playerList.get(i).setXVel(10);
+				playerList.get(i).setXVel(22);
 			}
+			
+			else if(settings.getPlayerRight(i).isPressed())
+			{
+				playerList.get(i).setXVel(15);
+			}
+			
+			else if(settings.getPlayerLeft(i).isDoublePressed())
+			{
+				playerList.get(i).setXVel(-22);
+			}		
 			
 			else if(settings.getPlayerLeft(i).isPressed())
 			{
-				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(-20);
-				playerList.get(i).setXVel(-10);
+				playerList.get(i).setXVel(-15);
 			}
 			
 			else
