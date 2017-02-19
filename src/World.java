@@ -137,6 +137,12 @@ public class World
 		for(Player player : playerList) {
 			//block collisions, y-axis
 			fell = true;
+			for(Mine mine : mineList) {
+				if(isColliding(player, mine)) {
+					mine.detonate(player);
+				}
+			}
+			
 			if(player.getCharacter() == CharacterType.STORE)
 			{
 				((Bulbastore)player).updateTimer();
@@ -239,7 +245,7 @@ public class World
 			}
 		}
 		for(Explosion ex : explosionList) {
-			if(ex.getTime() > 400) { //time might need to be changed
+			if(ex.getTime() > 1000) { //time might need to be changed
 				explosionList.remove(ex);
 			}
 		}
@@ -248,9 +254,6 @@ public class World
 			if(beam.getTime() > 200) { //might need to be changed
 				beamList.remove(beam);
 			}
-		}
-		for(Mine mine : mineList) {
-			mine.update(delta);
 		}
 	}
 
