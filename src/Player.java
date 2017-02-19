@@ -182,7 +182,7 @@ public class Player extends Block
 		{
 			enemy.damageCounter += amount;
 		}
-		health -= Math.round(amount/4.00);
+		health -= Math.round(amount/2.5);
 		if(health < 0){
 		}
 	}
