@@ -1,4 +1,5 @@
 import org.joml.Vector3d;
+import org.lwjgl.opengl.GL11;
 
 public class Player extends Block
 {
@@ -176,6 +177,24 @@ public class Player extends Block
 	public void render(double delta, Vector3d vec)
 	{
 		super.render(delta, vec);
+		
+		GL11.glPushMatrix();
+		
+		GL11.glTranslated(xPos + width / 2 - 960, -500 + yPos + height * 1.5, -999);
+		
+		GL11.glColor4f(0, 0, 0, 1);
+		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+		GL11.glLineWidth(1.5f);
+		GL11.glScaled(width / 2, 7.5, 7.5);
+		GL11.glScaled(1.02d, 1.02d, 1.02d);
+		genCube();
+		GL11.glScaled(1 / 1.02d, 1 / 1.02d, 1 / 1.02d);
+		
+		GL11.glColor4d(vec.x, vec.y, vec.z, 1);
+		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		genCube();
+		
+		GL11.glPopMatrix();
 	}
 	
 	@Override

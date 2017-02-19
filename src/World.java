@@ -22,7 +22,7 @@ public class World
 	private long startCountdown = 0;
 	private int go;
 	private boolean fell;
-	
+
 	private GameSettings settings;
 
 	public World(double width, double height, GameSettings game, int[] playerCharacters)
@@ -42,7 +42,7 @@ public class World
 		if(numPlayers == 4)
 			spawnFour();
 	}
-	
+
 	public void assignTypes(int[] playerCharacters)
 	{
 		for(int i = 0; i < numPlayers; i++)
@@ -57,7 +57,7 @@ public class World
 				playerList.add(new MadAdder(0, 0));
 		}
 	}
-	
+
 	public void spawnTwo()
 	{
 		playerList.get(0).setXPos(width/10 - 50);
@@ -65,7 +65,7 @@ public class World
 		playerList.get(1).setXPos(width*9/10 - 50);
 		playerList.get(1).setYPos(height/10);	
 	}
-	
+
 	public void spawnThree()
 	{
 		spawnTwo();
@@ -73,7 +73,7 @@ public class World
 		playerList.get(2).setYPos(height*4/5);
 		blockList.add(new Block(width/2 - 50, height*4/5 - 10, 100, 10));				
 	}
-	
+
 	public void spawnFour()
 	{
 		spawnTwo();
@@ -84,15 +84,15 @@ public class World
 		playerList.get(3).setYPos(height*4/5);
 		blockList.add(new Block(width*9/10 - 50, height*4/5 - 10, 100, 10));	
 	}
-	
+
 	public double getWidth(){
 		return width;
 	}
-	
+
 	public double getHeight(){
 		return height;
 	}
-	
+
 	public void update(double delta)
 	{
 
@@ -100,7 +100,7 @@ public class World
 		{
 			startCountdown = System.currentTimeMillis();
 		}
-		
+
 		if(go < 3)
 		{
 			long countdown = System.currentTimeMillis() - startCountdown;
@@ -143,7 +143,7 @@ public class World
 						} else {
 							player.setYPos(block.getYPos()+block.getHeight());
 							player.land();
-							
+
 						}
 					}
 				}
@@ -212,6 +212,33 @@ public class World
 
 	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
 	{
+		/*for(int i = 0; i < players.length; i ++)
+		{
+			Player player = playerList.get(i);
+			GL11.glColor4d(players[i].x, players[i].y, players[i].z, 1);
+
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+			GL11.glBegin(GL11.GL_QUADS);
+			GL11.glVertex3d(player.getXPos(), 1080 - (player.getYPos() + player.getHeight() / 3), 0);
+			GL11.glVertex3d(player.getXPos(), 1080 - (player.getYPos() + player.getHeight() / 2), 0);
+			GL11.glVertex3d(player.getXPos() + player.getWidth(), 1080 - (player.getYPos() + player.getHeight() / 2), 0);
+			GL11.glVertex3d(player.getXPos() + player.getWidth(), 1080 - (player.getYPos() + player.getHeight() / 3), 0);
+			GL11.glEnd();
+
+			GL11.glColor4f(0, 0, 0, 1);
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+			GL11.glLineWidth(1f);
+			
+			GL11.glBegin(GL11.GL_QUADS);
+			GL11.glVertex3d(player.getXPos(), 1080 - (player.getYPos() + player.getHeight() / 3), 0);
+			GL11.glVertex3d(player.getXPos(), 1080 - (player.getYPos() + player.getHeight() / 2), 0);
+			GL11.glVertex3d(player.getXPos() + player.getWidth(), 1080 - (player.getYPos() + player.getHeight() / 2), 0);
+			GL11.glVertex3d(player.getXPos() + player.getWidth(), 1080 - (player.getYPos() + player.getHeight() / 3), 0);
+			GL11.glEnd();
+
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		}*/
+
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
 		if(go < 3)
@@ -236,7 +263,7 @@ public class World
 			}
 			settings.getFont().unbind();
 		}
-		
+
 		int windowWidth = settings.getWindowWidth();
 		int windowHeight = settings.getWindowHeight();
 		glViewport(0, 0, windowWidth, windowHeight);
@@ -249,19 +276,19 @@ public class World
 		glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		
+
 		GL11.glColor4f(1, 1, 1, 1);
 		for(int i = 0; i < players.length; i++)
 		{
 			playerList.get(i).render(delta, players[i]);
 		}
-		
+
 		for(Block b : blockList)
 		{
 			b.render(delta, blocks);
 		}
 	}
-	
+
 	public List<Player> getPlayers(){
 		return playerList;
 	}
@@ -278,7 +305,7 @@ public class World
 		blockList.add(block);
 		return true;
 	}
-	
+
 	public boolean addMine(Mine mine){
 		if(mineList.contains(mine)){
 			return false;
@@ -321,7 +348,7 @@ public class World
 	public boolean isLowerBoundColliding(Block p1, Block p2) {
 		return !(p1.getHeight() + p1.getYPos() > p2.getYPos());
 	}
-	
+
 	public void registerKeys()
 	{
 		for(int i = 0; i < playerList.size(); i++)
@@ -330,37 +357,37 @@ public class World
 			{
 				playerList.get(i).jump();
 			}
-			
+
 			if(settings.getPlayerSmash(i).isPressed())
 			{
 				playerList.get(i).slam();
 			}
-			
+
 			if(settings.getPlayerRight(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
 					playerList.get(i).setXVel(20);
 				playerList.get(i).setXVel(10);
 			}
-			
+
 			else if(settings.getPlayerLeft(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
 					playerList.get(i).setXVel(-20);
 				playerList.get(i).setXVel(-10);
 			}
-			
+
 			else
 			{
 				playerList.get(i).setXAcc(-playerList.get(i).getXVel());
 			}
-			
+
 			if(settings.getPlayerBeam(i).isPressed())
 			{
 				Beam shot = new Beam(playerList.get(i), 7);
 				shot.shootBeam();
 			}
-			
+
 			if(settings.getPlayerSuper(i).isPressed())
 			{
 				if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
@@ -378,6 +405,6 @@ public class World
 				}
 			} 
 		}
-		
+
 	}
 }
