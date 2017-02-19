@@ -148,7 +148,7 @@ public class Player extends Block
 		if(!slamming && yAcc != -0.5)
 		{
 			slamming = true;
-			yAcc = -8;				//Sets acceleration for slamming			
+			yAcc = -7;				//Sets acceleration for slamming			
 		}
 	}
 	
@@ -199,7 +199,7 @@ public class Player extends Block
 			enemy.damageCounter += amount;
 		}
 		health -= Math.round(amount/2.5);
-		if(health < 0){
+		if(health <= 0){
 			health = 1;
 		}
 	}
@@ -211,7 +211,7 @@ public class Player extends Block
 	public void miss(int amount)
 	{
 		health -= Math.round(amount/5.00);
-		if(health < 0){
+		if(health <= 0){
 			health = 1;
 		}
 	}

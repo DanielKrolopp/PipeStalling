@@ -17,7 +17,8 @@ public class World
 	private int numPlayers;
 	private double width;
 	private double height;
-	private long cooldown;
+	private long cooldownADD;
+	private long cooldownJUMP;
 	private long startCountdown = 0;
 	private int go;
 	private boolean fell;
@@ -195,10 +196,15 @@ public class World
 								if(player.isSlamming())
 								{
 									if(player.characterType == CharacterType.JUMP && player.isUsingSpecial())
+									{
 										player.damage(20, otherPlayer);
-									else 
+										player.land();
+									}
+									else
+									{
 										player.damage(10, otherPlayer);
-									player.bounce();
+										player.bounce();
+									}
 								}
 								else
 									player.land();
@@ -524,17 +530,21 @@ public class World
 				if(settings.getPlayerSuper(i).isPressed())
 				{
 					if(playerList.get(i).getCharacter() == CharacterType.ADD){
-						if(System.currentTimeMillis() - cooldown >= 75)
+						if(System.currentTimeMillis() - cooldownADD >= 75)
 						{
 							((MadAdder)playerList.get(i)).special();
-							cooldown = System.currentTimeMillis();
+							cooldownADD = System.currentTimeMillis();
 						}
 					}
 					if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
 						((Loadstar)playerList.get(i)).special();
 					}
 					if(playerList.get(i).getCharacter() == CharacterType.JUMP){
-						((Jumpernaut)playerList.get(i)).special();
+						if(System.currentTimeMillis() - cooldownJUMP >= 2000)
+						{
+							((Jumpernaut)playerList.get(i)).special();
+							cooldownJUMP = System.currentTimeMillis();
+						}
 					}
 					if(playerList.get(i).getCharacter() == CharacterType.STORE) {
 						((Bulbastore)(playerList.get(i))).startTimer();
