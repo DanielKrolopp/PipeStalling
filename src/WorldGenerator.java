@@ -1,4 +1,5 @@
 public class WorldGenerator {
+	//worldWidth and worldHeight are width/height of the untrimmed world, Killian
 	public static World generateWorld(GameSettings gameSettings, int worldWidth, int worldHeight) {
 		World generated = new World(worldWidth, worldHeight);
 		int i = 0;

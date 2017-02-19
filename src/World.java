@@ -20,7 +20,15 @@ public class World
 		blockList = new ArrayList<Block>();	
 		mineList = new ArrayList<Mine>();
 	}
-
+	
+	public double getWidth(){
+		return width;
+	}
+	
+	public double getHeight(){
+		return height;
+	}
+	
 	public void update(double delta)
 	{
 		for(Player player : playerList) {
