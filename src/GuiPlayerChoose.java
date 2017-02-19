@@ -30,13 +30,12 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 	private double player1Ticks = 0;
 	private double player2Ticks = 3;
 
-	public GuiPlayerChoose(GuiMainMenu gui) 
+	public GuiPlayerChoose(GuiMainMenu gui, Shader s, int t) 
 	{
 		super(gui);
-
-		colorShader = Shader.createShader(new File("shaders/colorShader.vert"), new File("shaders/colorShader.frag"));
-
-		time = GL20.glGetUniformLocation(colorShader.getShaderId(), "time");
+		
+		colorShader = s;
+		time = t;
 	}
 
 	public void update(double delta)
@@ -69,7 +68,7 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 		
 		if(input.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
 		{
-			application.initGui(new GuiWorld(application, 2, player1, player2));
+			application.initGui(new GuiWorld(application, colorShader, time, 2, player1, player2));
 		}
 		
 		player1 = (player1 + move1);
