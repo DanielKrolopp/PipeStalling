@@ -11,6 +11,7 @@ public class World
 {
 	private static List<Player> playerList;
 	private List<Block> blockList;
+	private List<Pipe> pipeList;
 	private List<Mine> mineList;
 	private List<Explosion> explosionList;
 	private List<Beam> beamList;
@@ -253,7 +254,7 @@ public class World
 		}
 	}
 
-	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
+	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text, Vector3d pipe)
 	{
 
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -294,7 +295,12 @@ public class World
 			b.render(delta);
 			GL11.glEnd();
 		}
-
+		
+		for(Explosion e : explosionList)
+		{
+			e.render(delta);
+		}
+		
 		ticks += delta;
 
 		int windowWidth = settings.getWindowWidth();
@@ -318,7 +324,22 @@ public class World
 
 		for(Block b : blockList)
 		{
-			b.render(delta, blocks, effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+			b.render(delta, b instanceof Pipe ? pipe : blocks, effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
+		}
+		
+		int p = 0;
+		for(int i = 0; i < players.length; i++)
+		{
+			if(playerList.get(i).getCharacter() == CharacterType.LOAD)
+			{
+				p = i;
+				break;
+			}
+		}
+
+		for(Mine m : mineList)
+		{
+			m.render(delta, players[p], effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
 		}
 	}
 
@@ -331,6 +352,9 @@ public class World
 	public List<Mine> getMines(){
 		return mineList;
 	}
+	public List<Pipe> getPipes(){
+		return pipeList;
+	}
 	/*
 	 * Adds a block to the world. Returns false if already in world.
 	 */
@@ -339,6 +363,13 @@ public class World
 			return false;
 		}
 		blockList.add(block);
+		return true;
+	}
+	public boolean addPipe(Pipe pipe){
+		if(pipeList.contains(pipe)){
+			return false;
+		}
+		pipeList.add(pipe);
 		return true;
 	}
 
@@ -389,8 +420,7 @@ public class World
 
 	public void registerKeys()
 	{
-		for(int i = 0; i < playerList.size(); i++)
-		{
+		for(int i = 0; i < playerList.size(); i++){
 			if(playerList.get(i).isAlive())
 			{
 				if(settings.getPlayerJump(i).isPressed())

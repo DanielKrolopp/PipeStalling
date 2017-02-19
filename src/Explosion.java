@@ -1,13 +1,12 @@
 import java.util.List;
 
-import com.polaris.engine.util.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 public class Explosion {
 	
 	private double radius;
 	private int rays;
 	private double increment;
-	private int xIncr;
 	private double[] distances;
 	private double[] slopes;
 	private double midX;
@@ -15,25 +14,25 @@ public class Explosion {
 	private Player attacker;
 	private boolean selfDamage;
 	private long startTime;
+	private Player collidedPlayer;
+	
+	private double ticks = 0;
 	//explosion constructor takes midpoint of explosion, blast radius, 
 	//number of rays (possible chances for someone to take damage) 
 	//and x incrememnt value (the smaller, the more accurate)
 	public Explosion(double radius, int rays, double midX, 
-			double midY, int xIncr, Player attacker, boolean selfDamage) {
+			double midY, Player attacker, boolean selfDamage) {
 		this.radius = radius;
 		this.rays = rays;
 		this.selfDamage = selfDamage;
 		this.attacker = attacker;
-		this.xIncr = xIncr;
 		this.midX = midX;
 		this.midY = midY;
 		increment = 2*(Math.PI) / rays;
 		distances = new double[rays];
 		slopes = new double[rays];
 		startTimer();
-		GuiWorld.world.addExplosion(this);
-		//System.out.println("REACHED 2");
-				
+		GuiWorld.world.addExplosion(this);				
 	}
 	
 	public void startTimer() {
@@ -45,54 +44,54 @@ public class Explosion {
 	}
 	
 	public void explode() {
-		for(int i = 0; i < rays; i++) {
-			slopes[i] = Math.tan(i*increment);
-			distances[i] = 0;
-			double x = xIncr;
-			double y = slopes[i]*x+midY;
+		for(int i = 1; i <= rays; i++) {
+			slopes[i-1] = Math.tan(i*increment);
+			double xIncr = Math.cos(i*increment);
+			double yIncr = Math.sin(i*increment);
+			distances[i-1] = 0;
+			double x = midX+xIncr;
+			double y = midY+yIncr;
 			
-			Block collidedWith = lineIsColliding(x, y);
-			
-			while(collidedWith == null && distances[i] <= radius) {
-				distances[i] = MathHelper.pythagoreon(x-midX, y-midY);
+			int collidedWith = lineIsColliding(x, y);
+			while(collidedWith == 0 && distances[i-1] <= radius) {
+				distances[i-1] = calculateDistance(x, y);
 				x += xIncr;
-				y = slopes[i]*x+midY;
+				y += yIncr;
 				collidedWith = lineIsColliding(x, y);
 			}
-			if(collidedWith instanceof Player) {
-				attacker.damage(10, (Player)collidedWith);
+			
+			if(collidedWith == 1) { //player found
+				attacker.damage(+10, collidedPlayer);
 			}
+			collidedPlayer = null;
 		}
 	}
 	
 	public void explode(int base) {
 		for(int i = 1; i <= rays; i++) {
-			//System.out.println("REACHED"+i);
-			slopes[i] = Math.tan(i*increment);
-		
-			distances[i] = 0;
-			double x = xIncr;
-			double y = slopes[i]*x+midY;
+			slopes[i-1] = Math.tan(i*increment);
+			double xIncr = Math.cos(i*increment);
+			double yIncr = Math.sin(i*increment);
+			distances[i-1] = 0;
+			double x = midX+xIncr;
+			double y = midY+yIncr;
 			
-			Block collidedWith = lineIsColliding(x, y);
-			//System.out.println("REACHED"+i+" 2");
-			while(collidedWith == null && distances[i] <= radius) {
-				distances[i] = MathHelper.pythagoreon(x-midX, y-midY);
-				//System.out.println(distances[i]);
-				//System.out.println(slopes[i]);
+			int collidedWith = lineIsColliding(x, y);
+			while(collidedWith == 0 && distances[i-1] <= radius) {
+				distances[i-1] = calculateDistance(x, y);
 				x += xIncr;
-				//System.out.println(x);
-				y = slopes[i]*x+midY;
-				//System.out.println(y);
+				y += yIncr;
 				collidedWith = lineIsColliding(x, y);
 			}
-			if(collidedWith instanceof Player) {
-				attacker.damage(base/3, (Player)collidedWith);
+			
+			if(collidedWith == 1) { //player found
+				attacker.damage(base/3+10, collidedPlayer);
 			}
+			collidedPlayer = null;
 		}
 	}
 	
-	public Block lineIsColliding(double x, double y) {
+	public int lineIsColliding(double x, double y) {
 		List<Player> playersList = GuiWorld.world.getPlayers();
 		List<Block> blockList = GuiWorld.world.getBlocks();
 		for(Player player : playersList) {
@@ -101,7 +100,8 @@ public class Explosion {
 				if(x > player.getXPos() && x < player.getXPos() + 
 					player.getWidth() && y > player.getYPos() &&
 					y < player.getYPos() + player.getHeight()) {
-					return player;
+					collidedPlayer = player;
+					return 1;
 				}
 			}
 		}	
@@ -109,13 +109,36 @@ public class Explosion {
 			if(x > block.getXPos() && x < block.getXPos() + 
 					block.getWidth() && y > block.getYPos() &&
 					y < block.getYPos() + block.getHeight()) {
-					return block;
+					return 2;
 				}
 		}
-		return null;
+		return 0;
 	}
 	
-	public void render(double delta) {
+	public double calculateDistance(double x, double y) {
+		return Math.sqrt((x-midX)*(x-midX)+(y-midY)*(y-midY));
+	}
+	
+	public void render(double delta) 
+	{
+		ticks += delta;
+		
+		GL11.glColor4f(0, 0, 0, 1);
+		GL11.glBegin(GL11.GL_LINES);
+		
+		double mul1 = Math.max(.8 - 10 * ticks, 0);
+		double mul2 = Math.max(1 - 10 * ticks, 0);
+		
+		for(int i = 1; i <= rays; i ++)
+		{
+			double rad = i*increment;
+			double cos = Math.cos(rad) * distances[i-1];
+			double sin = Math.sin(rad) * this.distances[i-1];
+
+			GL11.glVertex3d(this.midX + cos * mul1, 1080 - (this.midY + sin * mul1), 0);
+			GL11.glVertex3d(this.midX + cos * mul2, 1080 - (this.midY + sin * mul2), 0);
+		}
+		GL11.glEnd();
 		
 	}
 }

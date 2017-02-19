@@ -23,6 +23,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 	private Vector3d blocks;
 	private Vector3d[] players;
 	private Vector3d text;
+	private Vector3d pipe;
 
 	private int[] playerCharacters;
 
@@ -57,6 +58,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		background = genColor(players.length);
 		blocks = genColor(players.length);
 		text = genColor(players.length);
+		pipe = genColor(players.length);
 		
 		world = WorldGenerator.generateWorld(gameSettings, 10, 20, playerCharacters);
 	}
@@ -90,7 +92,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 		backgroundShader.unbind();
 
-		world.render(delta, players, blocks, text);
+		world.render(delta, players, blocks, text, pipe);
 	}
 
 	private Vector3d genColor(int iteration)
