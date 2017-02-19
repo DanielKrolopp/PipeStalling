@@ -24,7 +24,7 @@ public class World
 	private boolean fell;
 
 	private Player winner;
-	
+
 	private double ticks = 0;
 
 	private GameSettings settings;
@@ -82,7 +82,7 @@ public class World
 		spawnTwo();
 		playerList.get(2).setXPos(width/2 - 50);
 		playerList.get(2).setYPos(height*4/5);
-		blockList.add(new Block(width/2 - 50, height*4/5, 100, 10));				
+		blockList.add(new Block(width/2 - 50, height*4/5, 100, 25));				
 	}
 
 	public void spawnFour()
@@ -90,10 +90,10 @@ public class World
 		spawnTwo();
 		playerList.get(2).setXPos(width/10 - 50);
 		playerList.get(2).setYPos(height*4/5);
-		blockList.add(new Block(width/10 - 50, height*4/5, 100, 10));
+		blockList.add(new Block(width/10 - 50, height*4/5, 100, 25));
 		playerList.get(3).setXPos(width*9/10 - 50);
 		playerList.get(3).setYPos(height*4/5);
-		blockList.add(new Block(width*9/10 - 50, height*4/5, 100, 10));	
+		blockList.add(new Block(width*9/10 - 50, height*4/5, 100, 25));	
 	}
 
 	public double getWidth(){
@@ -145,7 +145,7 @@ public class World
 			if(player.isAlive()){
 				livePlayers.add(player);
 			}
-			
+
 			//block collisions, y-axis
 			fell = true;
 			for(Mine mine : mineList) {
@@ -153,7 +153,7 @@ public class World
 					mine.detonate(player);
 				}
 			}
-			
+
 			if(player.getCharacter() == CharacterType.STORE)
 			{
 				((Bulbastore)player).updateTimer();
@@ -197,7 +197,7 @@ public class World
 								{
 									if(player.characterType == CharacterType.JUMP && player.isUsingSpecial())
 									{
-										player.damage(20, otherPlayer);
+										player.damage(30, otherPlayer);
 										player.land();
 									}
 									else
@@ -318,7 +318,7 @@ public class World
 			}
 			settings.getFont().unbind();
 		}
-		
+
 		ticks += delta;
 
 		int windowWidth = settings.getWindowWidth();
@@ -335,26 +335,26 @@ public class World
 		GL11.glLoadIdentity();
 
 		GL11.glColor4f(1, 1, 1, 1);
-		
+
 		for(Beam b : beamList)
 		{
 			b.render(delta);
 		}
-		
+
 		for(Explosion e : explosionList)
 		{
 			e.render(delta);
 		}
-		
+
 		Vector4d vec = new Vector4d(effectTimer.getEffect());
 		vec.mul((Math.abs(ticks % .25 - .125) - .0625) * 16);
 		vec.w = 1;
-		
+
 		if(winner != null)
 		{
 			vec = new Vector4d(0, 0, ticks * 360, 1 - (ticks % 1) / 1d);
 		}
-		
+
 		for(int i = 0; i < players.length; i++)
 		{
 			if(!playerList.get(i).isAlive()){
@@ -367,7 +367,7 @@ public class World
 		{
 			b.render(delta, b instanceof Pipe ? pipe : blocks, vec);
 		}
-		
+
 		int p = 0;
 		for(int i = 0; i < players.length; i++)
 		{
@@ -462,73 +462,75 @@ public class World
 	public void registerKeys()
 	{
 		for(int i = 0; i < playerList.size(); i++){
+			if(settings.getPlayerJump(i).isPressed())
+			{
+				playerList.get(i).jump();
+			}
+
+			if(settings.getPlayerSmash(i).isPressed())
+			{
+				playerList.get(i).slam();
+			}
+
+			if(settings.getPlayerRight(i).isDoublePressed())
+			{
+				if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+						playerList.get(i).isUsingSpecial()) {
+					playerList.get(i).setXVel(16);
+				} else {
+					playerList.get(i).setXVel(22);
+				}
+				playerList.get(i).facingLeft = false;
+			}
+
+			else if(settings.getPlayerRight(i).isPressed())
+			{
+				if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+						playerList.get(i).isUsingSpecial()) {
+					playerList.get(i).setXVel(10);
+				} else {
+					playerList.get(i).setXVel(15);
+				}
+				playerList.get(i).facingLeft = false;
+			}
+
+			else if(settings.getPlayerLeft(i).isDoublePressed())
+			{
+				if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+						playerList.get(i).isUsingSpecial()) {
+					playerList.get(i).setXVel(-16);
+				} else {
+					playerList.get(i).setXVel(-22);
+				}
+				playerList.get(i).facingLeft = true;
+			}		
+
+			else if(settings.getPlayerLeft(i).isPressed())
+			{
+				if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+						playerList.get(i).isUsingSpecial()) {
+					playerList.get(i).setXVel(-10);
+				} else {
+					playerList.get(i).setXVel(-15);
+				}
+				playerList.get(i).facingLeft = true;
+			}
+
+			else
+			{
+				playerList.get(i).setXAcc(-playerList.get(i).getXVel());
+			}
 			if(playerList.get(i).isAlive())
 			{
-				if(settings.getPlayerJump(i).isPressed())
-				{
-					playerList.get(i).jump();
-				}
-
-				if(settings.getPlayerSmash(i).isPressed())
-				{
-					playerList.get(i).slam();
-				}
-
-				if(settings.getPlayerRight(i).isDoublePressed())
-				{
-					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
-							playerList.get(i).isUsingSpecial()) {
-						playerList.get(i).setXVel(16);
-					} else {
-						playerList.get(i).setXVel(22);
-					}
-					playerList.get(i).facingLeft = false;
-				}
-
-				else if(settings.getPlayerRight(i).isPressed())
-				{
-					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
-							playerList.get(i).isUsingSpecial()) {
-						playerList.get(i).setXVel(10);
-					} else {
-						playerList.get(i).setXVel(15);
-					}
-					playerList.get(i).facingLeft = false;
-				}
-
-				else if(settings.getPlayerLeft(i).isDoublePressed())
-				{
-					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
-							playerList.get(i).isUsingSpecial()) {
-						playerList.get(i).setXVel(-16);
-					} else {
-						playerList.get(i).setXVel(-22);
-					}
-					playerList.get(i).facingLeft = true;
-				}		
-
-				else if(settings.getPlayerLeft(i).isPressed())
-				{
-					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
-							playerList.get(i).isUsingSpecial()) {
-						playerList.get(i).setXVel(-10);
-					} else {
-						playerList.get(i).setXVel(-15);
-					}
-					playerList.get(i).facingLeft = true;
-				}
-
-				else
-				{
-					playerList.get(i).setXAcc(-playerList.get(i).getXVel());
-				}
-
 				if(settings.getPlayerBeam(i).wasQuickPressed())
 				{
-					Beam shot = new Beam(playerList.get(i), 10, false);
-					shot.shootBeam();
-				}
 
+					if(playerList.get(i).getCharacter() != CharacterType.STORE ||
+							!playerList.get(i).isUsingSpecial()) { 
+						Beam shot = new Beam(playerList.get(i), 10, false);
+						shot.shootBeam();
+					}
+				}
 				if(settings.getPlayerSuper(i).isPressed())
 				{
 					if(playerList.get(i).getCharacter() == CharacterType.ADD){
@@ -556,7 +558,7 @@ public class World
 			}
 		}
 	}
-	
+
 	public Player getWinner()
 	{
 		return winner != null && ticks > 1 ? winner : null;

@@ -12,9 +12,9 @@ public class MadAdder extends Player {
 		Beam shoot = new Beam(this, damage, true);
 		if(shoot.shootBeam())
 		{
-			if(health >= 125)
+			if(health >= 110)
 			{
-				health = 125;
+				health = 110;
 				return;
 			}
 			this.heal((int)Math.round(damage));

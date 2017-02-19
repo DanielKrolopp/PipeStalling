@@ -26,7 +26,7 @@ public class Bulbastore extends Player {
 	public void stopSpecial() {
 		usingSpecial = false;
 		immuneToDamage = false;
-		Explosion explode = new Explosion(175+damageCounter/3, 36, 
+		Explosion explode = new Explosion(225+damageCounter*2, 36, 
 				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, this, false);
 		explode.explode(10, damageCounter);
 		GuiWorld.world.effectTimer.setEffect(new Vector3d(0, 8, 0));
