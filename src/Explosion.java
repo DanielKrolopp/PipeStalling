@@ -129,11 +129,11 @@ public class Explosion {
 		double mul1 = Math.max(.8 - 10 * ticks, 0);
 		double mul2 = Math.max(1 - 10 * ticks, 0);
 		
-		for(int i = 0; i < 360; i += 10)
+		for(int i = 1; i <= rays; i ++)
 		{
-			double rad = Math.toRadians(i);
-			double cos = Math.cos(rad) * distances[i / 10];
-			double sin = Math.sin(rad) * this.distances[i / 10];
+			double rad = i*increment;
+			double cos = Math.cos(rad) * distances[i-1];
+			double sin = Math.sin(rad) * this.distances[i-1];
 
 			GL11.glVertex3d(this.midX + cos * mul1, 1080 - (this.midY + sin * mul1), 0);
 			GL11.glVertex3d(this.midX + cos * mul2, 1080 - (this.midY + sin * mul2), 0);
