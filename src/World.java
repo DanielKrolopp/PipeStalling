@@ -54,6 +54,8 @@ public class World
 				playerList.add(new Jumpernaut(0, 0));
 			if(playerCharacters[i] == 3)
 				playerList.add(new MadAdder(0, 0));
+			if(numPlayers > 2)
+				playerList.get(i).setMultipliers();
 		}
 	}
 
