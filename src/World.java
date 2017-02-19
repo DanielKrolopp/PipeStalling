@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 
 public class World 
 {
-	
 	private static List<Player> playerList;
 	private List<Block> blockList;
 	private List<Mine> mineList;
