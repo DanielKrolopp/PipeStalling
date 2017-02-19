@@ -1,11 +1,12 @@
-import java.util.ArrayList;
 import java.util.List;
+
+import org.joml.Vector3d;
 
 public class Jumpernaut extends Player {
 
 	
 	public Jumpernaut(double x, double y) {
-		super(x, y);
+		super(x, y, CharacterType.JUMP);
 		characterType = CharacterType.JUMP;
 	}
 	
@@ -49,7 +50,7 @@ public class Jumpernaut extends Player {
 		
 	}
 	
-	public void render(double delta) {
-		super.render(delta);
+	public void render(double delta, Vector3d vec) {
+		super.render(delta, vec);
 	}
 }

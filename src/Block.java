@@ -1,3 +1,4 @@
+import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
 
 public class Block {
@@ -30,13 +31,13 @@ public class Block {
 		return width;
 	}
 	
-	public void render(double delta)
+	public void render(double delta, Vector3d vec)
 	{
 		GL11.glPushMatrix();
 		
-		GL11.glColor4f(1, 0, 0, 1);
-		GL11.glTranslated(xPos - 960, -500 + yPos, -999);
-		GL11.glScaled(width / 2, height / 2, width / 2);
+		GL11.glColor4d(vec.x, vec.y, vec.z, 1);
+		GL11.glTranslated(xPos - 960, -500 + yPos, -1999);
+		GL11.glScaled(width / 2, height / 2, 20);
 		
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		genCube();

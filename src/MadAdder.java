@@ -1,10 +1,11 @@
+import org.joml.Vector3d;
 
 public class MadAdder extends Player {
 	
 	private final int damage = 4; //Can be modified
 	
 	public MadAdder(double x, double y) {
-		super(x, y);
+		super(x, y, CharacterType.ADD);
 		characterType = CharacterType.ADD;
 	}
 	
@@ -15,7 +16,7 @@ public class MadAdder extends Player {
 			this.heal(damage/2);
 	}
 	
-	public void render(double delta) {
-		super.render(delta);
+	public void render(double delta, Vector3d vec) {
+		super.render(delta, vec);
 	}
 }

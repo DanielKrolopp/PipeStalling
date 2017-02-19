@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
 
 public class World 
@@ -182,17 +183,17 @@ public class World
 
 	}
 
-	public void render(double delta)
+	public void render(double delta, Vector3d[] players, Vector3d background, Vector3d blocks)
 	{
 		GL11.glColor4f(1, 1, 1, 1);
-		for(Player p : playerList)
+		for(int i = 0; i < players.length; i++)
 		{
-			p.render(delta);
+			playerList.get(i).render(delta, players[i]);
 		}
 		
 		for(Block b : blockList)
 		{
-			b.render(delta);
+			b.render(delta, blocks);
 		}
 	}
 	
@@ -229,20 +230,6 @@ public class World
 		}
 		playerList.add(player);
 		return true;
-	}
-
-	public void updateVelocityAcceleration(Player player){
-		double yVel = player.getYVel();
-		double xVel = player.getXVel();
-		double yAcc = player.getYAcc();
-		double xAcc = player.getXAcc();
-		double oldX = player.getXPos();
-		double oldY = player.getYPos();
-
-		player.setYVel(yVel + yAcc);
-		player.setXVel(xVel + xAcc);
-		player.setXPos(oldX + xVel);
-		player.setYPos(oldY + yVel);
 	}
 
 	public boolean isColliding(Block p1, Block p2) {

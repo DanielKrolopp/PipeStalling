@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-
-import com.polaris.engine.util.MathHelper;
+import org.joml.Vector3d;
 
 public class Bulbastore extends Player {
 	
@@ -9,7 +6,7 @@ public class Bulbastore extends Player {
 	private long currentTime;
 	
 	public Bulbastore(double x, double y) {
-		super(x, y);
+		super(x, y, CharacterType.STORE);
 		characterType = CharacterType.STORE;
 	}
 	
@@ -42,7 +39,7 @@ public class Bulbastore extends Player {
 		}
 	}
 	
-	public void render(double delta) {
-		super.render(delta);
+	public void render(double delta, Vector3d vec) {
+		super.render(delta, vec);
 	}
 }
