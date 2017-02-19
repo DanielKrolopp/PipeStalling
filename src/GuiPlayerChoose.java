@@ -24,12 +24,9 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 	private Vector3d[] colors = new Vector3d[] {CharacterType.LOAD.getColor(), CharacterType.STORE.getColor(), CharacterType.JUMP.getColor(),
 			CharacterType.ADD.getColor()};
 	
-	private int player1 = 0;
-	private int player2 = 1;
+	private int[] players;
+	private double[] playerTicks;
 	
-	private double player1Ticks = 0;
-	private double player2Ticks = 3;
-
 	public GuiPlayerChoose(GuiMainMenu gui, Shader s, int t, int[] c) 
 	{
 		super(gui);
@@ -37,6 +34,9 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 		colorShader = s;
 		time = t;
 		color = c;
+		
+		players = new int[] {0, 1};
+		playerTicks = new double[] {0, 1};
 	}
 	
 	public void close()
@@ -48,62 +48,51 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 	{
 		super.update(delta);
 		
-		player1Ticks += delta;
-		player2Ticks += delta;
-		
-		int move1 = 0;
-		int move2 = 0;
-		
-		if(gameSettings.getPlayerLeft(0).wasQuickPressed())
+		for(int i = 0; i < players.length; i++)
 		{
-			move1--;
-		}
-		if(gameSettings.getPlayerRight(0).wasQuickPressed())
-		{
-			move1 ++;
-		}
-		
-		if(gameSettings.getPlayerLeft(1).wasQuickPressed())
-		{
-			move2 ++;
-		}
-		if(gameSettings.getPlayerRight(1).wasQuickPressed())
-		{
-			move2 --;
+			playerTicks[i] += delta;
+			if(gameSettings.getPlayerLeft(i).wasQuickPressed())
+			{
+				players[i] --;
+			}
+			
+			if(gameSettings.getPlayerRight(i).wasQuickPressed())
+			{
+				players[i] ++;
+			}
+			
+			if(players[i] < 0)
+				players[i] = 3;
+			if(players[i] > 3)
+				players[i] = 0;
 		}
 		
 		if(input.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
 		{
-			application.initGui(new GuiWorld(application, colorShader, time, color, 2, player1, player2));
+			boolean flag = true;
+			for(int i = 0; i < players.length; i++)
+			{
+				for(int j = i + 1; j < players.length; j++)
+				{
+					if(players[i] == players[j])
+						flag = false;
+				}
+			}
+			if(flag)
+				application.initGui(new GuiWorld(application, colorShader, time, color, players));
 		}
 		
-		player1 = (player1 + move1);
-		if(player1 < 0)
-			player1 = 3;
-		if(player1 > 3)
-			player1 = 0;
-		if(player1 == player2)
+		if(input.getKey(GLFW.GLFW_KEY_SPACE).wasQuickPressed())
 		{
-			player1 = (player1 + move1);
-			if(player1 < 0)
-				player1 = 3;
-			if(player1 > 3)
-				player1 = 0;
+			int length = players.length == 4 ? 2 : players.length + 1;
+			players = new int[length];
+			playerTicks = new double[length];
+			for(int i = 0; i < players.length; i ++)
+			{
+				players[i] = i;
+				playerTicks[i] = i;
+			}
 		}
-		player2 = (player2 + move2);
-		if(player2 < 0)
-			player2 = 3;
-		if(player2 > 3)
-			player2 = 0;
-		if(player2 == player1)
-		{
-			player2 = (player2 + move2);
-			if(player2 < 0)
-				player2 = 3;
-			if(player2 > 3)
-				player2 = 0;
-		}
-		
 	}
 
 	public void render(double delta)
@@ -135,74 +124,70 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 		colorShader.unbind();
 		
 		GL11.glPushMatrix();
-		GL11.glColor4d(76 / 255d, 181 / 255d, 8 / 255d, 1d);
-		gameSettings.getFont().bind();
-		gameSettings.getFont().draw("Player 1", 1920 / 4f - gameSettings.getFont().getWidth("Player 1", .8f) / 2, 200f, .5f, .8f);    
-		gameSettings.getFont().draw("Player 2", 1920 * 3 / 4f - gameSettings.getFont().getWidth("Player 2", .8f) / 2, 200f, .5f, .8f);
+		
 		GL11.glPushMatrix();
+		gameSettings.getFont().bind();
+		
 		GL11.glColor4f(50 / 255f, 50 / 255f, 50 / 255f, 1f);
 		float size =  1.2f + (float)Math.abs((ticksExisted % 2 - 1) / 2);
 		gameSettings.getFont().draw("VS", 1920 / 2 - gameSettings.getFont().getWidth("VS", size) / 2, 500f + gameSettings.getFont().getSize() * size / 2, .5f, size);
 		GL11.glPopMatrix();
-		GL11.glColor4d(colors[player1].x, colors[player1].y, colors[player1].z, 1f);
-		gameSettings.getFont().draw(names[player1], 1920 / 4f - gameSettings.getFont().getWidth(names[player1], .6f) / 2, 700f, .5f, .6f);       
-		GL11.glColor4d(colors[player2].x, colors[player2].y, colors[player2].z, 1f);
-        gameSettings.getFont().draw(names[player2], 1920 * 3 / 4f - gameSettings.getFont().getWidth(names[player2], .6f) / 2, 700f, .5f, .6f);       
+		
+		GL11.glColor4d(70 / 255d, 70 / 255d, 70 / 255d, 1d);
+		for(int i = 0; i < players.length; i++)
+		{
+			gameSettings.getFont().draw("Player " + (i + 1), 1920 * (i % 2 * 2 + 1) / 4f - gameSettings.getFont().getWidth("Player " + (i + 1), .8f) / 2, 100f + (i / 2) * 900, .5f, .8f);
+		}
+		
+		for(int i = 0; i < players.length; i++)
+		{
+			GL11.glColor4d(colors[players[i]].x, colors[players[i]].y, colors[players[i]].z, 1f);
+			gameSettings.getFont().draw(names[players[i]], 1920 * (i % 2 * 2 + 1) / 4f - gameSettings.getFont().getWidth(names[players[i]], .6f) / 2, 500f + (i / 2) * 100, .5f, .6f);       
+		}
+		//gameSettings.getFont().draw("Player 1", 1920 / 4f - gameSettings.getFont().getWidth("Player 1", .8f) / 2, 200f, .5f, .8f);    
+		//gameSettings.getFont().draw("Player 2", 1920 * 3 / 4f - gameSettings.getFont().getWidth("Player 2", .8f) / 2, 200f, .5f, .8f);
+		
+		//gameSettings.getFont().draw(names[player1], 1920 / 4f - gameSettings.getFont().getWidth(names[player1], .6f) / 2, 700f, .5f, .6f);       
+		//GL11.glColor4d(colors[player2].x, colors[player2].y, colors[player2].z, 1f);
+        //gameSettings.getFont().draw(names[player2], 1920 * 3 / 4f - gameSettings.getFont().getWidth(names[player2], .6f) / 2, 700f, .5f, .6f);       
         gameSettings.getFont().unbind();
 
         GL11.glPopMatrix();
         
-		int windowWidth = gameSettings.getWindowWidth();
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(true);
+		GL11.glColor4f(1, 1, 1, 1);
+        
+        int windowWidth = gameSettings.getWindowWidth();
 		int windowHeight = gameSettings.getWindowHeight();
-		glViewport(0, windowHeight / 2, windowWidth / 2, windowHeight / 2);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
 		double ymax = .01 * Math.tan( 60 * Math.PI / 360.0 );
 		double ymin = -ymax;
 		double xmin = ymin * windowWidth / windowHeight;
 		double xmax = ymax * windowWidth / windowHeight;
-		glFrustum( xmin, xmax, ymin, ymax, .01, 20 );
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glDepthMask(true);
-		GL11.glColor4f(1, 1, 1, 1);
 		
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0, -2, -7);
-		GL11.glRotatef((float) player1Ticks * 90, 0, 1, 0);
-		GL11.glColor4d(colors[player1].x, colors[player1].y, colors[player1].z, 1f);
-		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-		genCube();
-		GL11.glColor4f(0, 0, 0, 1);
-		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-		GL11.glLineWidth(1f);
-		GL11.glScaled(1.05d, 1.05d, 1.05d);
-		genCube();
-		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-		GL11.glPopMatrix();
-		
-		glViewport(windowWidth / 2, windowHeight / 2, windowWidth / 2, windowHeight / 2);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glFrustum( xmin, xmax, ymin, ymax, .01, 20 );
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0, -2, -7);
-		GL11.glRotatef((float) player2Ticks * 90, 0, 1, 0);
-		GL11.glColor4d(colors[player2].x, colors[player2].y, colors[player2].z, 1f);
-		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-		genCube();
-		GL11.glColor4f(0, 0, 0, 1);
-		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-		GL11.glLineWidth(1f);
-		GL11.glScaled(1.05d, 1.05d, 1.05d);
-		genCube();
-		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
-		GL11.glPopMatrix();
+        for(int i = 0; i < players.length; i++)
+        {
+    		glViewport(windowWidth / 12 + (windowWidth / 2) * (i % 2), windowHeight * 2 / 3 - (int)(windowHeight / 2.1f * (int)(i / 2)), windowWidth / 3, windowHeight / 3);
+    		glMatrixMode(GL_PROJECTION);
+    		glLoadIdentity();
+    		glFrustum( xmin, xmax, ymin, ymax, .01, 20 );
+    		glMatrixMode(GL_MODELVIEW);
+    		glLoadIdentity();
+    		
+    		GL11.glPushMatrix();
+    		GL11.glTranslatef(0, -2, -7);
+    		GL11.glRotatef((float) playerTicks[i] * 90, 0, 1, 0);
+    		GL11.glColor4d(colors[players[i]].x, colors[players[i]].y, colors[players[i]].z, 1f);
+    		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+    		genCube();
+    		GL11.glColor4f(0, 0, 0, 1);
+    		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+    		GL11.glLineWidth(1f);
+    		GL11.glScaled(1.05d, 1.05d, 1.05d);
+    		genCube();
+    		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+    		GL11.glPopMatrix();
+        }
 	}
 	
 	public void genCube()
