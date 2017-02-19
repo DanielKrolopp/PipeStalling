@@ -3,7 +3,7 @@ import org.joml.Vector3d;
 public class Mine extends Block {
 	private static final double MINE_SIZE = 20;
 	private static final double BLAST_RADIUS = 75;
-	private static final double BLAST_STRENGTH = 1.5;
+	private static final double BLAST_STRENGTH = 3.0;
 	
 	public boolean visible;
 	
