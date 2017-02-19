@@ -1,15 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
-
-import com.polaris.engine.util.MathHelper;
-
 public class Bulbastore extends Player {
 	
 	private long startTime;
 	private long currentTime;
 	
 	public Bulbastore(double x, double y) {
-		super(x, y);
+		super(x, y, CharacterType.STORE);
 		characterType = CharacterType.STORE;
 	}
 	
