@@ -230,6 +230,7 @@ public class World
 				}
 			}
 			player.updateXMotion();
+			player.updateHealth();
 			if(player.getXPos() >= width+1.75*player.getWidth()) {
 				player.setXPos(-2.5*player.getWidth());
 			} else if (player.getXPos() <= -2.5*player.getWidth()) {

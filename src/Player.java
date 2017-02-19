@@ -115,6 +115,12 @@ public class Player extends Block
 		yPos += yVel;	
 	}
 	
+	public void updateHealth(){
+		if(health <= 0.001){
+			alive = false;
+		}
+	}
+	
 	public void fall()
 	{
 		yAcc = -2;					//Sets acceleration for falling, aka gravity
