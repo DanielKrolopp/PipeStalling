@@ -16,6 +16,7 @@ public class Player extends Block
 	protected boolean usingSpecial;	//State to determine if the unique ability of character is used
 	protected boolean immuneToDamage;
 	protected boolean alive;
+	protected boolean usingMultipliers;
 	
 	protected double xVel;
 	protected double yVel;
@@ -41,6 +42,11 @@ public class Player extends Block
 		jumpCount = 2;
 		xAcc = 0;
 		yAcc = 0;
+	}
+	
+	public void setMultipliers()
+	{
+		usingMultipliers = true;
 	}
 	
 	public CharacterType getCharacter()
@@ -174,12 +180,15 @@ public class Player extends Block
 		if(!enemy.immuneToDamage)
 		{
 			double multiplier = 1;
-			if((this.getCharacter() == CharacterType.STORE && enemy.getCharacter() == CharacterType.LOAD) || 
+			if(usingMultipliers)
+			{
+				if((this.getCharacter() == CharacterType.STORE && enemy.getCharacter() == CharacterType.LOAD) || 
 					(this.getCharacter() == CharacterType.LOAD && enemy.getCharacter() == CharacterType.ADD) ||
 					(this.getCharacter() == CharacterType.ADD && enemy.getCharacter() == CharacterType.JUMP) ||
 					(this.getCharacter() == CharacterType.JUMP && enemy.getCharacter() == CharacterType.STORE))
-			{
-				multiplier = 1.5;
+				{
+					multiplier = 1.5;
+				}
 			}
 			enemy.health -= Math.round(amount*multiplier);
 			if(enemy.health < 0){
