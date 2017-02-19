@@ -220,8 +220,14 @@ public class World
 			}
 		}
 		for(Explosion ex : explosionList) {
-			if(ex.getTime() > 500) {
+			if(ex.getTime() > 400) { //time might need to be changed
 				explosionList.remove(ex);
+			}
+		}
+		
+		for(Beam beam : beamList) {
+			if(beam.getTime() > 200) { //might need to be changed
+				beamList.remove(beam);
 			}
 		}
 	}
@@ -309,6 +315,14 @@ public class World
 		explosionList.add(ex);
 		return true;
 	}
+	
+	public boolean addBeam(Beam beam) {
+		if(beamList.contains(beam)) {
+			return false;
+		}
+		beamList.add(beam);
+		return true;
+	}
 
 	public boolean addMine(Mine mine){
 		if(mineList.contains(mine)){
@@ -326,20 +340,6 @@ public class World
 		}
 		playerList.add(player);
 		return true;
-	}
-
-	public void updateVelocityAcceleration(Player player){
-		double yVel = player.getYVel();
-		double xVel = player.getXVel();
-		double yAcc = player.getYAcc();
-		double xAcc = player.getXAcc();
-		double oldX = player.getXPos();
-		double oldY = player.getYPos();
-
-		player.setYVel(yVel + yAcc);
-		player.setXVel(xVel + xAcc);
-		player.setXPos(oldX + xVel);
-		player.setYPos(oldY + yVel);
 	}
 
 	public boolean isColliding(Block p1, Block p2) {
