@@ -2,6 +2,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.polaris.engine.render.Shader;
 
+import net.jafama.FastMath;
+
 public class Beam {
 	
 	private double xPos;
@@ -133,10 +135,16 @@ public class Beam {
 	
 	public void render(double delta)
 	{
-		GL11.glVertex3d(xPos, 1080 - (yPos - 3), 0);
-		GL11.glVertex3d(xPos, 1080 - (yPos + 3), 0);
-		GL11.glVertex3d(xPosEnd, 1080 - (yPos + 3), 0);
-		GL11.glVertex3d(xPosEnd, 1080 - (yPos - 3), 0);
+		double time = (System.currentTimeMillis() - startTime) / 20f;
+		double x = xPos;
+		double y = 1080 - (yPos + FastMath.sin(time) * 10);
+		for(int i = 0; i < (int)((xPosEnd - xPos) / 10); i++)
+		{
+			GL11.glVertex3d(x, y, 0);
+			x += 10;
+			y = 1080 - (yPos + FastMath.sin(time + x - xPos) * 10);
+			GL11.glVertex3d(x, y, 0);
+		}
 	}
 
 }

@@ -283,12 +283,12 @@ public class World
 			settings.getFont().unbind();
 		}
 
-		GL11.glBegin(GL11.GL_QUADS);
 		for(Beam b : beamList)
 		{
+			GL11.glBegin(GL11.GL_LINES);
 			b.render(delta);
+			GL11.glEnd();
 		}
-		GL11.glEnd();
 
 		ticks += delta;
 
