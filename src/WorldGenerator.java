@@ -15,9 +15,8 @@ public class WorldGenerator {
 		generated.addBlock(new Block(-200, 0, 2500, 30));
 
 		ArrayList<Block> blocks = generateBlocks(generated, (int)worldWidth, (int)worldHeight, 15);
-		System.out.println("generating pipes");
 		ArrayList<Pipe> pipes = generatePipes(generated);
-		System.out.println("done");
+		blocks.addAll(pipes);
 		for(Block b : blocks)
 		{
 			generated.addBlock(b);
@@ -117,7 +116,6 @@ public class WorldGenerator {
 	}
 	
 	public static ArrayList<Pipe> generatePipes(World world){
-		System.out.println("entered new method");
 		Pipe top = Pipe.createLinkedPipes(true, world);
 		Pipe bot = top.getMate();
 		return new ArrayList<Pipe>(Arrays.asList(top, bot));

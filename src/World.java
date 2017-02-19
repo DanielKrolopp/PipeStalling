@@ -92,7 +92,6 @@ public class World
 	}
 
 	public double getWidth(){
-		System.out.println("damn");
 		return width;
 	}
 
