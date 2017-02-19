@@ -25,10 +25,10 @@ public class Bulbastore extends Player {
 		usingSpecial = false;
 		immuneToDamage = false;
 		Explosion explode = new Explosion(175+damageCounter/3, 36, 
-				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, 
-				this, false);
+				this.getXPos() + (this.getWidth())/2, this.getYPos() + (this.getHeight())/2, this, false);
 		explode.explode(10, damageCounter);
 		GuiWorld.world.effectTimer.setEffect(new Vector4d(8, 0, 0, 1));
+		explode.explode(5, damageCounter);
 	}
 	
 	public void startTimer() {
@@ -37,7 +37,7 @@ public class Bulbastore extends Player {
 	
 	public void updateTimer() {
 		currentTime = System.currentTimeMillis();
-		if(currentTime - startTime > 4000 && usingSpecial) {
+		if(currentTime - startTime > 2000 && usingSpecial) {
 			stopSpecial();
 		}
 	}

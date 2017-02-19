@@ -215,8 +215,8 @@ public class World
 			}
 			player.updateXMotion();
 			if(player.getXPos() >= width+1.75*player.getWidth()) {
-				player.setXPos(-1.5*player.getWidth());
-			} else if (player.getXPos() <= -1.75*player.getWidth()) {
+				player.setXPos(-2.5*player.getWidth());
+			} else if (player.getXPos() <= -2.5*player.getWidth()) {
 				player.setXPos(width+player.getWidth()/2);
 			} else {
 				for(Block block : blockList) {
@@ -443,25 +443,45 @@ public class World
 
 				if(settings.getPlayerRight(i).isDoublePressed())
 				{
-					playerList.get(i).setXVel(22);
+					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+							playerList.get(i).isUsingSpecial()) {
+						playerList.get(i).setXVel(16);
+					} else {
+						playerList.get(i).setXVel(22);
+					}
 					playerList.get(i).facingLeft = false;
 				}
 
 				else if(settings.getPlayerRight(i).isPressed())
 				{
-					playerList.get(i).setXVel(15);
+					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+							playerList.get(i).isUsingSpecial()) {
+						playerList.get(i).setXVel(10);
+					} else {
+						playerList.get(i).setXVel(15);
+					}
 					playerList.get(i).facingLeft = false;
 				}
 
 				else if(settings.getPlayerLeft(i).isDoublePressed())
 				{
-					playerList.get(i).setXVel(-22);
+					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+							playerList.get(i).isUsingSpecial()) {
+						playerList.get(i).setXVel(-16);
+					} else {
+						playerList.get(i).setXVel(-22);
+					}
 					playerList.get(i).facingLeft = true;
 				}		
 
 				else if(settings.getPlayerLeft(i).isPressed())
 				{
-					playerList.get(i).setXVel(-15);
+					if(playerList.get(i).getCharacter() == CharacterType.STORE &&
+							playerList.get(i).isUsingSpecial()) {
+						playerList.get(i).setXVel(-10);
+					} else {
+						playerList.get(i).setXVel(-15);
+					}
 					playerList.get(i).facingLeft = true;
 				}
 
