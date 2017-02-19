@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 import org.lwjgl.opengl.GL11;
 
 public class World 
@@ -11,6 +12,7 @@ public class World
 	private List<Mine> mineList;
 	private List<Explosion> explosionList;
 	private List<Beam> beamList;
+	private EffectTimer effectTimer = new EffectTimer();
 	private int numPlayers;
 	private double width;
 	private double height;
@@ -18,6 +20,8 @@ public class World
 	private int go;
 	private boolean fell;
 
+	private double ticks = 0;
+	
 	private GameSettings settings;
 
 	public World(double width, double height, GameSettings game, int[] playerCharacters)
@@ -90,6 +94,8 @@ public class World
 
 	public void update(double delta)
 	{
+		
+		effectTimer.update(delta);
 
 		if(startCountdown == 0)
 		{
@@ -279,6 +285,8 @@ public class World
 			settings.getFont().unbind();
 		}
 		
+		ticks += delta;
+		
 		int windowWidth = settings.getWindowWidth();
 		int windowHeight = settings.getWindowHeight();
 		GL11.glViewport(0, 0, windowWidth, windowHeight);
@@ -291,16 +299,16 @@ public class World
 		GL11.glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
-
+		
 		GL11.glColor4f(1, 1, 1, 1);
 		for(int i = 0; i < players.length; i++)
 		{
-			playerList.get(i).render(delta, players[i]);
+			playerList.get(i).render(delta, players[i], effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
 		}
 
 		for(Block b : blockList)
 		{
-			b.render(delta, blocks);
+			b.render(delta, blocks, effectTimer.getEffect().x * (Math.abs(ticks % .25 - .125) - .0625) * 16);
 		}
 	}
 

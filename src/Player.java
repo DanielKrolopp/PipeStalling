@@ -201,7 +201,7 @@ public class Player extends Block
 		
 	}
 	
-	public void render(double delta, Vector3d vec)
+	public void render(double delta, Vector3d vec, double rotate)
 	{	
 		double mul = (1 - Math.min(ticks, .25) * 4);
 		double mul1 = (ticks > .25 ? 0 : 1);
@@ -217,6 +217,8 @@ public class Player extends Block
 			}
 			
 			GL11.glPushMatrix();
+			
+			GL11.glRotated(rotate, 0, 0, 1);
 
 			GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 			GL11.glTranslated(xPos + width / 2 - 960, -500 + height / 2 * mul + yPos, -999);
@@ -237,11 +239,13 @@ public class Player extends Block
 		}
 		else
 		{
-			super.render(delta, vec);
+			super.render(delta, vec, rotate);
 		}
 		
 		GL11.glPushMatrix();
 
+		GL11.glRotated(rotate, 0, 0, 1);
+		
 		GL11.glTranslated(xPos + width / 2 - 960, -500 + yPos + height * 1.5, -999);
 		
 		GL11.glColor4f(0, 0, 0, 1);
