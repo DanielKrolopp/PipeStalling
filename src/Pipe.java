@@ -42,7 +42,7 @@ public class Pipe extends Block{
 			y = 0;
 			Pipe topPipe = new Pipe(x, y, width, height, top);
 			int x2 = -1;
-			while(x2 < 0 || Math.abs(x2 - x) > width){ //Make sure they don't overlap x vals
+			while(x2 < 0 || Math.abs(x2 - x) < width){ //Make sure they don't overlap x vals
 				x2 = (int) (Math.random() * (world.getWidth() - width - 50)) + 25;
 			}
 			Pipe botPipe = new Pipe(x2, world.getHeight() - 25, width, height, !top, topPipe);
@@ -53,7 +53,7 @@ public class Pipe extends Block{
 			y = world.getHeight() - 25;
 			Pipe botPipe = new Pipe(x, y, width, height, top);
 			int x2 = -1;
-			while(x2 < 0 || Math.abs(x2 - x) > width){ //Make sure they don't overlap x vals
+			while(x2 < 0 || Math.abs(x2 - x) < width){ //Make sure they don't overlap x vals
 				x2 = (int) (Math.random() * (world.getWidth() - width - 50)) + 25;
 			}
 			Pipe topPipe = new Pipe(x2, world.getHeight() - 25, width, height, !top, botPipe);
