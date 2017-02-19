@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
 
 public class World 
@@ -191,17 +192,17 @@ public class World
 
 	}
 
-	public void render(double delta)
+	public void render(double delta, Vector3d[] players, Vector3d blocks)
 	{
 		GL11.glColor4f(1, 1, 1, 1);
-		for(Player p : playerList)
+		for(int i = 0; i < players.length; i++)
 		{
-			p.render(delta);
+			playerList.get(i).render(delta, players[i]);
 		}
 		
 		for(Block b : blockList)
 		{
-			b.render(delta);
+			b.render(delta, blocks);
 		}
 	}
 	
@@ -282,15 +283,15 @@ public class World
 			if(settings.getPlayerRight(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(10);
-				playerList.get(i).setXVel(5);
+					playerList.get(i).setXVel(20);
+				playerList.get(i).setXVel(10);
 			}
 			
 			else if(settings.getPlayerLeft(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(-10);
-				playerList.get(i).setXVel(-5);
+					playerList.get(i).setXVel(-20);
+				playerList.get(i).setXVel(-10);
 			}
 			
 			else

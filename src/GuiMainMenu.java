@@ -1,6 +1,9 @@
 import java.io.File;
+import java.nio.FloatBuffer;
 
 import org.joml.Vector3d;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
@@ -14,6 +17,7 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 	
 	private Shader colorShader;
 	private int time;
+	private int[] color;
 	
     private char[] sequence = "PIPE STALLING".toCharArray();
     private float stackSmashingStartX = 0;
@@ -24,9 +28,13 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 	{
 		super(app);
 		
-		colorShader = Shader.createShader(new File("shaders/colorShader.vert"), new File("shaders/colorShader.frag"));
+		colorShader = Shader.createShader(new File("shaders/backgroundShader.vert"), new File("shaders/backgroundShader.frag"));
 		
 		time = GL20.glGetUniformLocation(colorShader.getShaderId(), "time");
+		color = new int[3];
+		color[0] = GL20.glGetUniformLocation(colorShader.getShaderId(), "red");
+		color[1] = GL20.glGetUniformLocation(colorShader.getShaderId(), "green");
+		color[2] = GL20.glGetUniformLocation(colorShader.getShaderId(), "blue");
 		
 		stackSmashingStartX = 1920 / 2 - gameSettings.getFont().getWidth(new String(sequence)) / 2f;
 	}
@@ -37,6 +45,9 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 		
 		colorShader.bind();
 		GL20.glUniform1f(time, (System.currentTimeMillis() % 1024) / 1024f);
+		GL20.glUniform1f(color[0], 1f);
+		GL20.glUniform1f(color[1], 1f);
+		GL20.glUniform1f(color[2], .8f);
 		
 		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glVertex2d(0, 0);
@@ -81,7 +92,7 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
                 GL11.glColor4f(0, 0, 0, 1);
                 if(input.getMouse(0).isPressed())
                 {
-                	application.initGui(new GuiPlayerChoose(this, colorShader, time));
+                	application.initGui(new GuiPlayerChoose(this, colorShader, time, color));
                 }
             }
         }

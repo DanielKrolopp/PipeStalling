@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector3d;
-import org.joml.Vector4d;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
@@ -23,8 +22,9 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 	public static World world;
 
-	private Shader colorShader;
+	private Shader backgroundShader;
 	private int time;
+	private int[] color;
 
 	private Vector3d background;
 	private Vector3d blocks;
@@ -32,13 +32,20 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 	private int[] playerCharacters;
 
-	public GuiWorld(App<GameSettings> app, Shader s, int t, int count, int ... pc) 
+	public GuiWorld(App<GameSettings> app, Shader s, int t, int[] c, int count, int ... pc) 
 	{
 		super(app);
 		playerCharacters = pc;
 
-		colorShader = s;
+		backgroundShader = s;
 		time = t;
+		color = c;
+	}
+	
+	public void close()
+	{
+		super.close();
+		backgroundShader.destroy();
 	}
 
 	public void init()
@@ -72,7 +79,10 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(false);
 
-		colorShader.bind();
+		backgroundShader.bind();
+		GL20.glUniform1f(color[0], (float)background.x);
+		GL20.glUniform1f(color[1], (float)background.y);
+		GL20.glUniform1f(color[2], (float)background.z);
 		GL20.glUniform1f(time, (System.currentTimeMillis() % 1024) / 1024f);
 
 		GL11.glBegin(GL11.GL_QUADS);
@@ -82,7 +92,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		GL11.glVertex2d(1920, 0);
 		GL11.glEnd();
 
-		colorShader.unbind();
+		backgroundShader.unbind();
 
 		int windowWidth = gameSettings.getWindowWidth();
 		int windowHeight = gameSettings.getWindowHeight();
@@ -101,7 +111,7 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		GL11.glDepthMask(true);
 		GL11.glColor4f(1, 1, 1, 1);
 
-		world.render(delta, players, background, blocks);
+		world.render(delta, players, blocks);
 	}
 
 	private Vector3d genColor(int iteration)
