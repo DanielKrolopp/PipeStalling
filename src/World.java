@@ -1,3 +1,10 @@
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.glFrustum;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glViewport;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,12 +116,13 @@ public class World
 			else if(countdown >= 1000)
 			{
 				go = 1;
+				return;
 			}
 			else
 			{
 				go = 0;
+				return;
 			}
-			return;
 		}
 
 		registerKeys();
@@ -199,23 +207,45 @@ public class World
 
 	}
 
-	public void render(double delta, Vector3d[] players, Vector3d blocks)
+	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
 	{
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glDepthMask(true);
 		if(go < 3)
 		{
+			float ticks = (System.currentTimeMillis() - this.startCountdown) % 1000f / 1000f;
+			float size = .5f + ticks;
+			float alpha = 1 - Math.abs(ticks - .5f) * 2;
+			GL11.glColor4d(text.x, text.y, text.z, alpha);
+			settings.getFont().bind();
 			if(go == 0)
 			{
-				
+				settings.getFont().draw("READY?", 1920 / 2 - settings.getFont().getWidth("READY?", size) / 2, 540 + settings.getFont().getSize() * size / 2, 0, size);
 			}
 			else if(go == 1)
 			{
-				
+				settings.getFont().draw("SET", 1920 / 2 - settings.getFont().getWidth("SET", size) / 2, 540 + settings.getFont().getSize() * size / 2, 0, size);
 			}
 			else
 			{
-				
+				settings.getFont().draw("GO!", 1920 / 2 - settings.getFont().getWidth("GO!", size) / 2, 540 + settings.getFont().getSize() * size / 2, 0, size);
+
 			}
+			settings.getFont().unbind();
 		}
+		
+		int windowWidth = settings.getWindowWidth();
+		int windowHeight = settings.getWindowHeight();
+		glViewport(0, 0, windowWidth, windowHeight);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		double ymax = .01 * Math.tan( 60 * Math.PI / 360.0 );
+		double ymin = -ymax;
+		double xmin = ymin * windowWidth / windowHeight;
+		double xmax = ymax * windowWidth / windowHeight;
+		glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
 		
 		GL11.glColor4f(1, 1, 1, 1);
 		for(int i = 0; i < players.length; i++)
