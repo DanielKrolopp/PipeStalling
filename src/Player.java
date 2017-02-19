@@ -127,6 +127,13 @@ public class Player extends Block
 		}
 	}
 	
+	public void bounce()
+	{
+		jumping = true;
+		yVel = 40;
+		yAcc = -2;
+	}
+	
 	public boolean isJumping()
 	{
 		return jumping;

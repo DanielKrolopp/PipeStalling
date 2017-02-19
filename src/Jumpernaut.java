@@ -41,5 +41,13 @@ public class Jumpernaut extends Player {
 		yAcc = -1;
 		
 	}
-	
+	/*
+	Shockwave attack = new Shockwave(player.getXPos()-player.getWidth(), player.getYPos()-player.getHeight()*0.25, player.getWidth()*3, player.getHeight()*0.5);
+	List<Player> hitlist = attack.detectTargets();
+	for(Player pBlock : hitlist)
+	{
+		if(pBlock.getCharacter() == otherPlayer.getCharacter())
+			player.damage(15, pBlock);
+	}
+	*/
 }

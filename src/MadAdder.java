@@ -2,7 +2,7 @@ import org.joml.Vector3d;
 
 public class MadAdder extends Player {
 	
-	private final int damage = 4; //Can be modified
+	private final int damage = 6; //Can be modified
 	
 	public MadAdder(double x, double y) {
 		super(x, y);

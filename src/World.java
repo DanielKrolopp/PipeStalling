@@ -162,29 +162,22 @@ public class World
 								player.setYPos(otherPlayer.getYPos() - player.getHeight());
 								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
 								{
-									player.damage(5, otherPlayer);
+									player.damage(15, otherPlayer);
+									player.setYVel(0);
 								}
 							} else {
 								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
 								player.setYVel(0);
-								if(player.characterType == CharacterType.JUMP && player.isUsingSpecial() && player.isSlamming())
-								{
-									/*
-									Shockwave attack = new Shockwave(player.getXPos()-player.getWidth(), player.getYPos()-player.getHeight()*0.25, player.getWidth()*3, player.getHeight()*0.5);
-									List<Player> hitlist = attack.detectTargets();
-									for(Player pBlock : hitlist)
-									{
-										if(pBlock.getCharacter() == otherPlayer.getCharacter())
-											player.damage(15, pBlock);
-									}
-									*/
-									player.damage(10, otherPlayer);
-								}
 								if(player.isSlamming())
 								{
-									player.damage(5, otherPlayer);
+									if(player.characterType == CharacterType.JUMP && player.isUsingSpecial())
+										player.damage(20, otherPlayer);
+									else 
+										player.damage(10, otherPlayer);
+									player.bounce();
 								}
-								player.land();
+								else
+									player.land();
 							}
 						}
 					}
@@ -421,7 +414,7 @@ public class World
 	
 				if(settings.getPlayerBeam(i).wasQuickPressed())
 				{
-					Beam shot = new Beam(playerList.get(i), 7);
+					Beam shot = new Beam(playerList.get(i), 10);
 					shot.shootBeam();
 				}
 				
