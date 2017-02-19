@@ -1,3 +1,4 @@
+import org.joml.Vector3d;
 
 public class Mine extends Block {
 	private static final double MINE_SIZE = 20;
@@ -28,7 +29,7 @@ public class Mine extends Block {
 			double playerCenterY = (2 * player.getYPos() + MINE_SIZE)/2;
 			double distance = Math.sqrt(Math.pow(centerX - playerCenterX, 2) + Math.pow(centerY - playerCenterY, 2));
 			if(player.characterType != CharacterType.LOAD && distance <= MINE_SIZE + 5){ //If within tolerant distance of mine
-				//this.damage(player); //Go kaboom
+				this.damage(player); //Go kaboom
 				System.out.println("Boom goes the mine");
 				visible = false;
 				GuiWorld.world.getMines().remove(this);
@@ -52,7 +53,12 @@ public class Mine extends Block {
 		explode.explode(BLAST_STRENGTH);
 	}
 	
-	public void render(double delta) {
+	public void render(double delta, Vector3d p, double d) 
+	{
+		//if(visible)
+		//{
+			super.render(delta, p, d);
+		//}
 		
 	}
 }
