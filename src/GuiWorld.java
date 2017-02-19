@@ -37,12 +37,6 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		color = c;
 		
 	}
-	
-	public void close()
-	{
-		super.close();
-		backgroundShader.destroy();
-	}
 
 	public void init()
 	{
@@ -68,6 +62,11 @@ public class GuiWorld extends GuiScreen<GameSettings>
 		super.update(delta);
 
 		world.update(delta);
+		
+		if(world.getWinner() != null)
+		{
+			this.application.initGui(new GuiWinScreen(application, backgroundShader, time, color, background, world.getWinner().getCharacter().getColor()));
+		}
 	}
 
 	public void render(double delta)

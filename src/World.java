@@ -262,7 +262,8 @@ public class World
 				}
 			}
 		}
-		if(livePlayers.size() == 1){
+		if(livePlayers.size() == 1 && winner == null){
+			ticks = 0;
 			winner = livePlayers.get(0);
 		}
 		for(Explosion ex : explosionList) {
@@ -351,7 +352,7 @@ public class World
 		
 		if(winner != null)
 		{
-			vec = new Vector4d(0, 0, ticks * 360, 1 - ticks % 4 / 4);
+			vec = new Vector4d(0, 0, ticks * 360, 1 - (ticks % 1) / 1d);
 		}
 		
 		for(int i = 0; i < players.length; i++)
@@ -554,6 +555,10 @@ public class World
 				}
 			}
 		}
-
+	}
+	
+	public Player getWinner()
+	{
+		return winner != null && ticks > 1 ? winner : null;
 	}
 }

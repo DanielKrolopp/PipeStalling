@@ -39,14 +39,15 @@ public class Block {
 		GL11.glRotated(vector3d.y, 0, 1, 0);
 		GL11.glRotated(vector3d.z, 0, 0, 1);
 		
-		GL11.glScaled(vector3d.w, vector3d.w, vector3d.w);
-		
 		GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 		GL11.glTranslated(xPos + width / 2 - 960, -550  + height / 2 + yPos, -999);
 		GL11.glScaled(width / 2, height / 2, 7.5);
 		
+		GL11.glScaled(vector3d.w, vector3d.w, vector3d.w);
+		
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		genCube();
+		
 		
 		GL11.glColor4f(0, 0, 0, 1);
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);

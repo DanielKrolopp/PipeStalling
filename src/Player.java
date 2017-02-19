@@ -251,12 +251,12 @@ public class Player extends Block
 			GL11.glRotated(rotate.x, 1, 0, 0);
 			GL11.glRotated(rotate.y, 0, 1, 0);
 			GL11.glRotated(rotate.z, 0, 0, 1);
-			
-			GL11.glScaled(rotate.w, rotate.w, rotate.w);
 
 			GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 			GL11.glTranslated(xPos + width / 2 - 960, -500 + height / 2 * mul + yPos, -999);
 			GL11.glScaled(width / 2 * (mul / 2), height / 2 * (mul / 2), 7.5 * (mul / 2));
+			
+			GL11.glScaled(rotate.w, rotate.w, rotate.w);
 			
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 			genCube();
@@ -282,8 +282,6 @@ public class Player extends Block
 		GL11.glRotated(rotate.y, 0, 1, 0);
 		GL11.glRotated(rotate.z, 0, 0, 1);
 		
-		GL11.glScaled(rotate.w, rotate.w, rotate.w);
-		
 		GL11.glTranslated(xPos + width / 2 - 960, -500 + yPos + height * 1.5, -999);
 		
 		GL11.glColor4f(0, 0, 0, 1);
@@ -291,6 +289,7 @@ public class Player extends Block
 		GL11.glLineWidth(1.5f);
 		GL11.glScaled(width / 2 * mul, 7.5 * mul1, 7.5 * mul1);
 		GL11.glScaled(1.02d, 1.02d, 1.02d);
+		GL11.glScaled(rotate.w, rotate.w, rotate.w);
 		genCube();
 		
 		GL11.glPopMatrix();
@@ -301,12 +300,11 @@ public class Player extends Block
 		GL11.glRotated(rotate.y, 0, 1, 0);
 		GL11.glRotated(rotate.z, 0, 0, 1);
 		
-		GL11.glScaled(rotate.w, rotate.w, rotate.w);
-		
 		GL11.glTranslated(xPos + width / 2 * (health / 100d) - 960, -500 + yPos + height * 1.5, -999);
 		GL11.glScaled(width / 2 * (health / 100d), 7.5 * (MathHelper.isEqual(health, 0) ? 0 : 1), 7.5 * (MathHelper.isEqual(health, 0) ? 0 : 1));
 		GL11.glColor4d(vec.x * .7, vec.y * .7, vec.z * .7, 1);
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+		GL11.glScaled(rotate.w, rotate.w, rotate.w);
 		genCube();
 		
 		GL11.glPopMatrix();

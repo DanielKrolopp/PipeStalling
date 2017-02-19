@@ -37,6 +37,17 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 		stackSmashingStartX = 1920 / 2 - gameSettings.getFont().getWidth(new String(sequence)) / 2f;
 	}
 	
+	public GuiMainMenu(App<GameSettings> app, Shader s, int t, int[] c) 
+	{
+		super(app);
+		
+		colorShader = s;
+		time = t;
+		color = c;
+		
+		stackSmashingStartX = 1920 / 2 - gameSettings.getFont().getWidth(new String(sequence)) / 2f;
+	}
+	
 	public void render(double delta)
 	{
 		super.render(delta);
