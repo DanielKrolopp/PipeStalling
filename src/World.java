@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 import org.lwjgl.opengl.GL11;
 
 public class World 
@@ -16,6 +17,7 @@ public class World
 	private int numPlayers;
 	private double width;
 	private double height;
+	private long cooldown;
 	private long startCountdown = 0;
 	private int go;
 	private boolean fell;
@@ -309,11 +311,6 @@ public class World
 			settings.getFont().unbind();
 		}
 		
-		for(Explosion e : explosionList)
-		{
-			e.render(delta);
-		}
-		
 		ticks += delta;
 
 		int windowWidth = settings.getWindowWidth();
@@ -336,8 +333,19 @@ public class World
 			b.render(delta);
 		}
 		
-		Vector3d vec = new Vector3d(effectTimer.getEffect());
+		for(Explosion e : explosionList)
+		{
+			e.render(delta);
+		}
+		
+		Vector4d vec = new Vector4d(effectTimer.getEffect());
 		vec.mul((Math.abs(ticks % .25 - .125) - .0625) * 16);
+		vec.w = 1;
+		
+		if(winner != null)
+		{
+			vec = new Vector4d(0, 0, ticks * 360, Math.max(ticks / 4, 0));
+		}
 		
 		for(int i = 0; i < players.length; i++)
 		{
@@ -509,19 +517,19 @@ public class World
 
 				if(settings.getPlayerBeam(i).wasQuickPressed())
 				{
-					Beam shot = new Beam(playerList.get(i), 10, false, 0);
+					Beam shot = new Beam(playerList.get(i), 10, false);
 					shot.shootBeam();
-				}
-
-				if(settings.getPlayerSuper(i).wasQuickPressed())
-				{
-					if(playerList.get(i).getCharacter() == CharacterType.ADD){
-						((MadAdder)playerList.get(i)).special();
-					}
 				}
 
 				if(settings.getPlayerSuper(i).isPressed())
 				{
+					if(playerList.get(i).getCharacter() == CharacterType.ADD){
+						if(System.currentTimeMillis() - cooldown >= 75)
+						{
+							((MadAdder)playerList.get(i)).special();
+							cooldown = System.currentTimeMillis();
+						}
+					}
 					if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
 						((Loadstar)playerList.get(i)).special();
 					}

@@ -1,4 +1,5 @@
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 
 public class Bulbastore extends Player {
 	
@@ -55,7 +56,7 @@ public class Bulbastore extends Player {
 		}
 	}
 	
-	public void render(double delta, Vector3d vec, Vector3d rotate)
+	public void render(double delta, Vector3d vec, Vector4d rotate)
 	{
 		super.render(delta, usingSpecial && currentTime % 150 < 75 ? new Vector3d(1) : vec, rotate);
 		
