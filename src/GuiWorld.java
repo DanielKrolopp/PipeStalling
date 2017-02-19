@@ -89,8 +89,6 @@ public class GuiWorld extends GuiScreen<GameSettings>
 
 		backgroundShader.unbind();
 
-
-
 		world.render(delta, players, blocks, text);
 	}
 

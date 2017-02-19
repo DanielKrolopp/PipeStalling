@@ -187,8 +187,11 @@ public class Player extends Block
 		GL11.glScaled(width / 2, 7.5, 7.5);
 		GL11.glScaled(1.02d, 1.02d, 1.02d);
 		genCube();
-		GL11.glScaled(1 / 1.02d, 1 / 1.02d, 1 / 1.02d);
+		GL11.glPopMatrix();
 		
+		GL11.glPushMatrix();
+		GL11.glTranslated(xPos + width / 2 * (health / 100d) - 960, -500 + yPos + height * 1.5, -999);
+		GL11.glScaled(width / 2 * (health / 100d), 7.5, 7.5);
 		GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		genCube();
