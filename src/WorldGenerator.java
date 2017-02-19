@@ -84,7 +84,7 @@ public class WorldGenerator {
 			double blockY = 0;
 			if(layer == 0) {
 				if(numBlocksInLayer[0] < maxPerLayer) {
-					blockY = MathHelper.random(120, height/3);
+					blockY = MathHelper.random(131, height/3);
 				}
 			} else if(layer == 1) {
 				if(numBlocksInLayer[1] < maxPerLayer) {
