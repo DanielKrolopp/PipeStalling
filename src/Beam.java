@@ -11,6 +11,7 @@ public class Beam {
 	private double xPosEnd;
 	
 	private boolean facingLeft;
+	private boolean adderBeam;
 	
 	private int damage;
 	
@@ -18,7 +19,7 @@ public class Beam {
 	
 	Player shooter;
 	
-	public Beam(Player pBlock, int amount)
+	public Beam(Player pBlock, int amount, boolean add)
 	{
 		if(pBlock.getFacingLeft())
 		{
@@ -30,6 +31,7 @@ public class Beam {
 		}
 		yPos = pBlock.getYPos()+pBlock.getHeight()/2;
 		facingLeft = pBlock.getFacingLeft();
+		adderBeam = add;
 		shooter = pBlock;
 		damage = amount;
 		startTimer();
@@ -42,6 +44,11 @@ public class Beam {
 	
 	public long getTime() {
 		return System.currentTimeMillis() - startTime;
+	}
+	
+	public boolean isAdder()
+	{
+		return adderBeam;
 	}
 
 	public boolean shootBeam()	//True means hit, false is a miss

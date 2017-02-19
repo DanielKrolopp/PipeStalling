@@ -428,7 +428,7 @@ public class World
 
 				if(settings.getPlayerBeam(i).wasQuickPressed())
 				{
-					Beam shot = new Beam(playerList.get(i), 10);
+					Beam shot = new Beam(playerList.get(i), 10, false);
 					shot.shootBeam();
 				}
 

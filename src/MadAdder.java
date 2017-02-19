@@ -11,7 +11,7 @@ public class MadAdder extends Player {
 	
 	public void special() {
 		usingSpecial = true;
-		Beam shoot = new Beam(this, damage);
+		Beam shoot = new Beam(this, damage, false);
 		if(shoot.shootBeam())
 		{
 			if(health >= 110)
