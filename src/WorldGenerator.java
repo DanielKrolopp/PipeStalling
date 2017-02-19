@@ -22,9 +22,9 @@ public class WorldGenerator {
 		{
 			generated.addBlock(b);
 		}
-		for(Pipe p : pipes){
+		/*for(Pipe p : pipes){
 			generated.addPipe(p);
-		}
+		}*/
 		return generated;
 	}
 
