@@ -7,19 +7,20 @@ public class Beam {
 	
 	private boolean facingLeft;
 	
-	private final int damage = 7;
+	private int damage;
 	
 	Player shooter;
 	
-	public Beam(Player pBlock)
+	public Beam(Player pBlock, int amount)
 	{
 		xPos = pBlock.getXPos()+pBlock.getWidth()/2;
 		yPos = pBlock.getYPos()+pBlock.getHeight()/2;
 		facingLeft = pBlock.getFacingLeft();
 		shooter = pBlock;
+		damage = amount;
 	}
 
-	public void shootBeam()
+	public boolean shootBeam()	//True means hit, false is a miss
 	{
 		double minDistance = Double.MAX_VALUE;
 		Block closestVictim = null;
@@ -94,10 +95,12 @@ public class Beam {
 			}
 		}
 		if(closestVictim != null && closestVictim instanceof Player){ //Means he hit someone
-			shooter.damage(damage, (Player) closestVictim); //Janky casting is my specialty			
+			shooter.damage(damage, (Player) closestVictim); //Janky casting is my specialty	
+			return true;
 		}
 		else{ //Indicates a miss
 			shooter.miss(damage);
+			return false;
 		}
 	
 	}
