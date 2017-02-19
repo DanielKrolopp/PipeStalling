@@ -30,7 +30,6 @@ public class Mine extends Block {
 			double distance = Math.sqrt(Math.pow(centerX - playerCenterX, 2) + Math.pow(centerY - playerCenterY, 2));
 			if(player.characterType != CharacterType.LOAD && distance <= MINE_SIZE + 5){ //If within tolerant distance of mine
 				this.damage(player); //Go kaboom
-				System.out.println("Boom goes the mine");
 				visible = false;
 				GuiWorld.world.getMines().remove(this);
 			}
