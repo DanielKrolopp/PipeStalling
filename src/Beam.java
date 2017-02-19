@@ -1,3 +1,6 @@
+import org.lwjgl.opengl.GL11;
+
+import com.polaris.engine.render.Shader;
 
 public class Beam {
 	
@@ -126,6 +129,14 @@ public class Beam {
 			return false;
 		}
 	
+	}
+	
+	public void render(double delta)
+	{
+		GL11.glVertex3d(xPos, 1080 - (yPos - 3), 0);
+		GL11.glVertex3d(xPos, 1080 - (yPos + 3), 0);
+		GL11.glVertex3d(xPosEnd, 1080 - (yPos + 3), 0);
+		GL11.glVertex3d(xPosEnd, 1080 - (yPos - 3), 0);
 	}
 
 }
