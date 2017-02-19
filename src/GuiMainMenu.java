@@ -42,6 +42,7 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
 		super.render(delta);
 		
 		colorShader.bind();
+		
 		GL20.glUniform1f(time, (System.currentTimeMillis() % 1024) / 1024f);
 		GL20.glUniform1f(color[0], 1f);
 		GL20.glUniform1f(color[1], 1f);
@@ -100,7 +101,23 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
         }
         
         gameSettings.getFont().draw("START A GAME", 1920 / 2f - gameSettings.getFont().getWidth("START A GAME", 48f / 128f) / 2, 600f, .5f, 48f / 128f);
-		
+        
+		GL11.glColor4d(76 / 255d, 181 / 255d, 8 / 255d, 1d);
+        
+        if(input.getMouseX() >= 1920 / 2 - gameSettings.getFont().getWidth("START A GAME", 48 / 128f) && input.getMouseX() <= 1920 / 2 + gameSettings.getFont().getWidth("START A GAME", 48f / 128f))
+        {
+            if(input.getMouseY() >= 700 - 64 && input.getMouseY() <= 700 + 32)
+            {
+                GL11.glColor4f(0, 0, 0, 1);
+                if(input.getMouse(0).isPressed())
+                {
+                	application.initGui(new GuiOnlineChoose(this, colorShader, time, color));
+                }
+            }
+        }
+        
+        gameSettings.getFont().draw("PLAY ONLINE", 1920 / 2f - gameSettings.getFont().getWidth("PLAY ONLINE", 48f / 128f) / 2, 700f, .5f, 48f / 128f);
+        
 		gameSettings.getFont().unbind();
 		
 		GL11.glMatrixMode(GL11.GL_PROJECTION);

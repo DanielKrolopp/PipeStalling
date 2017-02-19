@@ -1,10 +1,11 @@
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 
 import com.polaris.engine.util.MathHelper;
 
 public class EffectTimer 
 {
-	private Vector3d rotationVec = new Vector3d(0);
+	private Vector4d rotationVec = new Vector4d(0, 0, 0, 1);
 
 	public void update(double delta){
 		rotationVec.x = MathHelper.getExpValue(rotationVec.x, 0, .5, delta);
@@ -26,7 +27,7 @@ public class EffectTimer
 		return false;
 	}
 
-	public Vector3d getEffect(){
+	public Vector4d getEffect(){
 		return rotationVec;
 	}
 }

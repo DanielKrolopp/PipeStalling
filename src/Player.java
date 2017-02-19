@@ -1,4 +1,5 @@
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 import org.lwjgl.opengl.GL11;
 
 import com.polaris.engine.util.MathHelper;
@@ -224,7 +225,7 @@ public class Player extends Block
 		
 	}
 	
-	public void render(double delta, Vector3d vec, Vector3d rotate)
+	public void render(double delta, Vector3d vec, Vector4d rotate)
 	{	
 		double mul = (1 - Math.min(ticks, .25) * 4);
 		double mul1 = (ticks > .25 ? 0 : 1);
@@ -244,6 +245,8 @@ public class Player extends Block
 			GL11.glRotated(rotate.x, 1, 0, 0);
 			GL11.glRotated(rotate.y, 0, 1, 0);
 			GL11.glRotated(rotate.z, 0, 0, 1);
+			
+			GL11.glScaled(rotate.w, rotate.w, rotate.w);
 
 			GL11.glColor4d(vec.x, vec.y, vec.z, 1);
 			GL11.glTranslated(xPos + width / 2 - 960, -500 + height / 2 * mul + yPos, -999);
@@ -268,10 +271,12 @@ public class Player extends Block
 		}
 		
 		GL11.glPushMatrix();
-
+		
 		GL11.glRotated(rotate.x, 1, 0, 0);
 		GL11.glRotated(rotate.y, 0, 1, 0);
 		GL11.glRotated(rotate.z, 0, 0, 1);
+		
+		GL11.glScaled(rotate.w, rotate.w, rotate.w);
 		
 		GL11.glTranslated(xPos + width / 2 - 960, -500 + yPos + height * 1.5, -999);
 		
@@ -281,9 +286,17 @@ public class Player extends Block
 		GL11.glScaled(width / 2 * mul, 7.5 * mul1, 7.5 * mul1);
 		GL11.glScaled(1.02d, 1.02d, 1.02d);
 		genCube();
+		
 		GL11.glPopMatrix();
 		
 		GL11.glPushMatrix();
+		
+		GL11.glRotated(rotate.x, 1, 0, 0);
+		GL11.glRotated(rotate.y, 0, 1, 0);
+		GL11.glRotated(rotate.z, 0, 0, 1);
+		
+		GL11.glScaled(rotate.w, rotate.w, rotate.w);
+		
 		GL11.glTranslated(xPos + width / 2 * (health / 100d) - 960, -500 + yPos + height * 1.5, -999);
 		GL11.glScaled(width / 2 * (health / 100d), 7.5 * (MathHelper.isEqual(health, 0) ? 0 : 1), 7.5 * (MathHelper.isEqual(health, 0) ? 0 : 1));
 		GL11.glColor4d(vec.x * .7, vec.y * .7, vec.z * .7, 1);

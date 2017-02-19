@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector3d;
+import org.joml.Vector4d;
 import org.lwjgl.opengl.GL11;
 
 public class World 
@@ -316,11 +317,6 @@ public class World
 			settings.getFont().unbind();
 		}
 		
-		for(Explosion e : explosionList)
-		{
-			e.render(delta);
-		}
-		
 		ticks += delta;
 
 		int windowWidth = settings.getWindowWidth();
@@ -343,8 +339,19 @@ public class World
 			b.render(delta);
 		}
 		
-		Vector3d vec = new Vector3d(effectTimer.getEffect());
+		for(Explosion e : explosionList)
+		{
+			e.render(delta);
+		}
+		
+		Vector4d vec = new Vector4d(effectTimer.getEffect());
 		vec.mul((Math.abs(ticks % .25 - .125) - .0625) * 16);
+		vec.w = 1;
+		
+		if(winner != null)
+		{
+			vec = new Vector4d(0, 0, ticks * 360, 1 - ticks % 4 / 4);
+		}
 		
 		for(int i = 0; i < players.length; i++)
 		{
