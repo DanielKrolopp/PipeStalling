@@ -29,7 +29,7 @@ public class Player extends Block
 		health = 100;
 		jumpCount = 2;
 		xAcc = 0;
-		yAcc = -0.5;
+		yAcc = 0;
 	}
 	
 	public CharacterType getCharacter()
@@ -95,8 +95,7 @@ public class Player extends Block
 	
 	public void updateYMotion()
 	{
-		if(Math.abs(yVel) <= 75)
-			yVel += yAcc;
+		yVel += yAcc;
 		yPos += yVel;	
 	}
 	
@@ -112,7 +111,7 @@ public class Player extends Block
 		{
 			jumping = true;
 			jumpCount--;
-			yVel = 50;				//Sets velocity for normal jumping
+			yVel = 20;				//Sets velocity for normal jumping
 			yAcc = -2;				//Sets acceleration for normal jumping, aka gravity
 		}
 	}
