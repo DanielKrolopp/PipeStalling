@@ -253,7 +253,7 @@ public class World
 			}
 			settings.getFont().unbind();
 		}
-
+		
 		int windowWidth = settings.getWindowWidth();
 		int windowHeight = settings.getWindowHeight();
 		GL11.glViewport(0, 0, windowWidth, windowHeight);

@@ -13,7 +13,4 @@ public class Loadstar extends Player {
 		GuiWorld.world.addMine(mine);
 	}
 	
-	public void render(double delta, Vector3d vec) {
-		super.render(delta, vec);
-	}
 }
