@@ -113,7 +113,15 @@ public class World
 
 	public void render(double delta)
 	{
-
+		for(Player p : playerList)
+		{
+			p.render(delta);
+		}
+		
+		for(Block b : blockList)
+		{
+			b.render(delta);
+		}
 	}
 	
 	public List<Player> getPlayers(){

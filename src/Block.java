@@ -1,3 +1,4 @@
+import org.lwjgl.opengl.GL11;
 
 public class Block {
 	
@@ -27,6 +28,16 @@ public class Block {
 	}
 	public double getWidth(){
 		return width;
+	}
+	
+	public void render(double delta)
+	{
+		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glVertex3d(xPos, yPos, 0f);
+		GL11.glVertex3d(xPos, yPos + height, 0);
+		GL11.glVertex3d(xPos + width, yPos + height, 0);
+		GL11.glVertex3d(xPos + width, yPos, 0);
+		GL11.glEnd();
 	}
 	
 	public boolean collidesWith(Block block){

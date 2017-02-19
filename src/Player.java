@@ -171,6 +171,11 @@ public class Player extends Block
 		
 	}
 	
+	public void render(double delta)
+	{
+		super.render(delta);
+	}
+	
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof Player)){

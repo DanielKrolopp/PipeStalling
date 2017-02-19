@@ -13,6 +13,6 @@ public class Loadstar extends Player {
 	}
 	
 	public void render(double delta) {
-		
+		super.render(delta);
 	}
 }
