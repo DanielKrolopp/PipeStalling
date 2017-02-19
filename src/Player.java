@@ -144,6 +144,11 @@ public class Player extends Block
 	{
 		return slamming;
 	}
+	
+	public boolean isUsingSpecial()
+	{
+		return usingSpecial;
+	}
 
 	public void land()				//Lands character on the ground, updating necessary fields
 	{
@@ -170,7 +175,7 @@ public class Player extends Block
 		{
 			enemy.damageCounter += amount;
 		}
-		health -= Math.round(amount/5.00);
+		health -= Math.round(amount/4.00);
 		if(health < 0){
 		}
 	}
@@ -181,7 +186,7 @@ public class Player extends Block
 	
 	public void miss(int amount)
 	{
-		health -= Math.round(amount/7.00);
+		health -= Math.round(amount/5.00);
 		if(health < 0){
 			alive = false;
 		}

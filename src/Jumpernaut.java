@@ -15,6 +15,7 @@ public class Jumpernaut extends Player {
 		if(!slamming && yAcc != -0.5) {
 			if(usingSpecial) {
 				//special slam
+				slamming = true;
 				yAcc = -16; //temp value;
 			
 			} else {
@@ -26,15 +27,6 @@ public class Jumpernaut extends Player {
 	
 	public void land()
 	{
-		if(usingSpecial && slamming)
-		{
-			Shockwave attack = new Shockwave(xPos-size, yPos+size*0.75, size*3, size*0.5);
-			List<Player> hitlist = attack.detectTargets();
-			for(Player pBlock : hitlist)
-			{
-				this.damage(15, pBlock);
-			}			
-		}
 		usingSpecial= false;
 		super.land();
 	}

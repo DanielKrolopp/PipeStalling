@@ -152,14 +152,25 @@ public class World
 							fell = false;
 							if(player.getYVel() > 0) {
 								player.setYPos(otherPlayer.getYPos() - player.getHeight());
-								if(player.isSlamming())
+								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
 								{
 									player.damage(5, otherPlayer);
 								}
 							} else {
 								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
 								player.setYVel(0);
-								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
+								if(player.characterType == CharacterType.JUMP && player.isUsingSpecial() && player.isSlamming())
+								{
+									player.damage(10, otherPlayer);
+									/*Shockwave attack = new Shockwave(player.getXPos()-player.getWidth(), player.getYPos()+player.getHeight()*0.75, player.getWidth()*3, player.getHeight()*0.5);
+									List<Player> hitlist = attack.detectTargets();
+									for(Player pBlock : hitlist)
+									{
+										if(pBlock.getCharacter() == otherPlayer.getCharacter())
+											player.damage(15, pBlock);
+									}*/			
+								}
+								if(player.isSlamming())
 								{
 									player.damage(5, otherPlayer);
 								}
@@ -171,7 +182,7 @@ public class World
 			}
 
 			//block collisions, x-axis
-			if(fell)
+			if(fell && !player.isSlamming())
 			{
 				if(player.getCharacter() == CharacterType.JUMP)
 				{
