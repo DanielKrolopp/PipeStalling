@@ -23,7 +23,7 @@ public class World
 	private boolean fell;
 
 	private double ticks = 0;
-	
+
 	private GameSettings settings;
 
 	public World(double width, double height, GameSettings game, int[] playerCharacters)
@@ -98,7 +98,7 @@ public class World
 
 	public void update(double delta)
 	{
-		
+
 		effectTimer.update(delta);
 
 		if(startCountdown == 0)
@@ -240,7 +240,7 @@ public class World
 				explosionList.remove(ex);
 			}
 		}
-		
+
 		for(Beam beam : beamList) {
 			if(beam.getTime() > 200) { //might need to be changed
 				beamList.remove(beam);
@@ -251,22 +251,15 @@ public class World
 	public void render(double delta, Vector3d[] players, Vector3d blocks, Vector3d text)
 	{
 
-		for(Beam b : beamList)
-		{
-			GL11.glBegin(GL11.GL_QUADS);
-			b.render(delta);
-			GL11.glEnd();
-		}
-		
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthMask(true);
-		
+
 		GL11.glPushMatrix();
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, 1920, 1080, 0, -1, 1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		
+
 		if(go < 3)
 		{
 			float ticks = (System.currentTimeMillis() - this.startCountdown) % 1000f / 1000f;
@@ -289,9 +282,16 @@ public class World
 			}
 			settings.getFont().unbind();
 		}
-		
+
+		GL11.glBegin(GL11.GL_QUADS);
+		for(Beam b : beamList)
+		{
+			b.render(delta);
+		}
+		GL11.glEnd();
+
 		ticks += delta;
-		
+
 		int windowWidth = settings.getWindowWidth();
 		int windowHeight = settings.getWindowHeight();
 		GL11.glViewport(0, 0, windowWidth, windowHeight);
@@ -304,7 +304,7 @@ public class World
 		GL11.glFrustum( xmin, xmax, ymin, ymax, .01, 2000);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 		GL11.glLoadIdentity();
-		
+
 		GL11.glColor4f(1, 1, 1, 1);
 		for(int i = 0; i < players.length; i++)
 		{
@@ -333,7 +333,7 @@ public class World
 		blockList.add(block);
 		return true;
 	}
-	
+
 	public boolean addExplosion(Explosion ex) {
 		if(explosionList.contains(ex)) {
 			return false;
@@ -341,7 +341,7 @@ public class World
 		explosionList.add(ex);
 		return true;
 	}
-	
+
 	public boolean addBeam(Beam beam) {
 		if(beamList.contains(beam)) {
 			return false;
@@ -389,54 +389,54 @@ public class World
 				{
 					playerList.get(i).jump();
 				}
-				
+
 				if(settings.getPlayerSmash(i).isPressed())
 				{
 					playerList.get(i).slam();
 				}
-				
+
 				if(settings.getPlayerRight(i).isDoublePressed())
 				{
 					playerList.get(i).setXVel(22);
 					playerList.get(i).facingLeft = false;
 				}
-				
+
 				else if(settings.getPlayerRight(i).isPressed())
 				{
 					playerList.get(i).setXVel(15);
 					playerList.get(i).facingLeft = false;
 				}
-				
+
 				else if(settings.getPlayerLeft(i).isDoublePressed())
 				{
 					playerList.get(i).setXVel(-22);
 					playerList.get(i).facingLeft = true;
 				}		
-				
+
 				else if(settings.getPlayerLeft(i).isPressed())
 				{
 					playerList.get(i).setXVel(-15);
 					playerList.get(i).facingLeft = true;
 				}
-	
+
 				else
 				{
 					playerList.get(i).setXAcc(-playerList.get(i).getXVel());
 				}
-	
+
 				if(settings.getPlayerBeam(i).wasQuickPressed())
 				{
 					Beam shot = new Beam(playerList.get(i), 10);
 					shot.shootBeam();
 				}
-				
+
 				if(settings.getPlayerSuper(i).wasQuickPressed())
 				{
 					if(playerList.get(i).getCharacter() == CharacterType.ADD){
 						((MadAdder)playerList.get(i)).special();
 					}
 				}
-	
+
 				if(settings.getPlayerSuper(i).isPressed())
 				{
 					if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
