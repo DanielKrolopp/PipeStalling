@@ -1,3 +1,4 @@
+import org.joml.Vector3d;
 
 public class Player extends Block
 {
@@ -172,9 +173,9 @@ public class Player extends Block
 		
 	}
 	
-	public void render(double delta)
+	public void render(double delta, Vector3d vec)
 	{
-		super.render(delta);
+		super.render(delta, vec);
 	}
 	
 	@Override

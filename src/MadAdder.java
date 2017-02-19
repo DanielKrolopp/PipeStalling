@@ -1,3 +1,4 @@
+import org.joml.Vector3d;
 
 public class MadAdder extends Player {
 	
@@ -15,7 +16,7 @@ public class MadAdder extends Player {
 			this.heal(damage/2);
 	}
 	
-	public void render(double delta) {
-		super.render(delta);
+	public void render(double delta, Vector3d vec) {
+		super.render(delta, vec);
 	}
 }
