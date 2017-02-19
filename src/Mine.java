@@ -1,5 +1,4 @@
 import org.joml.Vector3d;
-import org.joml.Vector4d;
 
 public class Mine extends Block {
 	private static final double MINE_SIZE = 20;

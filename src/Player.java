@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joml.Vector3d;
 import org.lwjgl.opengl.GL11;
 

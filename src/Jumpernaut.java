@@ -1,5 +1,3 @@
-import java.util.List;
-
 import org.joml.Vector3d;
 
 public class Jumpernaut extends Player {
