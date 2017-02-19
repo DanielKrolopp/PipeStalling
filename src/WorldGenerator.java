@@ -1,3 +1,4 @@
+import com.polaris.engine.util.MathHelper;
 
 public class WorldGenerator {
 
@@ -11,17 +12,23 @@ public class WorldGenerator {
 		double yBase = worldHeight % 10 / 2 + 100;
 		int size = 50;
 		
-		double blockWidth;
-		double blockHeight;
 		double blockX;
 		double blockY;
+		double baseVal = 30;
 		
 		int i = 0;
-		while(i < 20){ 
+		while(i < 15){ 
 			blockX = xBase + (int) (Math.random() * (worldWidth - size * 2) / size) * size;
 			blockY = yBase + (int) (Math.random() * (worldHeight - size) / size) * size;
-			blockWidth = (int) (Math.random() * Math.min((worldWidth - blockX) / size, 5) + 1) * size;
-			blockHeight = (int)(Math.random() * Math.min((worldHeight - blockY) / size, 2) + 2) * size;
+			int widthMultiplier = MathHelper.random(2, 5);
+			int heightMultiplier;
+			if(widthMultiplier < 3) {
+				heightMultiplier = MathHelper.random(3, 5);
+			} else {
+				heightMultiplier = MathHelper.random(1, 3);
+			}
+			double blockWidth = baseVal * widthMultiplier;
+			double blockHeight = baseVal * heightMultiplier;
 		
 			Block block = new Block(blockX, blockY, blockHeight, blockWidth);
 			
