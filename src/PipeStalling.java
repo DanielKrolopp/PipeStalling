@@ -1,4 +1,5 @@
 import com.polaris.engine.App;
+import com.polaris.engine.network.Packet;
 
 public class PipeStalling extends App<GameSettings>
 {
@@ -10,6 +11,13 @@ public class PipeStalling extends App<GameSettings>
 
 	public static void main(String[] args)
 	{
+		Packet.addPacket(PacketBeam.class);
+		Packet.addPacket(PacketExplosion.class);
+		Packet.addPacket(PacketKeyPressed.class);
+		Packet.addPacket(PacketPlayers.class);
+		Packet.addPacket(PacketPlayerUpdate.class);
+		Packet.addPacket(PacketWorld.class);
+		
 		App.start(new PipeStalling());
 	}
 	
