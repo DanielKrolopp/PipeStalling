@@ -31,19 +31,24 @@ public class Pipe extends Block{
 	 * true: return top Pipe
 	 * false: return bottom Pipe
 	 */
-	public static Pipe createLinkedPipes(boolean top){
+	public static Pipe createLinkedPipes(boolean top, World world){
+		System.out.println("start of createLinkedPipes");
 		double height = 25;
+		System.out.println("Bookmark 3");
 		double width = Player.size + 20; //Pipe openings will only be 20 wider than player
-		double x = (int) (Math.random() * (GuiWorld.world.getWidth()- width - 50)) + 25; //Ensures its not right against the wall
+		System.out.println("Bookmark 2: "+world.getWidth());
+		double x = (int) (Math.random() * (world.getWidth()- width - 50)) + 25; //Ensures its not right against the wall
+		System.out.println("Bookmark 1");
 		double y;
+		System.out.println("creating linked pipes");
 		if(top){
 			y = 0;
 			Pipe topPipe = new Pipe(x, y, width, height, top);
 			int x2 = -1;
 			while(x2 < 0 || Math.abs(x2 - x) > width){ //Make sure they don't overlap x vals
-				x2 = (int) (Math.random() * (GuiWorld.world.getWidth()- width - 50)) + 25;
+				x2 = (int) (Math.random() * (world.getWidth()- width - 50)) + 25;
 			}
-			Pipe botPipe = new Pipe(x2, GuiWorld.world.getHeight() - 25, width, height, !top, topPipe);
+			Pipe botPipe = new Pipe(x2, world.getHeight() - 25, width, height, !top, topPipe);
 			topPipe.setMate(botPipe);
 			return topPipe;
 		}
@@ -62,9 +67,9 @@ public class Pipe extends Block{
 	/*
 	 * Returns the x position the player will pop out of.
 	 * Will spawn player's center in the center of the pipe (like so):
-	 * ---------------------------------
-	 * -                               -
-	 * ---------------------------------
+	 * ----------------------------------
+	 * -                                -
+	 * ----------------------------------
 	 *              XXXXXXXX
 	 *              XXXXXXXX
 	 *              XXXXXXXX
