@@ -232,20 +232,6 @@ public class World
 		return true;
 	}
 
-	public void updateVelocityAcceleration(Player player){
-		double yVel = player.getYVel();
-		double xVel = player.getXVel();
-		double yAcc = player.getYAcc();
-		double xAcc = player.getXAcc();
-		double oldX = player.getXPos();
-		double oldY = player.getYPos();
-
-		player.setYVel(yVel + yAcc);
-		player.setXVel(xVel + xAcc);
-		player.setXPos(oldX + xVel);
-		player.setYPos(oldY + yVel);
-	}
-
 	public boolean isColliding(Block p1, Block p2) {
 		return (p1.getXPos() < p2.getXPos() + p2.getWidth() &&
 				p1.getXPos() + p1.getWidth() > p2.getXPos() &&
