@@ -15,7 +15,7 @@ public class Jumpernaut extends Player {
 		if(!slamming && yAcc != -0.5) {
 			if(usingSpecial) {
 				//special slam
-				yAcc = -8; //temp value;
+				yAcc = -16; //temp value;
 			
 			} else {
 				super.slam();
@@ -32,7 +32,7 @@ public class Jumpernaut extends Player {
 			List<Player> hitlist = attack.detectTargets();
 			for(Player pBlock : hitlist)
 			{
-				this.damage(20, pBlock);
+				this.damage(15, pBlock);
 			}			
 		}
 		usingSpecial= false;
@@ -45,8 +45,8 @@ public class Jumpernaut extends Player {
 		usingSpecial = true;
 		jumping = true;
 		jumpCount = 0;
-		yVel = 30;
-		yAcc = 1.5;
+		yVel = 40;
+		yAcc = -1;
 		
 	}
 	
