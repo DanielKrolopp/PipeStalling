@@ -16,6 +16,7 @@ public class World
 	private int numPlayers;
 	private double width;
 	private double height;
+	private long cooldown;
 	private long startCountdown = 0;
 	private int go;
 	private boolean fell;
@@ -506,19 +507,19 @@ public class World
 
 				if(settings.getPlayerBeam(i).wasQuickPressed())
 				{
-					Beam shot = new Beam(playerList.get(i), 10, false, 0);
+					Beam shot = new Beam(playerList.get(i), 10, false);
 					shot.shootBeam();
-				}
-
-				if(settings.getPlayerSuper(i).wasQuickPressed())
-				{
-					if(playerList.get(i).getCharacter() == CharacterType.ADD){
-						((MadAdder)playerList.get(i)).special();
-					}
 				}
 
 				if(settings.getPlayerSuper(i).isPressed())
 				{
+					if(playerList.get(i).getCharacter() == CharacterType.ADD){
+						if(System.currentTimeMillis() - cooldown >= 75)
+						{
+							((MadAdder)playerList.get(i)).special();
+							cooldown = System.currentTimeMillis();
+						}
+					}
 					if(playerList.get(i).getCharacter() == CharacterType.LOAD) {
 						((Loadstar)playerList.get(i)).special();
 					}
