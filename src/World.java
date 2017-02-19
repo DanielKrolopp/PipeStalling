@@ -54,11 +54,11 @@ public class World
 	public void spawnTwo()
 	{
 		playerList.get(0).setXPos(width/10 - 50);
-		playerList.get(0).setYPos(height*9/10);
-		blockList.add(new Block(width/10 - 50, height*9/10 + 100, 100, 10));
-		playerList.get(0).setXPos(width*9/10 - 50);
-		playerList.get(0).setYPos(height*9/10);
-		blockList.add(new Block(width*9/10 - 50, height*9/10 + 100, 100, 10));		
+		playerList.get(0).setYPos(height/10);
+		blockList.add(new Block(width/10 - 50, height/10, 100, 10));
+		playerList.get(1).setXPos(width*9/10 - 50);
+		playerList.get(1).setYPos(height/10);
+		blockList.add(new Block(width*9/10 - 50, height/10, 100, 10));		
 	}
 	
 	public void spawnThree()
@@ -112,11 +112,11 @@ public class World
 			} else {
 				for(Block block : blockList) {
 					if(isColliding(player, block)){
-						if(player.getYVel() > 0) {
-							player.setYPos(block.getYPos() - player.getHeight());
+						if(player.getYVel() < 0) {
+							player.setYPos(block.getYPos() + player.getHeight());
 							player.land();
 						} else {
-							player.setYPos(block.getYPos()+block.getHeight());
+							player.setYPos(block.getYPos() - block.getHeight());
 							player.setYVel(0);
 						}
 					}
@@ -126,15 +126,15 @@ public class World
 					if(otherPlayer.getCharacter() != player.getCharacter()) 
 					{
 						if(isColliding(player, otherPlayer)){
-							if(player.getYVel() > 0) {
-								player.setYPos(otherPlayer.getYPos() - player.getHeight());
+							if(player.getYVel() < 0) {
+								player.setYPos(otherPlayer.getYPos() + player.getHeight());
 								if(player.isSlamming())
 								{
 									player.damage(5, otherPlayer);
 								}
 								player.land();
 							} else {
-								player.setYPos(otherPlayer.getYPos()+otherPlayer.getHeight());
+								player.setYPos(otherPlayer.getYPos() - otherPlayer.getHeight());
 								player.setYVel(0);
 								if(player.getCharacter() == CharacterType.JUMP && player.usingSpecial)
 								{

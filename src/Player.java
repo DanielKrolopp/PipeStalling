@@ -99,7 +99,7 @@ public class Player extends Block
 	
 	public void fall()
 	{
-		yAcc = 2;					//Sets acceleration for falling, aka gravity
+		yAcc = -2;					//Sets acceleration for falling, aka gravity
 		jumpCount = 1;
 	}
 	
@@ -109,8 +109,8 @@ public class Player extends Block
 		{
 			jumping = true;
 			jumpCount--;
-			yVel = -10;				//Sets velocity for normal jumping
-			yAcc = 2;				//Sets acceleration for normal jumping, aka gravity
+			yVel = 100;				//Sets velocity for normal jumping
+			yAcc = -2;				//Sets acceleration for normal jumping, aka gravity
 		}
 	}
 	
@@ -123,7 +123,7 @@ public class Player extends Block
 		if(!slamming && yAcc != -0.5)
 		{
 			slamming = true;
-			yAcc = 5;				//Sets acceleration for slamming			
+			yAcc = -5;				//Sets acceleration for slamming			
 		}
 	}
 	
@@ -138,7 +138,7 @@ public class Player extends Block
 		slamming = false;
 		jumpCount = 2;
 		yVel = 0;
-		yAcc = 0.5;
+		yAcc = -0.5;
 	}
 	
 	public void heal(int amount){
