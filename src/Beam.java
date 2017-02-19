@@ -22,7 +22,7 @@ public class Beam {
 	public Beam(Player pBlock, int amount, boolean add)
 	{
 		xPos = pBlock.getXPos() + pBlock.getWidth()/2;
-		yPos = pBlock.getYPos()+pBlock.getHeight() / 2;
+		yPos = pBlock.getYPos() + pBlock.getHeight() / 2;
 		facingLeft = pBlock.getFacingLeft();
 		adderBeam = add;
 		shooter = pBlock;
@@ -128,32 +128,43 @@ public class Beam {
 			if(closestVictimLeft instanceof Player)
 			{
 				closestVictim = closestVictimLeft;
+				xPos = shooter.getXPos();
 				xPosEnd = closestVictimLeft.getXPos() + closestVictimLeft.getWidth();
 			}
 			
 			else if(closestVictimRight instanceof Player)
 			{
 				closestVictim = closestVictimRight;
+				xPos = shooter.getXPos() + shooter.getWidth();
 				xPosEnd = closestVictimRight.getXPos();
 			}
 			else
+			{
+				xPos = shooter.getXPos();
 				xPosEnd = closestVictimLeft.getXPos() + closestVictimLeft.getWidth();
+			}
 		}
 		else
 		{
 			if(closestVictimRight instanceof Player)
 			{
 				closestVictim = closestVictimRight;
+				xPos = shooter.getXPos() + shooter.getWidth();
 				xPosEnd = closestVictimRight.getXPos();
 			}
 			else if(closestVictimLeft instanceof Player)
 			{
 				closestVictim = closestVictimLeft;
+				xPos = shooter.getXPos();
 				xPosEnd = closestVictimLeft.getXPos() + closestVictimLeft.getWidth();
 			}
 			else
+			{
+				xPos = shooter.getXPos() + shooter.getWidth();
 				xPosEnd = closestVictimRight.getXPos();
+			}
 		}
+		yPos = shooter.getYPos();
 		if(closestVictim != null && closestVictim instanceof Player){ //Means he hit someone
 			shooter.damage(damage, (Player) closestVictim); //Janky casting is my specialty	
 			return true;
