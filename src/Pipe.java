@@ -3,17 +3,17 @@ import org.joml.Vector3d;
 public class Pipe extends Block{
 	
 	private Pipe mate;
-	public boolean top; //If true, Pipe is on top, if false, is bottom Pipe
+	public boolean bottom; //If true, Pipe is on bottom, if false, is top Pipe
 	
 	//Each pipe contains a reference to its linked pipe (mate)
-	public Pipe(double x, double y, double width, double height, boolean top, Pipe mate){
+	public Pipe(double x, double y, double width, double height, boolean bottom, Pipe mate){
 		super(x, y, width, height);
-		this.top = top;
+		this.bottom = bottom;
 		this.mate = mate;
 	}
 	public Pipe(double x, double y, double width, double height, boolean top){
 		super(x, y, width, height);
-		this.top = top;
+		this.bottom = top;
 	}
 	
 	public Pipe getMate(){
@@ -24,8 +24,28 @@ public class Pipe extends Block{
 		mate = pipe;
 	}
 	
-	public boolean isTop(){
-		return top;
+	public boolean isBottom(){
+		return bottom;
+	}
+	
+	public void update(){
+		double centerX = (2 * this.getXPos() + width)/2;
+		double centerY = (2 * this.getYPos() + height)/2;
+		for(Player player : GuiWorld.world.getPlayers()){ //Iterates over players
+			double playerCenterX = (2 * player.getXPos() + width)/2;
+			double playerCenterY = (2 * player.getYPos() + height)/2;
+			double distance = Math.sqrt(Math.pow(centerX - playerCenterX, 2) + Math.pow(centerY - playerCenterY, 2));
+			if(distance <= 35 && Math.abs(System.currentTimeMillis() - player.lastTeleport) > 1000){ //If within tolerant distance of mine
+				player.setXPos(this.getMate().getSpawnX());
+				player.setYPos(this.getMate().getSpawnY() - player.size);
+				player.lastTeleport = System.currentTimeMillis();
+			}
+			else if(distance <= 110 && !bottom && Math.abs(System.currentTimeMillis() - player.lastTeleport) > 1000){
+				player.setXPos(this.getMate().getSpawnX());
+				player.setYPos(this.getMate().getSpawnY());
+				player.lastTeleport = System.currentTimeMillis();
+			}
+		}
 	}
 	
 	/*
@@ -45,7 +65,7 @@ public class Pipe extends Block{
 			while(x2 < 0 || Math.abs(x2 - x) < width){ //Make sure they don't overlap x vals
 				x2 = (int) (Math.random() * (world.getWidth() - width - 50)) + 25;
 			}
-			Pipe botPipe = new Pipe(x2, world.getHeight() - 25, width, height, !top, topPipe);
+			Pipe botPipe = new Pipe(x2, world.getHeight(), width, height, !top, topPipe);
 			topPipe.setMate(botPipe);
 			return topPipe;
 		}
@@ -56,7 +76,7 @@ public class Pipe extends Block{
 			while(x2 < 0 || Math.abs(x2 - x) < width){ //Make sure they don't overlap x vals
 				x2 = (int) (Math.random() * (world.getWidth() - width - 50)) + 25;
 			}
-			Pipe topPipe = new Pipe(x2, world.getHeight() - 25, width, height, !top, botPipe);
+			Pipe topPipe = new Pipe(x2, world.getHeight(), width, height, !top, botPipe);
 			botPipe.setMate(topPipe);
 			return botPipe;
 		}
@@ -79,7 +99,7 @@ public class Pipe extends Block{
 	 * Returns the y position the player will pop out of
 	 */
 	public double getSpawnY(){
-		if(!top){
+		if(!bottom){
 			return getYPos();
 		}
 		else{

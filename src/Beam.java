@@ -130,6 +130,7 @@ public class Beam {
 				closestVictim = closestVictimLeft;
 				xPos = shooter.getXPos();
 				xPosEnd = closestVictimLeft.getXPos() + closestVictimLeft.getWidth();
+				xPos -= shooter.getWidth()/2;
 			}
 			
 			else if(closestVictimRight instanceof Player)
@@ -137,6 +138,7 @@ public class Beam {
 				closestVictim = closestVictimRight;
 				xPos = shooter.getXPos() + shooter.getWidth();
 				xPosEnd = closestVictimRight.getXPos();
+				xPos += shooter.getWidth()/2;
 			}
 			else
 			{
@@ -151,12 +153,14 @@ public class Beam {
 				closestVictim = closestVictimRight;
 				xPos = shooter.getXPos() + shooter.getWidth();
 				xPosEnd = closestVictimRight.getXPos();
+				xPos += shooter.getWidth()/2;
 			}
 			else if(closestVictimLeft instanceof Player)
 			{
 				closestVictim = closestVictimLeft;
 				xPos = shooter.getXPos();
 				xPosEnd = closestVictimLeft.getXPos() + closestVictimLeft.getWidth();
+				xPos -= shooter.getWidth()/2;
 			}
 			else
 			{
