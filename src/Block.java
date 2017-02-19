@@ -29,6 +29,22 @@ public class Block {
 		return width;
 	}
 	
+	public boolean collidesWith(Block block){
+		if(getXPos() < block.getXPos() && getXPos() + getWidth() > block.getXPos()){
+			return true;
+		}
+		else if(block.getXPos() < getXPos() && block.getXPos() + block.getWidth() > getXPos()){
+			return true;
+		}
+		else if(getYPos() < block.getYPos() && getYPos() + getHeight() > block.getYPos()){
+			return true;
+		}
+		else if(block.getYPos() < getYPos() && block.getYPos() + block.getHeight() > getYPos()){
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof Block)){
