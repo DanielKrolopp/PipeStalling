@@ -60,9 +60,9 @@ public class World
 	public void spawnTwo()
 	{
 		playerList.get(0).setXPos(width/10 - 50);
-		playerList.get(0).setYPos(height/10);
+		playerList.get(0).setYPos(30);
 		playerList.get(1).setXPos(width*9/10 - 50);
-		playerList.get(1).setYPos(height/10);	
+		playerList.get(1).setYPos(30);	
 	}
 
 	public void spawnThree()
