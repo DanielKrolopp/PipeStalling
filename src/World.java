@@ -13,7 +13,7 @@ public class World
 	private double height;
 	private long startCountdown = 0;
 	private boolean ready;
-	private boolean set;
+	private boolean set; 
 	private boolean go;
 	
 	private GameSettings settings;
@@ -63,12 +63,21 @@ public class World
 	
 	public void spawnThree()
 	{
-		
+		spawnTwo();
+		playerList.get(2).setXPos(width/2 - 50);
+		playerList.get(2).setYPos(height*4/5);
+		blockList.add(new Block(width/2 - 50, height*4/5, 100, 10));				
 	}
 	
 	public void spawnFour()
 	{
-		
+		spawnTwo();
+		playerList.get(2).setXPos(width/10 - 50);
+		playerList.get(2).setYPos(height*4/5);
+		blockList.add(new Block(width/10 - 50, height*4/5, 100, 10));
+		playerList.get(3).setXPos(width*9/10 - 50);
+		playerList.get(3).setYPos(height*4/5);
+		blockList.add(new Block(width*9/10 - 50, height*4/5, 100, 10));	
 	}
 	
 	public double getWidth(){
@@ -273,15 +282,15 @@ public class World
 			if(settings.getPlayerRight(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(2);
-				playerList.get(i).setXVel(1);
+					playerList.get(i).setXVel(10);
+				playerList.get(i).setXVel(5);
 			}
 			
 			else if(settings.getPlayerLeft(i).isPressed())
 			{
 				if(settings.getPlayerRight(i).isDoublePressed())
-					playerList.get(i).setXVel(-2);
-				playerList.get(i).setXVel(-1);
+					playerList.get(i).setXVel(-10);
+				playerList.get(i).setXVel(-5);
 			}
 			
 			else

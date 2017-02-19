@@ -6,7 +6,7 @@ public class Jumpernaut extends Player {
 
 	
 	public Jumpernaut(double x, double y) {
-		super(x, y, CharacterType.JUMP);
+		super(x, y);
 		characterType = CharacterType.JUMP;
 	}
 	
@@ -15,7 +15,7 @@ public class Jumpernaut extends Player {
 		if(!slamming && yAcc != -0.5) {
 			if(usingSpecial) {
 				//special slam
-				yAcc = 8; //temp value;
+				yAcc = -8; //temp value;
 			
 			} else {
 				super.slam();
@@ -45,7 +45,7 @@ public class Jumpernaut extends Player {
 		usingSpecial = true;
 		jumping = true;
 		jumpCount = 0;
-		yVel = -15;
+		yVel = 30;
 		yAcc = 1.5;
 		
 	}

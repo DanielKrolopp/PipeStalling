@@ -6,7 +6,7 @@ public class Bulbastore extends Player {
 	private long currentTime;
 	
 	public Bulbastore(double x, double y) {
-		super(x, y, CharacterType.STORE);
+		super(x, y);
 		characterType = CharacterType.STORE;
 	}
 	
