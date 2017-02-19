@@ -1,5 +1,7 @@
 import org.lwjgl.opengl.GL11;
 
+import com.polaris.engine.render.Shader;
+
 import net.jafama.FastMath;
 
 public class Beam {
@@ -7,6 +9,8 @@ public class Beam {
 	private double xPos;
 	private double yPos;
 	private double xPosEnd;
+
+	private boolean facingLeft;
 	private boolean adderBeam;
 
 	private int damage;
@@ -17,8 +21,9 @@ public class Beam {
 
 	public Beam(Player pBlock, int amount, boolean add)
 	{
-		xPos = pBlock.getXPos() + pBlock.getWidth() / 2;
-		yPos = pBlock.getYPos();
+		xPos = pBlock.getXPos() + pBlock.getWidth()/2;
+		yPos = pBlock.getYPos()+pBlock.getHeight() / 2;
+		facingLeft = pBlock.getFacingLeft();
 		adderBeam = add;
 		shooter = pBlock;
 		damage = amount;
@@ -132,10 +137,7 @@ public class Beam {
 				xPosEnd = closestVictimRight.getXPos();
 			}
 			else
-			{
 				xPosEnd = closestVictimLeft.getXPos() + closestVictimLeft.getWidth();
-				xPos = shooter.getXPos();
-			}
 		}
 		else
 		{
@@ -150,10 +152,7 @@ public class Beam {
 				xPosEnd = closestVictimLeft.getXPos() + closestVictimLeft.getWidth();
 			}
 			else
-			{
 				xPosEnd = closestVictimRight.getXPos();
-				xPos = shooter.getXPos() + shooter.getWidth();
-			}
 		}
 		if(closestVictim != null && closestVictim instanceof Player){ //Means he hit someone
 			shooter.damage(damage, (Player) closestVictim); //Janky casting is my specialty	
