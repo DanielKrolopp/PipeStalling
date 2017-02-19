@@ -1,5 +1,5 @@
 
-public class Beam {
+public class NegaBeam {
 	
 	private double xPos;
 	private double yPos;
@@ -7,11 +7,11 @@ public class Beam {
 	
 	private boolean facingLeft;
 	
-	private final int damage = 7;
+	private final int damage = 4;
 	
 	Player shooter;
 	
-	public Beam(Player pBlock)
+	public NegaBeam(Player pBlock)
 	{
 		xPos = pBlock.getXPos()+pBlock.getWidth()/2;
 		yPos = pBlock.getYPos()+pBlock.getHeight()/2;
@@ -94,7 +94,8 @@ public class Beam {
 			}
 		}
 		if(closestVictim != null && closestVictim instanceof Player){ //Means he hit someone
-			shooter.damage(damage, (Player) closestVictim); //Janky casting is my specialty			
+			shooter.damage(damage, (Player) closestVictim); //Janky casting is my specialty	
+			shooter.heal(damage/2);
 		}
 		else{ //Indicates a miss
 			shooter.miss(damage);
