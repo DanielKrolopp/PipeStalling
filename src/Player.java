@@ -161,7 +161,6 @@ public class Player extends Block
 			enemy.health -= amount;
 			if(enemy.health < 0){
 				enemy.alive = false;
-				System.out.println("A player died.");
 			}
 		}
 		else
@@ -170,8 +169,6 @@ public class Player extends Block
 		}
 		health -= Math.round(amount/5.00);
 		if(health < 0){
-			alive = false;
-			System.out.println("A player died.");
 		}
 	}
 	
