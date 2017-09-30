@@ -37,7 +37,7 @@ public class GuiWinScreen extends GuiScreen<GameSettings>
 	{
 		super.update(delta);
 		
-		if(input.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
+		if(gameSettings.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
 		{
 			application.initGui(new GuiMainMenu(application, backgroundShader, time, color));
 		}

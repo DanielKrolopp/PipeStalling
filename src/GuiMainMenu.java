@@ -100,13 +100,13 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
             if(input.getMouseY() >= 600 - 64 && input.getMouseY() <= 600 + 32)
             {
                 GL11.glColor4f(0, 0, 0, 1);
-                if(input.getMouse(0).isPressed())
+                if(gameSettings.getMouseKey(0).isPressed())
                 {
                 	application.initGui(new GuiPlayerChoose(this, colorShader, time, color));
                 }
             }
         }
-        if(input.getKey(GLFW.GLFW_KEY_ENTER).isPressed())
+        if(gameSettings.getKey(GLFW.GLFW_KEY_ENTER).isPressed())
         {
         	GL11.glColor4f(0, 0, 0, 1);
         }
@@ -120,7 +120,7 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
             if(input.getMouseY() >= 700 - 64 && input.getMouseY() <= 700 + 32)
             {
                 GL11.glColor4f(0, 0, 0, 1);
-                if(input.getMouse(0).isPressed())
+                if(gameSettings.getMouseKey(0).isPressed())
                 {
                 	application.initGui(new GuiOnlineChoose(this, colorShader, time, color));
                 }
@@ -153,7 +153,7 @@ public class GuiMainMenu extends GuiScreen<GameSettings>
             }
         }
 		
-		if(input.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
+		if(gameSettings.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
 		{
         	application.initGui(new GuiPlayerChoose(this, colorShader, time, color));
 		}
