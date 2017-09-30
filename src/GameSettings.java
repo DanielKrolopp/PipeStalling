@@ -53,12 +53,12 @@ public class GameSettings extends Settings
 	public void getKeys()
 	{
 		
-		this.jumpKey = new Key[]{input.getKey(GLFW.GLFW_KEY_W), input.getKey(GLFW.GLFW_KEY_I), input.getKey(GLFW.GLFW_KEY_T), input.getKey(GLFW.GLFW_KEY_UP)};
-		this.smashKey = new Key[]{input.getKey(GLFW.GLFW_KEY_S), input.getKey(GLFW.GLFW_KEY_K), input.getKey(GLFW.GLFW_KEY_G), input.getKey(GLFW.GLFW_KEY_DOWN)};
-		this.leftKey = new Key[]{input.getKey(GLFW.GLFW_KEY_A), input.getKey(GLFW.GLFW_KEY_J), input.getKey(GLFW.GLFW_KEY_F), input.getKey(GLFW.GLFW_KEY_LEFT)};
-		this.rightKey = new Key[]{input.getKey(GLFW.GLFW_KEY_D), input.getKey(GLFW.GLFW_KEY_L), input.getKey(GLFW.GLFW_KEY_H), input.getKey(GLFW.GLFW_KEY_RIGHT)};
-		this.beamKey = new Key[]{input.getKey(GLFW.GLFW_KEY_E), input.getKey(GLFW.GLFW_KEY_O), input.getKey(GLFW.GLFW_KEY_Y), input.getKey(GLFW.GLFW_KEY_RIGHT_SHIFT)};
-		this.superKey = new Key[]{input.getKey(GLFW.GLFW_KEY_Q), input.getKey(GLFW.GLFW_KEY_U), input.getKey(GLFW.GLFW_KEY_R), input.getKey(GLFW.GLFW_KEY_SLASH)};
+		this.jumpKey = new Key[]{this.getKey(GLFW.GLFW_KEY_W), this.getKey(GLFW.GLFW_KEY_I), this.getKey(GLFW.GLFW_KEY_T), this.getKey(GLFW.GLFW_KEY_UP)};
+		this.smashKey = new Key[]{this.getKey(GLFW.GLFW_KEY_S), this.getKey(GLFW.GLFW_KEY_K), this.getKey(GLFW.GLFW_KEY_G), this.getKey(GLFW.GLFW_KEY_DOWN)};
+		this.leftKey = new Key[]{this.getKey(GLFW.GLFW_KEY_A), this.getKey(GLFW.GLFW_KEY_J), this.getKey(GLFW.GLFW_KEY_F), this.getKey(GLFW.GLFW_KEY_LEFT)};
+		this.rightKey = new Key[]{this.getKey(GLFW.GLFW_KEY_D), this.getKey(GLFW.GLFW_KEY_L), this.getKey(GLFW.GLFW_KEY_H), this.getKey(GLFW.GLFW_KEY_RIGHT)};
+		this.beamKey = new Key[]{this.getKey(GLFW.GLFW_KEY_E), this.getKey(GLFW.GLFW_KEY_O), this.getKey(GLFW.GLFW_KEY_Y), this.getKey(GLFW.GLFW_KEY_RIGHT_SHIFT)};
+		this.superKey = new Key[]{this.getKey(GLFW.GLFW_KEY_Q), this.getKey(GLFW.GLFW_KEY_U), this.getKey(GLFW.GLFW_KEY_R), this.getKey(GLFW.GLFW_KEY_SLASH)};
 	}
 	
 	public String getTitle()

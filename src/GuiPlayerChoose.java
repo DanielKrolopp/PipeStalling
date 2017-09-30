@@ -67,7 +67,7 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 				players[i] = 0;
 		}
 		
-		if(input.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
+		if(gameSettings.getKey(GLFW.GLFW_KEY_ENTER).wasQuickPressed())
 		{
 			boolean flag = true;
 			for(int i = 0; i < players.length; i++)
@@ -82,7 +82,7 @@ public class GuiPlayerChoose extends GuiScreen<GameSettings>
 				application.initGui(new GuiWorld(application, colorShader, time, color, players));
 		}
 		
-		if(input.getKey(GLFW.GLFW_KEY_SPACE).wasQuickPressed())
+		if(gameSettings.getKey(GLFW.GLFW_KEY_SPACE).wasQuickPressed())
 		{
 			int length = players.length == 4 ? 2 : players.length + 1;
 			players = new int[length];
